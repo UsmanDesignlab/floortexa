@@ -277,6 +277,8 @@ function Hero() {
                   key={item.name}
                   type="button"
                   className={`hero-thumbnail ${index === active ? "is-current" : ""}`}
+                  onMouseEnter={() => setActive(index)}
+                  onFocus={() => setActive(index)}
                   onClick={() => setActive(index)}
                   aria-label={`Show ${item.name} collection`}
                   aria-pressed={index === active}
@@ -476,38 +478,77 @@ function Work() {
 
 function Approach() {
   const [active, setActive] = useState(0);
+  const approachItems = [
+    {
+      name: "Wood flooring",
+      image: photos.oak,
+      title: "Warmth in every grain.",
+      copy: "Explore natural oak and considered wood finishes selected for the feeling, tone, and character they bring to your home.",
+      detail:
+        "We’ll help you compare styles, finishes, and practical details, then find the right fit for each room.",
+    },
+    {
+      name: "Stone & porcelain",
+      image: photos.stone,
+      title: "A beautiful, practical finish.",
+      copy: "Discover stone-inspired surfaces and porcelain with the texture and colour to bring a room together.",
+      detail:
+        "We’ll guide you through finish, format, durability, and care so your choice works beautifully every day.",
+    },
+    {
+      name: "Space planning",
+      image: photos.process,
+      title: "Made to work with your space.",
+      copy: "Every home is different. We consider room shape, natural light, how you move through a space, and the look you want.",
+      detail:
+        "From the first measurements to the finishing details, we help the whole floor feel considered.",
+    },
+    {
+      name: "Expert installation",
+      image: photos.herringbone,
+      title: "Care in every detail.",
+      copy: "A lasting finish starts with careful preparation and the right hands on every part of the installation.",
+      detail:
+        "Our fitting team takes care with the details, keeping your home and schedule in mind from start to finish.",
+    },
+    {
+      name: "Care & aftercare",
+      image: photos.cta,
+      title: "Comfort that lasts.",
+      copy: "The right care helps your floor stay beautiful as life happens around it.",
+      detail:
+        "We’ll share clear advice on looking after your chosen material, and be here if you need a hand later on.",
+    },
+  ];
+  const item = approachItems[active];
+
   return (
     <section id="approach" className="approach section-pad">
-      <div className="section-heading approach-heading">
-        <div>
-          <span className="eyebrow">
-            <span className="eyebrow-dot" /> From first thought to final fit
-          </span>
-          <h2>
-            Choosing well.
-            <br />
-            <em>Living beautifully.</em>
-          </h2>
-        </div>
-        <div className="heading-aside">
-          <p>
-            Good floors last. Good guidance makes choosing one easy. We’re here
-            for every step of the way.
-          </p>
-        </div>
+      <div className="approach-intro">
+        <span className="approach-pill">Our Approach</span>
+        <h2>Crafting Floors with Purpose</h2>
+        <p>
+          Thoughtfully selected materials, practical guidance, and careful
+          fitting come together to make a floor feel right at home.
+        </p>
       </div>
       <div className="approach-content">
-        <div className="approach-list" role="group" aria-label="Our process">
-          {processes.map((item, index) => (
+        <div
+          className="approach-list"
+          role="group"
+          aria-label="Floortex services"
+        >
+          {approachItems.map((service, index) => (
             <button
-              key={item.name}
+              key={service.name}
               className={`approach-tab ${active === index ? "active" : ""}`}
+              onMouseEnter={() => setActive(index)}
+              onFocus={() => setActive(index)}
               onClick={() => setActive(index)}
               aria-pressed={active === index}
             >
+              <span>{service.name}</span>
               <span className="approach-number">0{index + 1}</span>
-              <span>{item.name}</span>
-              <ArrowUpRight size={17} />
             </button>
           ))}
         </div>
@@ -515,33 +556,19 @@ function Approach() {
           <img
             loading="lazy"
             decoding="async"
-            src={
-              active === 0
-                ? photos.process
-                : [
-                    photos.process,
-                    photos.oak,
-                    photos.stone,
-                    photos.herringbone,
-                  ][active]
-            }
-            alt="Flooring details and carefully considered interior materials"
+            src={item.image}
+            alt={`${item.name} in a considered contemporary home`}
           />
-          <div className="detail-card">
-            <span className="eyebrow">A good place to start</span>
-            <h3>{processes[active].title}</h3>
-            <p>{processes[active].copy}</p>
-            <p>{processes[active].detail}</p>
-            <a href="#contact" className="text-link">
-              Let’s find your floor <ArrowUpRight size={15} />
-            </a>
+          <div className="approach-description">
+            <h3>Description</h3>
+            <p>{item.copy}</p>
+            <p>{item.detail}</p>
           </div>
         </div>
       </div>
     </section>
   );
 }
-
 function FAQ() {
   const [open, setOpen] = useState(0);
   return (
