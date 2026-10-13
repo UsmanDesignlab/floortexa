@@ -779,17 +779,17 @@ button {
   margin: 0 auto;
 }
 .approach-list {
-  border-top: 1px solid #e1e1dc;
+  border: 0;
 }
 .approach-tab {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
   width: 100%;
-  min-height: 98px;
+  min-height: clamp(98px, 9vw, 142px);
   padding: 20px 16px;
   border: 1px solid transparent;
-  border-bottom-color: #e1e1dc;
+  border-bottom-color: transparent;
   background: transparent;
   color: #a0a19d;
   font-size: clamp(24px, 3.2vw, 38px);
@@ -804,7 +804,7 @@ button {
 .approach-tab:hover,
 .approach-tab.active {
   border-color: #e1e1dc;
-  background: #fff;
+  background: #f8f8f7;
   color: #20211e;
 }
 .approach-number {
