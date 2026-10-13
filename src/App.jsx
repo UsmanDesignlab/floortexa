@@ -5,9 +5,9 @@ import {
   ArrowUpRight,
   BriefcaseBusiness,
   Check,
+  ChevronDown,
   Menu,
   MapPin,
-  Plus,
   X,
 } from "lucide-react";
 
@@ -574,19 +574,12 @@ function FAQ() {
   return (
     <section className="faq section-pad" id="faq">
       <div className="faq-intro">
-        <span className="eyebrow">
-          <span className="eyebrow-dot" /> A few good questions
-        </span>
-        <h2>
-          Good to <em>know.</em>
-        </h2>
+        <span className="faq-pill">FAQ</span>
+        <h2>Frequently Asked Questions</h2>
         <p>
-          Everything you might want to know before choosing a new floor. Still
-          curious? We’re always happy to help.
+          Find clear answers to common questions about Floortex flooring,
+          installation, and care so you can choose with confidence.
         </p>
-        <a className="text-link" href="mailto:hello@floortex.com">
-          Ask us anything <ArrowUpRight size={15} />
-        </a>
       </div>
       <div className="faq-list">
         {faqs.map((faq, i) => (
@@ -596,12 +589,9 @@ function FAQ() {
               onClick={() => setOpen(open === i ? -1 : i)}
               aria-expanded={open === i}
             >
-              <span>
-                <small>0{i + 1}</small>
-                {faq.q}
-              </span>
-              <span className="faq-toggle">
-                {open === i ? <X size={15} /> : <Plus size={15} />}
+              <span>{faq.q}</span>
+              <span className="faq-toggle" aria-hidden="true">
+                <ChevronDown size={21} />
               </span>
             </button>
             <div className="faq-answer" aria-hidden={open !== i}>
@@ -613,7 +603,6 @@ function FAQ() {
     </section>
   );
 }
-
 function Reviews() {
   const [active, setActive] = useState(0);
   const change = (direction) =>

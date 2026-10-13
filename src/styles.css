@@ -787,22 +787,24 @@ button {
   grid-template-columns: 1fr auto;
   align-items: center;
   width: 100%;
-  min-height: 78px;
-  padding: 17px 14px;
-  border: 0;
-  border-bottom: 1px solid #e1e1dc;
+  min-height: 98px;
+  padding: 20px 16px;
+  border: 1px solid transparent;
+  border-bottom-color: #e1e1dc;
   background: transparent;
   color: #a0a19d;
-  font-size: clamp(18px, 2vw, 25px);
+  font-size: clamp(24px, 3.2vw, 38px);
   font-weight: 400;
   text-align: left;
   cursor: pointer;
   transition:
     color 0.2s ease,
-    background-color 0.2s ease;
+    background-color 0.2s ease,
+    border-color 0.2s ease;
 }
 .approach-tab:hover,
 .approach-tab.active {
+  border-color: #e1e1dc;
   background: #fafaf9;
   color: #20211e;
 }
@@ -838,84 +840,93 @@ button {
   line-height: 1.8;
 }
 .faq {
-  background: #ebeae3;
-  display: grid;
-  grid-template-columns: 0.75fr 1.25fr;
-  gap: 12%;
-  padding-top: 108px;
-  padding-bottom: 110px;
+  display: block;
+  padding: 104px 8.4% 112px;
+  background: #fff;
 }
-.faq-intro h2 {
-  margin: 20px 0;
+.faq-intro {
+  max-width: 880px;
+  margin: 0 auto 44px;
+  text-align: center;
+}
+.faq-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 11px;
+  border: 1px solid #deded9;
+  color: #34362f;
+  font-size: 11px;
+}
+.faq .faq-intro h2 {
+  margin: 26px 0 12px;
+  color: #171815;
+  font:
+    500 clamp(34px, 4vw, 58px) / 1.12 "DM Sans",
+    sans-serif;
+  letter-spacing: -0.045em;
 }
 .faq-intro > p {
-  max-width: 300px;
-}
-.faq-intro .text-link {
-  margin-top: 9px;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #777970;
+  font-size: 16px;
+  line-height: 1.8;
 }
 .faq-list {
-  border-top: 1px solid #d4d5cb;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 .faq-item {
-  border-bottom: 1px solid #d4d5cb;
+  margin-bottom: 14px;
+  background: #f8f8f7;
 }
 .faq-question {
-  width: 100%;
-  padding: 20px 0;
-  border: 0;
-  background: none;
   display: flex;
-  justify-content: space-between;
+  width: 100%;
+  min-height: 86px;
+  padding: 22px 30px;
   align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border: 0;
+  background: transparent;
+  color: #171815;
+  font-size: clamp(18px, 2vw, 26px);
+  font-weight: 500;
   text-align: left;
   cursor: pointer;
-  font-size: 12px;
-}
-.faq-question > span:first-child {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.faq-question small {
-  font-size: 8px;
-  color: #898b81;
 }
 .faq-toggle {
-  width: 28px;
-  height: 28px;
-  border: 1px solid #c9cbc0;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  transition:
-    transform 0.25s,
-    background 0.25s;
+  flex: 0 0 auto;
+  color: #73766e;
+  transition: transform 0.25s ease;
 }
 .faq-item.open .faq-toggle {
-  transform: rotate(45deg);
-  background: #e0e1d7;
+  transform: rotate(180deg);
 }
 .faq-answer {
   display: grid;
   grid-template-rows: 0fr;
+  padding: 0 24px;
   transition: grid-template-rows 0.32s ease;
 }
 .faq-answer p {
   overflow: hidden;
   margin: 0;
-  padding: 0 36px;
-  font-size: 12px;
-  line-height: 1.9;
+  padding: 0 24px;
+  background: #fff;
   color: #72746b;
+  font-size: 15px;
+  line-height: 1.8;
 }
 .faq-item.open .faq-answer {
   grid-template-rows: 1fr;
 }
 .faq-item.open .faq-answer p {
-  padding-bottom: 21px;
+  padding-top: 18px;
+  padding-bottom: 18px;
 }
-
 .reviews {
   display: grid;
   grid-template-columns: 0.68fr 1.32fr;
@@ -1731,6 +1742,34 @@ button {
   }
 }
 
+@media (max-width: 800px) {
+  .faq {
+    padding: 78px 6% 84px;
+  }
+  .faq-intro {
+    margin-bottom: 30px;
+  }
+  .faq .faq-intro h2 {
+    font-size: clamp(32px, 7vw, 46px);
+  }
+  .faq-intro > p {
+    font-size: 14px;
+  }
+  .faq-question {
+    min-height: 70px;
+    padding: 18px 18px;
+    font-size: 18px;
+  }
+  .faq-answer {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+  .faq-answer p {
+    padding-right: 16px;
+    padding-left: 16px;
+    font-size: 13px;
+  }
+}
 @media (max-width: 800px) {
   .approach {
     padding: 78px 6% 84px;
