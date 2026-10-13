@@ -103,7 +103,7 @@ button {
   opacity: 0.7;
 }
 .header-cta:hover {
-  background: rgba(226, 236, 247, 0.38);
+  background: rgba(255, 255, 255, 0.42);
   transform: translateY(-1px);
 }
 .header-cta {
@@ -113,13 +113,13 @@ button {
   font-size: 14px;
   line-height: 1.2;
   border: 1px solid rgba(255, 255, 255, 0.48);
-  background: rgba(196, 215, 236, 0.28);
+  background: rgba(255, 255, 255, 0.28);
   padding: 7px 11px;
   border-radius: 3px;
   font-weight: 600;
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.28);
   box-shadow:
-    0 6px 18px rgba(20, 32, 44, 0.12),
+    0 6px 18px rgba(20, 20, 20, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.24);
   backdrop-filter: blur(18px) saturate(165%);
   -webkit-backdrop-filter: blur(18px) saturate(165%);
