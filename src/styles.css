@@ -392,7 +392,7 @@ button {
   align-items: center;
   gap: 25px;
   padding: 14px 17px;
-  font-size: 10px;
+  font-size: 12px;
   transition:
     background 0.2s,
     color 0.2s,
@@ -409,7 +409,7 @@ button {
   background: #fff;
 }
 .text-link {
-  font-size: 10px;
+  font-size: 12px;
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -449,11 +449,11 @@ button {
 .who-pill {
   display: inline-flex;
   align-items: center;
-  min-height: 25px;
-  padding: 3px 10px;
+  min-height: 29px;
+  padding: 4px 12px;
   border: 1px solid #deded9;
   color: #34362f;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: none;
 }
@@ -701,7 +701,7 @@ button {
   gap: 7px;
   margin-top: 10px;
   color: #74766d;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.4;
 }
 .product-category svg {
@@ -722,7 +722,7 @@ button {
   gap: 12px;
   min-height: 46px;
   border-top: 1px solid #d5d5cc;
-  font-size: 10px;
+  font-size: 12px;
   color: #7b7e73;
 }
 .product-meta-footer span:last-child {
@@ -820,7 +820,7 @@ button {
   margin: 14px 0 12px;
 }
 .detail-card p {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.8;
   color: #74766d;
 }
@@ -896,7 +896,7 @@ button {
   overflow: hidden;
   margin: 0;
   padding: 0 36px;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.9;
   color: #72746b;
 }
@@ -982,7 +982,7 @@ button {
 }
 .review-stars {
   margin-left: auto;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 2px;
   color: #858d70;
 }
@@ -1130,7 +1130,7 @@ button {
   color: rgba(255, 255, 255, 0.67);
 }
 .footer-newsletter p {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.8;
   color: rgba(255, 255, 255, 0.68);
   max-width: 240px;
