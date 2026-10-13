@@ -1188,7 +1188,11 @@ button {
   color: #fff;
 }
 .footer-brand .brand-mark {
-  background: #858c73;
+  background: rgba(255, 255, 255, .94);
+  color: #22251f;
+}
+.footer-brand .brand-mark span {
+  color: #65705a;
 }
 .footer-brand p {
   margin: 24px 0 0;
