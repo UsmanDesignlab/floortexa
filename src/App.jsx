@@ -679,6 +679,7 @@ function Reviews() {
 function ContactFooter() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+
   return (
     <footer id="contact" className="footer">
       <div className="contact-banner">
@@ -686,27 +687,19 @@ function ContactFooter() {
           loading="lazy"
           decoding="async"
           src={photos.cta}
-          alt="Sunset on a considered contemporary home"
+          alt="Contemporary Floortex home surrounded by trees"
         />
         <div className="contact-shade" />
         <div className="contact-copy">
-          <span className="eyebrow light-eyebrow">
-            <span className="eyebrow-dot" /> Your next chapter starts here
-          </span>
-          <h2>
-            Make yourself
-            <br />
-            <em>at home.</em>
-          </h2>
+          <h2>Find Your Perfect Floor for Modern Living</h2>
           <p>
-            Tell us what you’re dreaming of. We’ll help you find the floor that
-            brings it to life.
+            Thoughtful materials and expert fitting, chosen around the way you
+            live.
           </p>
           <a className="button button-light" href="mailto:hello@floortex.com">
-            Let’s find your floor <ArrowUpRight size={16} />
+            Book a Visit <ArrowUpRight size={16} />
           </a>
         </div>
-        <span className="contact-coordinate">A LITTLE MORE ROOM TO LIVE.</span>
       </div>
       <div className="footer-main">
         <div className="footer-brand">
@@ -716,55 +709,55 @@ function ContactFooter() {
             <br />
             Better days at home.
           </p>
-          <a href="mailto:hello@floortex.com">
-            hello@floortex.com <ArrowUpRight size={14} />
-          </a>
         </div>
-        <div className="footer-col">
+        <nav className="footer-col" aria-label="Footer navigation">
           <span className="footer-label">FIND YOUR WAY</span>
           <a href="#home">Home</a>
           <a href="#about">Our story</a>
           <a href="#work">Collections</a>
           <a href="#approach">Our process</a>
-        </div>
+          <a href="#contact">Contact</a>
+        </nav>
         <div className="footer-col">
           <span className="footer-label">COME SAY HELLO</span>
-          <span>Here when you need us</span>
-          <span>Questions, samples, or just a chat</span>
           <a href="mailto:hello@floortex.com">
-            Get in touch <ArrowUpRight size={14} />
+            hello@floortex.com <ArrowUpRight size={14} />
           </a>
+          <span>Questions, samples, or just a chat</span>
         </div>
-        <div className="footer-newsletter">
-          <span className="footer-label">A NOTE FROM US</span>
-          <p>New arrivals, good ideas, and a little inspiration for home.</p>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (email) setSubscribed(true);
-            }}
-          >
-            <label className="sr-only" htmlFor="newsletter-email">
-              Email address
-            </label>
-            <input
-              id="newsletter-email"
-              type="email"
-              placeholder="Your email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <button aria-label="Subscribe">
-              {subscribed ? <Check size={16} /> : <ArrowUpRight size={16} />}
-            </button>
-          </form>
-          {subscribed && (
-            <span className="subscribe-success">
-              You’re on the list. Speak soon.
-            </span>
-          )}
-        </div>
+      </div>
+      <div className="footer-newsletter">
+        <span className="footer-label">A NOTE FROM US</span>
+        <p>New arrivals, good ideas, and a little inspiration for home.</p>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (email) setSubscribed(true);
+          }}
+        >
+          <label className="sr-only" htmlFor="newsletter-email-input">
+            Email address
+          </label>
+          <input
+            id="newsletter-email-input"
+            type="email"
+            placeholder="Your email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <button aria-label="Subscribe">
+            {subscribed ? <Check size={17} /> : <ArrowUpRight size={17} />}
+          </button>
+        </form>
+        {subscribed && (
+          <span className="subscribe-success">
+            You’re on the list. Speak soon.
+          </span>
+        )}
+      </div>
+      <div className="footer-wordmark" aria-hidden="true">
+        FLOORTEX
       </div>
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} Floortex. Made for living.</span>
@@ -778,7 +771,6 @@ function ContactFooter() {
     </footer>
   );
 }
-
 function App() {
   useEffect(() => {
     const observer = new IntersectionObserver(
