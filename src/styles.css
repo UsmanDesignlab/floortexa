@@ -881,7 +881,7 @@ button {
 }
 .faq-item {
   margin-bottom: 14px;
-  background: #fff;
+  background: #f8f8f7;
 }
 .faq-question {
   display: flex;
@@ -898,6 +898,10 @@ button {
   font-weight: 500;
   text-align: left;
   cursor: pointer;
+}
+.faq-question:focus-visible {
+  outline: 2px solid #22251f;
+  outline-offset: -3px;
 }
 .faq-toggle {
   flex: 0 0 auto;
