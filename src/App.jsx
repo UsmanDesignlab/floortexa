@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -306,6 +306,48 @@ function Hero() {
   );
 }
 
+function CountUp({ value }) {
+  const [count, setCount] = useState(0);
+  const numberRef = useRef(null);
+
+  useEffect(() => {
+    const element = numberRef.current;
+    if (!element) return undefined;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      setCount(value);
+      return undefined;
+    }
+
+    let frameId;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        const startTime = performance.now();
+        const duration = 900;
+        const animate = (time) => {
+          const progress = Math.min((time - startTime) / duration, 1);
+          setCount(Math.round(value * progress));
+          if (progress < 1) frameId = requestAnimationFrame(animate);
+        };
+        frameId = requestAnimationFrame(animate);
+        observer.disconnect();
+      },
+      { threshold: 0.5 },
+    );
+
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frameId);
+    };
+  }, [value]);
+
+  return <strong ref={numberRef}>{String(count).padStart(2, "0")}</strong>;
+}
 function Intro() {
   const impactItems = [
     {
@@ -357,7 +399,7 @@ function Intro() {
         <div className="impact-grid">
           {impactItems.map((item) => (
             <article className="impact-card" key={item.number}>
-              <strong>{item.number}</strong>
+              <CountUp value={Number(item.number)} />
               <h3>{item.label}</h3>
               <p>{item.detail}</p>
             </article>

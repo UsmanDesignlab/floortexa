@@ -457,6 +457,13 @@ button {
   line-height: 1;
   text-transform: none;
 }
+.intro h2.who-title {
+  margin: 26px auto 0;
+  font:
+    400 clamp(30px, 3.3vw, 46px) / 1.15 "DM Sans",
+    sans-serif;
+  letter-spacing: -0.045em;
+}
 .who-title {
   display: flex;
   flex-direction: column;
@@ -468,6 +475,9 @@ button {
   font-weight: 400;
   line-height: 1.04;
   letter-spacing: -0.045em;
+}
+.intro h2.who-title strong {
+  font-weight: 500;
 }
 .who-title strong {
   color: #20211e;
@@ -1685,6 +1695,13 @@ button {
 }
 
 @media (max-width: 720px) {
+  .intro h2.who-title {
+    margin: 26px auto 0;
+    font:
+      400 clamp(30px, 3.3vw, 46px) / 1.15 "DM Sans",
+      sans-serif;
+    letter-spacing: -0.045em;
+  }
   .who-title {
     font-size: clamp(30px, 7vw, 43px);
   }
