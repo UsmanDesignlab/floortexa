@@ -127,18 +127,21 @@ const reviews = [
       "Floortex made choosing a new floor feel genuinely easy. Their team helped us find the perfect oak, and the installation was seamless. The whole house feels different now.",
     name: "Emily Carter",
     role: "Floortex customer",
+    image: photos.process,
   },
   {
     quote:
       "The samples, the thoughtful advice, the final finish—it was all considered. Our new floor has completely changed how the space feels, and I couldn’t be happier.",
     name: "Adrian Malik",
     role: "Homeowner, Richmond",
+    image: photos.oak,
   },
   {
     quote:
       "A lovely team from the first conversation to the last detail. We found something beautiful that works for everyday family life, and the quality is excellent.",
     name: "Sofia Bennett",
     role: "Homeowner, Bristol",
+    image: photos.stone,
   },
 ];
 
@@ -608,29 +611,46 @@ function Reviews() {
   const change = (direction) =>
     setActive((active + direction + reviews.length) % reviews.length);
   const review = reviews[active];
+  const nextReview = reviews[(active + 1) % reviews.length];
+
   return (
     <section className="reviews section-pad">
       <div className="reviews-heading">
-        <span className="eyebrow">
-          <span className="eyebrow-dot" /> Kind words, lovely homes
-        </span>
-        <h2>
-          Made for living.
-          <br />
-          <em>Loved by living.</em>
-        </h2>
-        <p>A few notes from people who found their floor with us.</p>
+        <div className="reviews-title">
+          <span className="eyebrow">
+            <span className="eyebrow-dot" /> Client stories
+          </span>
+          <h2>
+            Real Experiences,
+            <br />
+            Trusted by Clients
+          </h2>
+        </div>
+        <div className="reviews-intro">
+          <p>
+            Hear how our clients shaped spaces that truly match their lifestyle,
+            ambitions, and expectations.
+          </p>
+          <div className="review-controls" aria-label="Client story navigation">
+            <button onClick={() => change(-1)} aria-label="Show previous story">
+              <ArrowLeft size={20} />
+            </button>
+            <button onClick={() => change(1)} aria-label="Show next story">
+              <ArrowRight size={20} />
+            </button>
+          </div>
+        </div>
       </div>
-      <div className="review-stage">
+      <div className="review-stage" key={active}>
         <img
-          loading="lazy"
-          decoding="async"
           className="review-image"
-          src={photos.process}
-          alt="Warm, light-filled home with natural timber flooring"
+          src={review.image}
+          alt="A Floortex customer's finished home"
         />
-        <div className="review-card" key={active}>
-          <span className="quote-mark">“</span>
+        <article className="review-story">
+          <span className="quote-mark" aria-hidden="true">
+            “
+          </span>
           <p className="review-quote">{review.quote}</p>
           <div className="review-person">
             <img src={photos.person} alt="" />
@@ -638,28 +658,13 @@ function Reviews() {
               <strong>{review.name}</strong>
               <span>{review.role}</span>
             </div>
-            <span className="review-stars" aria-label="5 out of 5 stars">
-              ★★★★★
-            </span>
           </div>
-          <div className="review-controls">
-            <span>
-              0{active + 1} <span className="review-divider">/</span> 0
-              {reviews.length}
-            </span>
-            <div>
-              <button
-                onClick={() => change(-1)}
-                aria-label="Show previous story"
-              >
-                <ArrowLeft size={17} />
-              </button>
-              <button onClick={() => change(1)} aria-label="Show next story">
-                <ArrowRight size={17} />
-              </button>
-            </div>
-          </div>
-        </div>
+        </article>
+        <img
+          className="review-side-image"
+          src={nextReview.image}
+          alt="Another Floortex flooring project"
+        />
       </div>
     </section>
   );
