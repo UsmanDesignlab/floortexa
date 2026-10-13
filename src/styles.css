@@ -1117,7 +1117,7 @@ button {
 .contact-banner {
   position: relative;
   display: flex;
-  min-height: min(780px, 88vh);
+  min-height: clamp(620px, 88vh, 900px);
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -1147,9 +1147,9 @@ button {
 .contact-shade {
   background: linear-gradient(
     180deg,
-    rgba(10, 12, 14, 0.2),
-    rgba(7, 9, 10, 0.32) 48%,
-    rgba(4, 5, 5, 0.88)
+    rgba(10, 12, 14, 0.12),
+    rgba(7, 9, 10, 0.24) 48%,
+    rgba(4, 5, 5, 0.72)
   );
 }
 .contact-copy {
@@ -1278,9 +1278,9 @@ button {
   font-size: 12px;
 }
 .footer-wordmark {
+  position: relative;
   margin: 8px 8.4% 0;
-  padding: 0 0 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 26px 0 34px;
   color: #f3f3ed;
   font:
     500 clamp(76px, 14vw, 280px)/0.92 "DM Sans",
@@ -1288,6 +1288,21 @@ button {
   letter-spacing: -0.085em;
   text-align: center;
   white-space: nowrap;
+}
+.footer-wordmark::before {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) left top / 70px 1px no-repeat,
+    linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) left top / 1px 70px no-repeat,
+    linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) right top / 70px 1px no-repeat,
+    linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) right top / 1px 70px no-repeat,
+    linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) left bottom / 70px 1px no-repeat,
+    linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) left bottom / 1px 70px no-repeat,
+    linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) right bottom / 70px 1px no-repeat,
+    linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)) right bottom / 1px 70px no-repeat;
+  content: "";
+  pointer-events: none;
 }
 .footer-bottom {
   display: flex;
@@ -1591,7 +1606,8 @@ button {
     gap: 39px 10%;
   }
   .contact-banner {
-    height: 500px;
+    min-height: 620px;
+    height: auto;
     padding: 0 7%;
   }
 }
@@ -1817,8 +1833,9 @@ button {
     font-size: 15px;
   }
   .contact-banner {
-    height: 460px;
-    padding: 0 7%;
+    min-height: 600px;
+    height: auto;
+    padding: 48px 7%;
   }
   .contact-copy h2 {
     font-size: 61px;
