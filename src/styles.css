@@ -1279,7 +1279,7 @@ button {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   color: #f3f3ed;
   font:
-    500 clamp(100px, 22vw, 360px)/0.92 "DM Sans",
+    500 clamp(76px, 14vw, 280px)/0.92 "DM Sans",
     sans-serif;
   letter-spacing: -0.085em;
   text-align: center;
@@ -1335,7 +1335,7 @@ button {
   }
   .footer-wordmark {
     margin: 12px 7% 0;
-    font-size: 21vw;
+    font-size: clamp(42px, 14vw, 105px);
   }
   .footer-bottom {
     flex-wrap: wrap;
