@@ -212,18 +212,25 @@ function Header() {
 
 function Hero() {
   const [active, setActive] = useState(0);
+  const [isFeatureHovered, setIsFeatureHovered] = useState(false);
+  const [hoveredPreviewIndices, setHoveredPreviewIndices] = useState(null);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (
+      isFeatureHovered ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
     const timer = window.setInterval(() => {
       if (document.visibilityState === "visible") {
         setActive((current) => (current + 1) % heroSlides.length);
       }
     }, 6000);
     return () => window.clearInterval(timer);
-  }, []);
+  }, [isFeatureHovered]);
 
-  const previewIndices = [active, (active + 1) % heroSlides.length];
+  const previewIndices =
+    hoveredPreviewIndices ?? [active, (active + 1) % heroSlides.length];
   const slide = heroSlides[active];
 
   return (
@@ -277,7 +284,20 @@ function Hero() {
             </a>
           </div>
         </div>
-        <div className="hero-feature" aria-label="Featured flooring collection">
+        <div
+          className="hero-feature"
+          aria-label="Featured flooring collection"
+          onMouseEnter={() => {
+            setHoveredPreviewIndices(
+              (current) => current ?? [active, (active + 1) % heroSlides.length],
+            );
+            setIsFeatureHovered(true);
+          }}
+          onMouseLeave={() => {
+            setIsFeatureHovered(false);
+            setHoveredPreviewIndices(null);
+          }}
+        >
           <div className="hero-thumbnails">
             {previewIndices.map((index) => {
               const item = heroSlides[index];
