@@ -127,6 +127,8 @@ const reviews = [
       "Floortex made choosing a new floor feel genuinely easy. Their team helped us find the perfect oak, and the installation was seamless. The whole house feels different now.",
     name: "Emily Carter",
     role: "Floortex customer",
+    personImage:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&h=240&q=85",
     image: photos.process,
   },
   {
@@ -134,6 +136,8 @@ const reviews = [
       "The samples, the thoughtful advice, the final finish—it was all considered. Our new floor has completely changed how the space feels, and I couldn’t be happier.",
     name: "Adrian Malik",
     role: "Homeowner, Richmond",
+    personImage:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=240&h=240&q=85",
     image: photos.oak,
   },
   {
@@ -141,6 +145,8 @@ const reviews = [
       "A lovely team from the first conversation to the last detail. We found something beautiful that works for everyday family life, and the quality is excellent.",
     name: "Sofia Bennett",
     role: "Homeowner, Bristol",
+    personImage:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=240&h=240&q=85",
     image: photos.stone,
   },
 ];
@@ -653,7 +659,7 @@ function Reviews() {
           </span>
           <p className="review-quote">{review.quote}</p>
           <div className="review-person">
-            <img src={photos.person} alt="" />
+            <img src={review.personImage} alt="" />
             <div>
               <strong>{review.name}</strong>
               <span>{review.role}</span>
