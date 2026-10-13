@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  ArrowDown,
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
@@ -44,6 +43,27 @@ const products = [
     category: "European oak · Smoked",
     price: "Sample available",
     image: photos.herringbone,
+  },
+];
+
+const heroSlides = [
+  {
+    image: photos.hero,
+    name: "Quiet Oak",
+    detail: "Natural European oak",
+    alt: "Warm oak flooring in a sunlit modern living room",
+  },
+  {
+    image: photos.stone,
+    name: "Limestone Veil",
+    detail: "Porcelain · Warm ivory",
+    alt: "Soft limestone-inspired flooring in a calm contemporary interior",
+  },
+  {
+    image: photos.herringbone,
+    name: "Herringbone No. 04",
+    detail: "European oak · Smoked",
+    alt: "Smoked oak herringbone flooring in a refined living space",
   },
 ];
 
@@ -182,44 +202,106 @@ function Header() {
 }
 
 function Hero() {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => {
+      if (document.visibilityState === "visible") {
+        setActive((current) => (current + 1) % heroSlides.length);
+      }
+    }, 6000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const previewIndices = [active, (active + 1) % heroSlides.length];
+  const slide = heroSlides[active];
+
   return (
-    <section id="home" className="hero">
-      <img
-        className="hero-image"
-        src={photos.hero}
-        alt="A calm, sunlit home with warm oak floors and considered natural materials"
-        fetchPriority="high"
-      />
+    <section
+      id="home"
+      className="hero hero-showcase"
+      aria-label="Featured Floortex flooring collections"
+    >
+      <div className="hero-background" aria-hidden="true">
+        {heroSlides.map((item, index) => (
+          <img
+            key={item.name}
+            className={`hero-image ${index === active ? "is-active" : ""}`}
+            src={item.image}
+            alt=""
+            fetchPriority={index === 0 ? "high" : undefined}
+          />
+        ))}
+      </div>
       <div className="hero-shade" />
-      <div className="hero-main">
-        <div className="eyebrow hero-eyebrow">
-          <span className="eyebrow-dot" /> Flooring for living, since 1998
+      <div className="hero-watermark" aria-hidden="true">
+        floortex
+      </div>
+      <div className="hero-stage">
+        <div className="hero-main">
+          <div className="eyebrow hero-eyebrow">
+            <span className="eyebrow-dot" /> Flooring for the life happening on
+            it
+          </div>
+          <p className="hero-description">
+            Thoughtful flooring, beautifully fitted. Natural materials and
+            lasting finishes, chosen for the way you live.
+          </p>
+          <div className="hero-actions">
+            <div className="hero-metrics" aria-label="What Floortex offers">
+              <div>
+                <strong>Natural</strong>
+                <span>Materials</span>
+              </div>
+              <div>
+                <strong>Expert</strong>
+                <span>Fitting</span>
+              </div>
+              <div>
+                <strong>Made to last</strong>
+                <span>Everyday living</span>
+              </div>
+            </div>
+            <a href="#work" className="button button-light">
+              View collections <ArrowUpRight size={16} />
+            </a>
+          </div>
         </div>
-        <h1>
-          A good floor
-          <br />
-          changes <em>everything.</em>
-        </h1>
-        <p>
-          Thoughtful flooring, beautifully fitted. Discover natural materials
-          and lasting finishes made for the life happening on them.
-        </p>
-        <div className="hero-actions">
-          <a href="#work" className="button button-light">
-            Explore our floors <ArrowUpRight size={16} />
-          </a>
-          <a href="#about" className="text-link light-link">
-            Our way of doing things <ArrowDown size={15} />
-          </a>
+        <div className="hero-feature" aria-label="Featured flooring collection">
+          <div className="hero-thumbnails">
+            {previewIndices.map((index) => {
+              const item = heroSlides[index];
+              return (
+                <button
+                  key={item.name}
+                  type="button"
+                  className={`hero-thumbnail ${index === active ? "is-current" : ""}`}
+                  onClick={() => setActive(index)}
+                  aria-label={`Show ${item.name} collection`}
+                  aria-pressed={index === active}
+                >
+                  <img src={item.image} alt="" loading="lazy" />
+                </button>
+              );
+            })}
+          </div>
+          <div className="hero-feature-card" aria-live="off">
+            <div className="hero-feature-heading">
+              <div>
+                <h2>{slide.name}</h2>
+                <p>{slide.detail}</p>
+              </div>
+              <span className="hero-slide-count">
+                0{active + 1} / 0{heroSlides.length}
+              </span>
+            </div>
+            <a className="hero-feature-link" href="#work">
+              Explore collection <ArrowUpRight size={16} />
+            </a>
+          </div>
         </div>
       </div>
-      <div className="hero-bottom">
-        <span>Materials with meaning. Made to live with.</span>
-        <span>A HOME STARTS HERE</span>
-      </div>
-      <a href="#about" className="hero-scroll" aria-label="Scroll to discover">
-        <ArrowDown size={16} />
-      </a>
     </section>
   );
 }
