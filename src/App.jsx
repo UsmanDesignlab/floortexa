@@ -4,8 +4,10 @@ import {
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
+  BriefcaseBusiness,
   Check,
   Menu,
+  MapPin,
   Plus,
   X,
 } from "lucide-react";
@@ -30,21 +32,18 @@ const products = [
     category: "Engineered oak · Natural",
     price: "Sample available",
     image: photos.oak,
-    badge: "Bestseller",
   },
   {
     name: "Limestone Veil",
     category: "Porcelain · Warm ivory",
     price: "Sample available",
     image: photos.stone,
-    badge: "New arrival",
   },
   {
     name: "Herringbone No. 04",
     category: "European oak · Smoked",
     price: "Sample available",
     image: photos.herringbone,
-    badge: "Signature",
   },
 ];
 
@@ -328,7 +327,10 @@ function Intro() {
 
 function ProductCard({ product, index }) {
   return (
-    <a href="#contact" className={`product-card product-card-${index + 1}`}>
+    <a
+      href="#contact"
+      className={`product-card work-reveal product-card-${index + 1}`}
+    >
       <div className="product-photo">
         <img
           loading="lazy"
@@ -336,17 +338,26 @@ function ProductCard({ product, index }) {
           src={product.image}
           alt={`${product.name} flooring in a contemporary interior`}
         />
-        <span className="product-badge">{product.badge}</span>
-        <span className="product-open">
-          <ArrowUpRight size={17} />
-        </span>
-      </div>
-      <div className="product-meta">
-        <div>
-          <h3>{product.name}</h3>
-          <span>{product.category}</span>
+        <div className="product-meta">
+          <div className="product-meta-top">
+            <div className="product-meta-copy">
+              <h3>{product.name}</h3>
+              <span className="product-category">
+                <MapPin size={13} />
+                {product.category}
+              </span>
+            </div>
+            <span className="product-open" aria-hidden="true">
+              <ArrowRight size={20} />
+            </span>
+          </div>
+          <div className="product-meta-footer">
+            <span>{product.price}</span>
+            <span>
+              Explore finish <ArrowUpRight size={14} />
+            </span>
+          </div>
         </div>
-        <span className="product-price">{product.price}</span>
       </div>
     </a>
   );
@@ -355,36 +366,25 @@ function ProductCard({ product, index }) {
 function Work() {
   return (
     <section id="work" className="work section-pad">
-      <div className="section-heading">
-        <div>
-          <span className="eyebrow">
-            <span className="eyebrow-dot" /> A few favourites
-          </span>
-          <h2>
-            Floors to <em>fall for.</em>
-          </h2>
-        </div>
-        <div className="heading-aside">
-          <p>
-            Honest materials. Beautifully made. Ready for whatever life has in
-            store.
-          </p>
-          <a href="#contact" className="text-link">
-            See every collection <ArrowUpRight size={15} />
+      <div className="work-inner">
+        <div className="work-heading">
+          <div className="work-heading-copy work-reveal">
+            <span className="eyebrow work-eyebrow">
+              <BriefcaseBusiness size={13} aria-hidden="true" /> Selected Work
+            </span>
+            <h2>
+              Collections that let the <em>floors hold the room.</em>
+            </h2>
+          </div>
+          <a href="#contact" className="work-consult work-reveal">
+            Book a consultation <ArrowUpRight size={16} />
           </a>
         </div>
-      </div>
-      <div className="products-grid">
-        {products.map((product, index) => (
-          <ProductCard key={product.name} product={product} index={index} />
-        ))}
-      </div>
-      <div className="work-foot">
-        <span>WOOD / STONE / SURFACES</span>
-        <span>Thoughtfully sourced, always.</span>
-        <a href="#contact" aria-label="Ask about our flooring collections">
-          <ArrowUpRight size={16} />
-        </a>
+        <div className="products-grid">
+          {products.map((product, index) => (
+            <ProductCard key={product.name} product={product} index={index} />
+          ))}
+        </div>
       </div>
     </section>
   );
