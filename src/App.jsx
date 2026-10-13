@@ -307,106 +307,66 @@ function Hero() {
 }
 
 function Intro() {
+  const impactItems = [
+    {
+      number: "01",
+      label: "Natural materials",
+      detail: "Made to feel at home",
+    },
+    { number: "02", label: "Expert guidance", detail: "A considered choice" },
+    { number: "03", label: "Careful fitting", detail: "Finished with care" },
+    { number: "04", label: "Lasting comfort", detail: "Ready for real life" },
+  ];
+
   return (
     <section id="about" className="intro section-pad">
-      <div className="intro-top">
-        <span className="eyebrow">
-          <span className="eyebrow-dot" /> A more considered floor
-        </span>
-        <span className="section-index">01 / OUR STORY</span>
-      </div>
-      <div className="intro-copy">
-        <h2>
-          Good design starts <em>from the ground up.</em>
+      <div className="who-intro">
+        <span className="who-pill">Who we are</span>
+        <h2 className="who-title">
+          <span>Floortex brings thoughtful flooring to</span>
+          <strong>everyday homes, with honest materials</strong>
+          <span>and care in every detail.</span>
         </h2>
-        <p>
-          We believe a floor should feel as good as it looks. That’s why we
-          bring together honest materials, thoughtful advice, and a little extra
-          care to make choosing yours a pleasure.
+        <p className="who-description">
+          From the first sample to the final fit, we make it easier to find a
+          floor that feels right for your home and the way you live.
         </p>
-        <a className="text-link" href="#approach">
-          A little about us <ArrowUpRight size={15} />
-        </a>
-      </div>
-      <div className="intro-gallery">
-        <figure className="gallery-image gallery-large">
+        <div className="who-gallery" aria-label="Floortex flooring inspiration">
           <img
             loading="lazy"
             decoding="async"
             src={photos.oak}
-            alt="Natural oak flooring in a light-filled, contemporary home"
+            alt="Warm oak flooring in a bright contemporary living room"
           />
-          <figcaption>
-            <span>Natural oak, slow mornings</span>
-            <ArrowUpRight size={16} />
-          </figcaption>
-        </figure>
-        <figure className="gallery-image gallery-small">
           <img
             loading="lazy"
             decoding="async"
             src={photos.stone}
-            alt="Soft limestone-inspired surface in a warm neutral interior"
+            alt="Soft stone-look flooring in a calm modern interior"
           />
-          <figcaption>
-            <span>Stone, with a softer side</span>
-            <ArrowUpRight size={16} />
-          </figcaption>
-        </figure>
-        <div className="gallery-note">
-          <span className="note-star">✳</span>
-          <p>
-            Material-led.
-            <br />
-            Thoughtfully chosen.
-            <br />
-            Made for real life.
-          </p>
-          <span className="note-count">A better way to floor.</span>
+          <img
+            loading="lazy"
+            decoding="async"
+            src={photos.herringbone}
+            alt="Herringbone flooring in a refined home interior"
+          />
         </div>
       </div>
-      <div className="impact">
-        <div className="impact-label">
-          <span>THE THINGS WE VALUE</span>
-          <span>A little care adds up.</span>
-        </div>
-        <div className="impact-stat">
-          <strong>01</strong>
-          <span>
-            Honest, natural
-            <br />
-            materials
-          </span>
-        </div>
-        <div className="impact-stat">
-          <strong>02</strong>
-          <span>
-            Advice for
-            <br />
-            real life
-          </span>
-        </div>
-        <div className="impact-stat">
-          <strong>03</strong>
-          <span>
-            Careful
-            <br />
-            installation
-          </span>
-        </div>
-        <div className="impact-stat">
-          <strong>04</strong>
-          <span>
-            Thoughtful
-            <br />
-            aftercare
-          </span>
+      <div className="who-impact">
+        <span className="who-pill">Our impact</span>
+        <div className="impact-grid">
+          {impactItems.map((item) => (
+            <article className="impact-card" key={item.number}>
+              <strong>{item.number}</strong>
+              <h3>{item.label}</h3>
+              <p>{item.detail}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
   );
 }
-
 function ProductCard({ product, index }) {
   return (
     <a
