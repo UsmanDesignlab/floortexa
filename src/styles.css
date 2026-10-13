@@ -520,7 +520,7 @@ button {
   min-height: 158px;
   padding: 25px 16px 20px;
   border: 1px solid #e2e2de;
-  background: rgba(255, 255, 255, 0.58);
+  background: #f8f8f7;
 }
 .impact-card strong {
   display: block;
