@@ -3,11 +3,11 @@
 :root {
   font-family: "DM Sans", sans-serif;
   color: #22251f;
-  background: #f5f4ef;
+  background: #fff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  --paper: #f5f4ef;
+  --paper: #fff;
   --ink: #22251f;
   --muted: #777970;
   --line: #dcdcd3;
@@ -439,7 +439,7 @@ button {
 }
 .intro {
   padding: 104px 8.4% 96px;
-  background: #f7f7f5;
+  background: #fff;
 }
 .who-intro {
   max-width: 1040px;
@@ -588,7 +588,7 @@ button {
   transition: background 0.2s ease;
 }
 .work-consult:hover {
-  background: #f5f4ef;
+  background: #fff;
 }
 .section-heading {
   display: flex;
@@ -806,7 +806,7 @@ button {
 .approach-tab:hover,
 .approach-tab.active {
   border-color: #e1e1dc;
-  background: #fafaf9;
+  background: #fff;
   color: #20211e;
 }
 .approach-number {
@@ -881,7 +881,7 @@ button {
 }
 .faq-item {
   margin-bottom: 14px;
-  background: #f8f8f7;
+  background: #fff;
 }
 .faq-question {
   display: flex;
