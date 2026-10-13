@@ -55,6 +55,16 @@ button {
   gap: 9px;
   color: var(--ink);
 }
+.site-header .brand {
+  color: #fff;
+}
+.site-header .brand-mark {
+  background: rgba(255, 255, 255, 0.94);
+  color: #22251f;
+}
+.site-header .brand-mark span {
+  color: #65705a;
+}
 .brand-mark {
   width: 29px;
   height: 29px;

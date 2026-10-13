@@ -161,9 +161,9 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const links = [
     ["Home", "#home"],
-    ["Our story", "#about"],
+    ["About", "#about"],
     ["Collections", "#work"],
-    ["Our process", "#approach"],
+    ["Process", "#approach"],
     ["Contact", "#contact"],
   ];
   return (
@@ -177,7 +177,7 @@ function Header() {
         ))}
       </nav>
       <a href="#contact" className="header-cta">
-        Let’s talk <ArrowUpRight size={15} />
+        Book a Visit <ArrowUpRight size={15} />
       </a>
       <button
         className="mobile-menu"
