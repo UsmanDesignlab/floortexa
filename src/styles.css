@@ -922,6 +922,7 @@ button {
 }
 .faq-item.open .faq-answer {
   grid-template-rows: 1fr;
+  padding-bottom: 24px;
 }
 .faq-item.open .faq-answer p {
   padding-top: 18px;
