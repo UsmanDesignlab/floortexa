@@ -155,7 +155,7 @@ function Brand({ light = false }) {
   return (
     <a
       aria-label="Floortex home"
-      href="#home"
+      href="/"
       className={`brand ${light ? "text-white" : ""}`}
     >
       <span className="brand-mark">
@@ -169,7 +169,7 @@ function Brand({ light = false }) {
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const links = [
-    ["Home", "#home"],
+    ["Home", "/"],
     ["About", "#about"],
     ["Collections", "#work"],
     ["Process", "#approach"],
@@ -732,7 +732,7 @@ function ContactFooter() {
         </div>
         <nav className="footer-col" aria-label="Footer navigation">
           <span className="footer-label">FIND YOUR WAY</span>
-          <a href="#home">Home</a>
+          <a href="/">Home</a>
           <a href="#about">Our story</a>
           <a href="#work">Collections</a>
           <a href="#approach">Our process</a>
@@ -784,7 +784,7 @@ function ContactFooter() {
         <span>
           Thoughtfully chosen, always <span className="footer-heart">✳</span>
         </span>
-        <a href="#home">
+        <a href="/">
           Back to the top <ArrowUpRight size={14} />
         </a>
       </div>
