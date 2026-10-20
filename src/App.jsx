@@ -1,959 +1,213 @@
-import { useEffect, useState } from "react";
-import {
-  ArrowUpRight,
-  BedDouble,
-  Calendar,
-  Check,
-  ChevronDown,
-  Menu,
-  Ruler,
-  Star,
-  X,
-  ZoomIn,
-  ZoomOut,
-} from "lucide-react";
+import { useState } from "react";
 
-const photos = {
-  hero: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2400&q=90",
-  marble:
-    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1600&q=85",
-  porcelain:
-    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=85",
-  oak: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=85",
-  herringbone:
-    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=85",
-  stone:
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
-  process:
-    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1600&q=85",
-  villa:
-    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=85",
-  showroom:
-    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1600&q=85",
-  journal1:
-    "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=900&q=85",
-  journal2:
-    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?auto=format&fit=crop&w=900&q=85",
-  journal3:
-    "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=900&q=85",
-  person1:
-    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=240&q=85",
-  person2:
-    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=85",
-  person3:
-    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=240&q=85",
-  person4:
-    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=240&q=85",
+const images = {
+  hero: "/assets/floortex-hero.png",
+  stairs: "/assets/floortex-stairs.png",
+  vinyl: "/assets/floortex-vinyl.png",
 };
-
-const finishes = [
-  {
-    id: "01",
-    name: "Carrara",
-    status: "available",
-    type: "Natural Marble",
-    size: "24 × 24 in",
-    finish: "Honed",
-    price: "From $12 / sq ft",
-    room: "Living · Bath · Lobby",
-    image: photos.marble,
-    includes: ["Sealed surface", "Sample kit ready", "Expert install"],
-  },
-  {
-    id: "02",
-    name: "Limestone",
-    status: "available",
-    type: "Porcelain",
-    size: "12 × 24 in",
-    finish: "Matte",
-    price: "From $7 / sq ft",
-    room: "Kitchen · Hall",
-    image: photos.porcelain,
-    includes: ["Slip-resistant option", "Heat-ready", "Low maintenance"],
-  },
-  {
-    id: "03",
-    name: "Quiet Oak",
-    status: "reserved",
-    type: "Engineered Oak",
-    size: "7 × 72 in",
-    finish: "Natural oil",
-    price: "From $9 / sq ft",
-    room: "Bedroom · Living",
-    image: photos.oak,
-    includes: ["Acoustic underlay", "Wide plank", "Pet-friendly"],
-  },
-  {
-    id: "04",
-    name: "Herringbone",
-    status: "available",
-    type: "European Oak",
-    size: "5 × 24 in",
-    finish: "Smoked",
-    price: "From $14 / sq ft",
-    room: "Entry · Feature",
-    image: photos.herringbone,
-    includes: ["Pattern layout", "Matching thresholds", "Aftercare guide"],
-  },
-  {
-    id: "05",
-    name: "Travertine",
-    status: "sold",
-    type: "Natural Stone",
-    size: "18 × 18 in",
-    finish: "Filled & honed",
-    price: "From $11 / sq ft",
-    room: "Bath · Patio",
-    image: photos.stone,
-    includes: ["Outdoor grade", "Edge profiles", "Grout match"],
-  },
-  {
-    id: "06",
-    name: "Slate Line",
-    status: "available",
-    type: "Porcelain",
-    size: "24 × 48 in",
-    finish: "Textured",
-    price: "From $8 / sq ft",
-    room: "Commercial · Entry",
-    image: photos.process,
-    includes: ["Large format", "Rectified edges", "Commercial warranty"],
-  },
-  {
-    id: "07",
-    name: "Calacatta",
-    status: "available",
-    type: "Marble look",
-    size: "48 × 48 in",
-    finish: "Polished",
-    price: "From $10 / sq ft",
-    room: "Lobby · Bath",
-    image: photos.marble,
-    includes: ["Bookmatch option", "Sample kit", "Install partners"],
-  },
-  {
-    id: "08",
-    name: "Warm Ash",
-    status: "reserved",
-    type: "Engineered Wood",
-    size: "8 × 86 in",
-    finish: "Brushed oil",
-    price: "From $11 / sq ft",
-    room: "Open plan",
-    image: photos.oak,
-    includes: ["Long boards", "Silent underlay", "Stair nosing"],
-  },
-];
 
 const collections = [
   {
-    tag: "COLLECTION 01",
-    name: "Carrara Marble",
-    price: "$12 / sq ft",
-    copy: "Classic Italian-inspired marble with soft grey veining for living rooms, baths, and statement lobbies.",
-    rooms: "Living · Bath · Lobby",
-    area: "Tile & slab",
-    image: photos.marble,
-    note: "Includes sealing guidance & sample kit",
+    index: "01 / NATURAL CHARACTER",
+    title: <>Wood & engineered<br />flooring</>,
+    label: "Wood & engineered flooring",
+    image: images.hero,
+    alt: "Warm oak herringbone floor in a contemporary living room",
   },
   {
-    tag: "COLLECTION 02",
-    name: "Porcelain Stone",
-    price: "$7 / sq ft",
-    copy: "Stone-look porcelain with real-world durability for kitchens, halls, and high-traffic floors.",
-    rooms: "Kitchen · Hall · Outdoor",
-    area: "Large format",
-    image: photos.porcelain,
-    note: "Includes grip option & heat-ready install",
+    index: "02 / SOFT UNDERFOOT",
+    title: <>Carpets & stair<br />runners</>,
+    label: "Carpets & stair runners",
+    image: images.stairs,
+    alt: "Soft neutral carpet runner on a staircase",
   },
   {
-    tag: "COLLECTION 03",
-    name: "Quiet Oak",
-    price: "$9 / sq ft",
-    copy: "Warm engineered oak with natural grain — calm underfoot and ready for real family life.",
-    rooms: "Bedroom · Living · Stair",
-    area: "Wide plank",
-    image: photos.oak,
-    note: "Includes acoustic underlay & aftercare",
-  },
-  {
-    tag: "COLLECTION 04",
-    name: "Herringbone",
-    price: "$14 / sq ft",
-    copy: "Smoked European oak in classic herringbone — pattern, depth, and a floor that holds the room.",
-    rooms: "Entry · Feature rooms",
-    area: "Parquet",
-    image: photos.herringbone,
-    note: "Includes layout plan & thresholds",
-  },
-  {
-    tag: "COLLECTION 05",
-    name: "Travertine Soft",
-    price: "$11 / sq ft",
-    copy: "Soft limestone warmth with filled pores — spa baths, courtyards, and indoor–outdoor flow.",
-    rooms: "Bath · Spa · Patio",
-    area: "Natural stone",
-    image: photos.stone,
-    note: "Includes outdoor grade & edge profiles",
-  },
-  {
-    tag: "COLLECTION 06",
-    name: "Commercial Slate",
-    price: "$8 / sq ft",
-    copy: "Large-format porcelain with slate texture for lobbies, retail, and lasting commercial installs.",
-    rooms: "Lobby · Retail",
-    area: "24 × 48 in",
-    image: photos.process,
-    note: "Includes commercial warranty",
+    index: "03 / EVERYDAY EASE",
+    title: <>Luxury vinyl<br />& LVT</>,
+    label: "Luxury vinyl & LVT",
+    image: images.vinyl,
+    alt: "Light wood-look flooring in a refined kitchen",
   },
 ];
 
-const serviceAreas = [
-  { name: "Central Showroom", time: "Open daily", detail: "Full sample library", miles: "0 mi" },
-  { name: "North City Homes", time: "25 min", detail: "Measure & fit", miles: "8.2 mi" },
-  { name: "Westside Apartments", time: "18 min", detail: "Supply & install", miles: "6.4 mi" },
-  { name: "Design Studio District", time: "12 min", detail: "Trade partners", miles: "4.1 mi" },
-  { name: "Coastal New Builds", time: "40 min", detail: "Project pricing", miles: "18 mi" },
-  { name: "Commercial Fit-outs", time: "On request", detail: "Volume supply", miles: "Citywide" },
+const services = [
+  "Carpets & stair runners",
+  "Luxury vinyl & LVT",
+  "Laminate flooring",
+  "Wood & engineered wood",
+  "Commercial & safety floors",
 ];
 
-const reviews = [
-  {
-    name: "Emily & James Carter",
-    role: "Homeowners · Quiet Oak",
-    quote:
-      "Floortex made choosing marble and oak feel simple. Samples at home, clear advice, and an install that respected our schedule.",
-    body: "From the first showroom visit to the final clean edge, every detail felt considered. Our living room floor completely changed how the house feels.",
-    image: photos.person1,
-  },
-  {
-    name: "Adrian Malik",
-    role: "Architect · Carrara Vein",
-    quote:
-      "Transparent specs, honest lead times, and finishes that photograph as beautifully as they live.",
-    body: "We specify Floortex on residential projects when clients want natural stone and wood that still works for everyday family life.",
-    image: photos.person2,
-  },
-  {
-    name: "Sofia Bennett",
-    role: "Homeowner · Porcelain Stone",
-    quote:
-      "Durable porcelain that still looks warm. Perfect for kids, pets, and a busy kitchen.",
-    body: "The team helped us compare finishes under our own light. Installation was tidy, and aftercare guidance was genuinely useful.",
-    image: photos.person3,
-  },
-];
-
-const journal = [
-  {
-    category: "MATERIALS",
-    date: "August 18, 2026",
-    read: "5 min read",
-    title: "How to choose marble vs porcelain for busy homes",
-    excerpt:
-      "A practical guide to veining, slip resistance, sealing, and where each material truly earns its place.",
-    image: photos.journal1,
-  },
-  {
-    category: "INSTALL",
-    date: "August 10, 2026",
-    read: "7 min read",
-    title: "Why substrate prep decides how long a floor lasts",
-    excerpt:
-      "Leveling, moisture checks, and movement joints — the quiet work that protects beautiful finishes.",
-    image: photos.journal2,
-  },
-  {
-    category: "CARE",
-    date: "July 29, 2026",
-    read: "4 min read",
-    title: "Simple care routines for oak, stone, and tile",
-    excerpt:
-      "Low-effort habits that keep natural floors calm, clean, and ageing gracefully for years.",
-    image: photos.journal3,
-  },
+const steps = [
+  ["✳", "Tell us your vision", "Share your room, preferred look and what matters most to you."],
+  ["▤", "Explore your options", "Compare materials, tones and finishes suited to your space."],
+  ["⌁", "Plan the details", "Discuss measurements, practical needs and the next steps."],
+  ["✧", "Enjoy the result", "Bring your room together with flooring made to be lived on."],
 ];
 
 const faqs = [
-  {
-    q: "Which flooring is right for my home — marble, tile, or wood?",
-    a: "It depends on the room, traffic, moisture, and the feeling you want. We’ll walk through materials, finishes, maintenance, and budget, then narrow options that fit your space.",
-  },
-  {
-    q: "Can I see samples before I decide?",
-    a: "Yes. Take home sample kits and live with each finish in your own light for a few days. We’ll help you shortlist the right set to start with.",
-  },
-  {
-    q: "Do you supply and install?",
-    a: "Yes. Floortex handles supply, preparation guidance, and trusted installation partners — from first measure through final finish.",
-  },
-  {
-    q: "How long does a typical project take?",
-    a: "Most residential installs move from confirmed order to fitting in 2–6 weeks depending on material lead times, site readiness, and room count.",
-  },
+  ["Which flooring is best for a busy home?", "Luxury vinyl and laminate can be practical options for busy spaces, while carpets bring softness and warmth. The right choice depends on the room, foot traffic and finish you prefer."],
+  ["Can I ask about more than one flooring type?", "Of course. Tell us which materials you are considering and we can help you compare the look and practical considerations."],
+  ["Do you cover the whole UK?", "Floortex is presented as UK-wide in this demo. Add your exact coverage and installation availability before using the site for live enquiries."],
+  ["What should I include in my enquiry?", "The room type, approximate size, preferred flooring, postcode and any timing you have in mind are a great start."],
 ];
 
-function Brand({ light = false }) {
+function Brand() {
   return (
-    <a aria-label="Floortex home" href="#home" className={`brand ${light ? "is-light" : ""}`}>
-      <span className="brand-mark" aria-hidden="true">
-        f.
-      </span>
-      <span className="brand-word">Floortex</span>
+    <a className="logo" href="#top" aria-label="Floortex home">
+      <span className="logo-mark">f<span>.</span></span>
+      <span>floortex<span className="logo-dot">.</span></span>
     </a>
   );
 }
 
 function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const links = [
-    ["About", "#about"],
-    ["Journal", "#journal"],
-    ["Amenities", "#collections"],
-    ["Contact", "#contact"],
-  ];
-
+  const [open, setOpen] = useState(false);
+  const links = [["About", "#about"], ["Collections", "#collections"], ["Services", "#services"], ["Our process", "#process"], ["FAQs", "#faq"]];
   return (
-    <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
-      <Brand light={!scrolled} />
-      <nav className="desktop-nav" aria-label="Main navigation">
-        {links.map(([name, href]) => (
-          <a key={name} href={href}>
-            {name}
-          </a>
-        ))}
-        <a href="#contact" className="header-cta">
-          <Calendar size={15} /> Schedule Tour
-        </a>
-      </nav>
-      <button
-        className="mobile-menu"
-        aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
-        {menuOpen ? <X size={20} /> : <Menu size={20} />}
-      </button>
-      {menuOpen && (
-        <nav className="mobile-nav" aria-label="Mobile navigation">
-          {links.map(([name, href]) => (
-            <a key={name} href={href} onClick={() => setMenuOpen(false)}>
-              {name}
-              <ArrowUpRight size={16} />
-            </a>
-          ))}
-          <a href="mailto:hello@floortex.com">hello@floortex.com</a>
+    <>
+      <div className="topbar"><span>Thoughtful floors. Beautiful spaces.</span><span>Serving homes & businesses across the UK <span aria-hidden="true">↗</span></span></div>
+      <header className="header" id="top">
+        <Brand />
+        <nav className={`nav ${open ? "open" : ""}`} id="main-nav" aria-label="Main navigation">
+          {links.map(([name, href]) => <a href={href} key={name} onClick={() => setOpen(false)}>{name}</a>)}
         </nav>
-      )}
-    </header>
+        <a className="header-cta" href="#quote">Get a quote <span aria-hidden="true">↗</span></a>
+        <button className="menu-toggle" type="button" aria-expanded={open} aria-controls="main-nav" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen(!open)}><span /><span /></button>
+      </header>
+    </>
   );
 }
 
 function Hero() {
   return (
-    <section id="home" className="hero" aria-label="Discover your ideal floor today">
-      <img className="hero-image" src={photos.hero} alt="" fetchPriority="high" />
-      <div className="hero-shade" />
-      <div className="hero-fade" />
-      <div className="hero-content">
-        <h1>
-          Discover your ideal
-          <br />
-          floor today
-        </h1>
-        <p>
-          Uncover a world of marble, porcelain tile, and natural wood with
-          transparent specs. Your perfect finish awaits just a visit away!
-        </p>
-        <a href="#contact" className="btn btn-brand">
-          <Calendar size={16} /> Book today
-        </a>
+    <section className="hero" aria-labelledby="hero-title">
+      <div className="hero-image" /><div className="hero-shade" />
+      <div className="hero-content container">
+        <p className="eyebrow hero-eyebrow"><span className="line" /> THE FOUNDATION OF A BEAUTIFUL HOME</p>
+        <h1 id="hero-title">Floors that feel<br /><em>like home.</em></h1>
+        <p className="hero-copy">From the first sample to the final detail, discover flooring that brings your space together.</p>
+        <div className="hero-actions"><a className="btn btn-dark" href="#collections">Explore collections <span>↗</span></a><a className="text-link" href="#quote">Plan your project <span>↗</span></a></div>
+      </div>
+      <div className="hero-bottom container"><span>01 / 03 &nbsp;—&nbsp; DESIGN BEGINS UNDERFOOT</span><span>SCROLL TO EXPLORE <span aria-hidden="true">↓</span></span></div>
+    </section>
+  );
+}
+
+function Intro() {
+  return (
+    <section className="intro section-pad" id="about">
+      <div className="container intro-grid">
+        <div><p className="eyebrow">WELCOME TO FLOORTEX</p><h2>More than a floor.<br /><em>A feeling.</em></h2></div>
+        <div className="intro-copy"><p>Every room has a story. The right flooring gives it a beautiful place to begin. Explore considered materials, practical choices and finishes that suit how you really live.</p><a className="under-link" href="#services">Discover what we do <span>↗</span></a></div>
+      </div>
+      <div className="container highlights" aria-label="Our approach">
+        <div><span className="highlight-icon">✧</span><strong>Style for every space</strong><small>Choices for homes and commercial spaces</small></div>
+        <div><span className="highlight-icon">▧</span><strong>Materials that matter</strong><small>Textures and finishes worth exploring</small></div>
+        <div><span className="highlight-icon">↗</span><strong>Start with a conversation</strong><small>Tell us what you are planning</small></div>
       </div>
     </section>
   );
 }
 
-function Features() {
+function Collections({ onSelect }) {
   return (
-    <section id="about" className="features section-reveal">
-      <div className="features-head">
-        <span className="pill">FEATURES</span>
-        <h2>
-          Designed for beauty,
-          <br />
-          clarity, and daily life.
-        </h2>
-        <p>
-          Discover a flooring studio where marble, porcelain, and timber meet
-          transparent specifications and lasting installation standards.
-        </p>
-      </div>
-
-      <div className="bento">
-        <article className="bento-card bento-green reveal-child">
-          <div className="bento-copy">
-            <h3>Step By Step Guide To Choosing Floors</h3>
-            <p>
-              Discover transparent material specs, schedule private showroom
-              visits, and select tailored finishes with ease.
-            </p>
-          </div>
-          <img src={photos.villa} alt="Finished Floortex interior" />
-        </article>
-
-        <article className="bento-card bento-sand reveal-child">
-          <h3>6 Collections of Protected Material Quality</h3>
-          <p>
-            Each flooring range is oriented to maximize beauty, durability, and
-            calm underfoot without compromising everyday living.
-          </p>
-          <div className="bento-metric">
-            <strong>98%</strong>
-            <span>Client satisfaction</span>
-          </div>
-        </article>
-
-        <article className="bento-card bento-white reveal-child">
-          <span className="trust-label">TRUSTED BY</span>
-          <h4>250+ Floortex Homeowners</h4>
-          <div className="avatar-row">
-            <img src={photos.person1} alt="" />
-            <img src={photos.person2} alt="" />
-            <img src={photos.person3} alt="" />
-            <img src={photos.person4} alt="" />
-          </div>
-          <div className="rating-line">
-            <Star size={14} fill="currentColor" />
-            <span>5.0 · Ratings from 4.9/5 Homeowners</span>
-          </div>
-        </article>
-
-        <article className="bento-card bento-mini reveal-child">
-          <h4>Marble & Natural Stone</h4>
-          <p>Veined statement floors with sealing guidance.</p>
-          <strong>Premium</strong>
-        </article>
-        <article className="bento-card bento-mini reveal-child">
-          <h4>Porcelain Tile Systems</h4>
-          <p>Large-format durability for kitchens and baths.</p>
-          <strong>Everyday</strong>
-        </article>
-        <article className="bento-card bento-mini reveal-child">
-          <h4>Engineered Wood</h4>
-          <p>Warm oak planks and herringbone patterns.</p>
-          <strong>Natural</strong>
-        </article>
-      </div>
-    </section>
-  );
-}
-
-function FinishExplorer() {
-  const [active, setActive] = useState(0);
-  const [zoom, setZoom] = useState(1);
-  const finish = finishes[active];
-
-  const positions = [
-    { x: 18, y: 22 },
-    { x: 42, y: 18 },
-    { x: 68, y: 28 },
-    { x: 28, y: 48 },
-    { x: 55, y: 52 },
-    { x: 78, y: 58 },
-    { x: 20, y: 72 },
-    { x: 48, y: 78 },
-  ];
-
-  return (
-    <section id="finishes" className="explorer section-reveal">
-      <div className="section-head">
-        <span className="pill">SHOWROOM</span>
-        <h2>Interactive Finish Masterplan</h2>
-        <p>
-          Select any finish on the material map below to inspect format,
-          surface, room fit, and indicative pricing.
-        </p>
-      </div>
-
-      <div className="explorer-shell">
-        <div className="map-panel">
-          <div className="map-legend">
-            <span>
-              <i className="dot available" /> Available
-            </span>
-            <span>
-              <i className="dot reserved" /> Popular
-            </span>
-            <span>
-              <i className="dot sold" /> Limited
-            </span>
-            <span className="map-caption">2D Finish Plan & Boundaries</span>
-          </div>
-
-          <div className="map-stage" style={{ "--zoom": zoom }}>
-            <div className="map-canvas">
-              {finishes.map((item, index) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={`map-pin ${item.status} ${active === index ? "is-active" : ""}`}
-                  style={{
-                    left: `${positions[index].x}%`,
-                    top: `${positions[index].y}%`,
-                  }}
-                  onClick={() => setActive(index)}
-                  aria-label={`${item.id} ${item.name}`}
-                >
-                  <span className="pin-id">{item.id}</span>
-                  <span className="pin-disc" />
-                  {active === index && <span className="pin-name">{item.name}</span>}
-                </button>
-              ))}
-            </div>
-
-            <div className="zoom-stack">
-              <button type="button" aria-label="Zoom in" onClick={() => setZoom((z) => Math.min(1.4, z + 0.1))}>
-                <ZoomIn size={16} />
-              </button>
-              <button type="button" aria-label="Zoom out" onClick={() => setZoom((z) => Math.max(0.85, z - 0.1))}>
-                <ZoomOut size={16} />
-              </button>
-            </div>
-          </div>
-
-          <div className="map-foot">
-            <p>* Click any finish pin to inspect detailed material specifications.</p>
-            <span>{finishes.length} Total Finishes · Sample kits ready</span>
-          </div>
-        </div>
-
-        <aside className="detail-panel reveal-child">
-          <div className="detail-top">
-            <span className={`status ${finish.status}`}>{finish.status}</span>
-            <h3>
-              Finish {finish.id}
-              <br />
-              {finish.name}
-            </h3>
-            <a href="#collections" className="ghost-link">
-              View Model <ArrowUpRight size={14} />
-            </a>
-          </div>
-          <img src={finish.image} alt={finish.name} />
-          <dl>
-            <div>
-              <dt>Type</dt>
-              <dd>{finish.type}</dd>
-            </div>
-            <div>
-              <dt>Size</dt>
-              <dd>{finish.size}</dd>
-            </div>
-            <div>
-              <dt>Finish</dt>
-              <dd>{finish.finish}</dd>
-            </div>
-            <div>
-              <dt>Price</dt>
-              <dd>{finish.price}</dd>
-            </div>
-            <div>
-              <dt>Best for</dt>
-              <dd>{finish.room}</dd>
-            </div>
-          </dl>
-          <div className="includes">
-            <span>INCLUSIONS</span>
-            <ul>
-              {finish.includes.map((line) => (
-                <li key={line}>
-                  <Check size={14} /> {line}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <a href="#contact" className="btn btn-brand full">
-            Reserve samples · {finish.name}
-          </a>
-        </aside>
-      </div>
-    </section>
-  );
-}
-
-function Collections() {
-  return (
-    <section id="collections" className="collections">
-      <div className="collections-intro section-reveal">
-        <span className="pill">RESIDENCES · ARCHITECTURAL PORTFOLIO</span>
-        <h2>Residential Flooring Collections</h2>
-        <p>
-          Scroll to explore six distinctive Floortex finishes — marble,
-          porcelain, oak, herringbone, stone, and commercial tile.
-        </p>
-      </div>
-
-      {collections.map((item) => (
-        <article key={item.name} className="collection-slide section-reveal">
-          <img src={item.image} alt={item.name} loading="lazy" />
-          <div className="glass-card">
-            <span>{item.tag}</span>
-            <h3>{item.name}</h3>
-            <div className="glass-price">STARTING BASE PRICE · {item.price}</div>
-            <p>{item.copy}</p>
-            <div className="glass-stats">
-              <div>
-                <small>BEST FOR</small>
-                <strong>
-                  <BedDouble size={15} /> {item.rooms}
-                </strong>
-              </div>
-              <div>
-                <small>FORMAT</small>
-                <strong>
-                  <Ruler size={15} /> {item.area}
-                </strong>
-              </div>
-            </div>
-            <p className="glass-note">{item.note}</p>
-            <a href="#contact" className="ghost-link light">
-              View Specifications <ArrowUpRight size={14} />
-            </a>
-          </div>
-        </article>
-      ))}
-    </section>
-  );
-}
-
-function ServiceAreas() {
-  return (
-    <section id="areas" className="areas section-reveal">
-      <div className="section-head">
-        <span className="pill">LOCATION</span>
-        <h2>Showroom & Strategic Connectivity</h2>
-        <p>
-          Quiet studio visits with direct coverage across residential and
-          commercial projects — samples, measure, and install.
-        </p>
-      </div>
-      <div className="areas-grid">
-        <div className="areas-hero reveal-child">
-          <img src={photos.showroom} alt="Floortex pavilion" />
-          <div className="areas-badge">
-            <strong>Floortex Pavilion</strong>
-            <span>12 Oakridge Way · Daily 10 AM – 6 PM</span>
-          </div>
-        </div>
-        <div className="areas-cards">
-          {serviceAreas.map((area) => (
-            <article key={area.name} className="reveal-child">
-              <div>
-                <h4>{area.name}</h4>
-                <p>{area.detail}</p>
-              </div>
-              <div className="area-meta">
-                <strong>{area.time}</strong>
-                <span>{area.miles}</span>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Reviews() {
-  const [active, setActive] = useState(1);
-  const review = reviews[active];
-
-  return (
-    <section id="stories" className="reviews section-reveal">
-      <div className="section-head">
-        <span className="pill">COMMUNITY</span>
-        <h2>
-          Honest Feedback
-          <br />
-          From Valued Clients
-        </h2>
-        <p>
-          Real experiences from families and professionals who found their
-          flooring sanctuary with Floortex.
-        </p>
-      </div>
-
-      <div className="review-people">
-        {reviews.map((item, index) => (
-          <button
-            key={item.name}
-            type="button"
-            className={active === index ? "is-active" : ""}
-            onClick={() => setActive(index)}
-            aria-label={`View review from ${item.name}`}
-          >
-            <img src={item.image} alt="" />
-            <span>{item.name}</span>
-          </button>
-        ))}
-      </div>
-
-      <article className="review-card" key={active}>
-        <h3>“{review.quote}”</h3>
-        <p>{review.body}</p>
-        <div className="review-foot">
-          <img src={review.image} alt="" />
-          <div>
-            <strong>{review.name}</strong>
-            <span>{review.role}</span>
-          </div>
-          <span className="stars">★★★★★</span>
-        </div>
-      </article>
-    </section>
-  );
-}
-
-function Journal() {
-  return (
-    <section id="journal" className="journal section-reveal">
-      <div className="section-head split">
-        <div>
-          <span className="pill">JOURNAL</span>
-          <h2>Latest Flooring Journal</h2>
-          <p>
-            Perspectives on marble, tile, timber, and install craft from the
-            Floortex studio.
-          </p>
-        </div>
-        <a href="#contact" className="btn btn-outline">
-          More Articles
-        </a>
-      </div>
-      <div className="journal-grid">
-        {journal.map((post) => (
-          <a href="#contact" className="journal-card reveal-child" key={post.title}>
-            <img src={post.image} alt="" loading="lazy" />
-            <div className="journal-body">
-              <span>
-                {post.category} · {post.date} · {post.read}
-              </span>
-              <h3>{post.title}</h3>
-              <p>{post.excerpt}</p>
-              <em>
-                Read Article <ArrowUpRight size={14} />
-              </em>
-            </div>
+    <section className="collections section-pad" id="collections">
+      <div className="container section-heading"><div><p className="eyebrow">EXPLORE THE POSSIBILITIES</p><h2>Find your perfect <em>floor.</em></h2></div><p>Whatever your space calls for, there is a surface to make it yours.</p></div>
+      <div className="container collection-grid">
+        {collections.map((item, index) => (
+          <a className={`collection-card ${index === 0 ? "card-large" : ""}`} href="#quote" key={item.label} onClick={() => onSelect(item.label)}>
+            <img src={item.image} alt={item.alt} loading="lazy" /><span className="collection-overlay" />
+            <span className="card-content"><span className="card-index">{item.index}</span><strong>{item.title}</strong><span className="card-arrow">↗</span></span>
           </a>
         ))}
       </div>
+      <div className="container more-collections"><span>ALSO EXPLORE</span>{["Laminate flooring", "Commercial flooring", "Safety flooring"].map(label => <a href="#quote" key={label} onClick={() => onSelect(label)}>{label} <span>↗</span></a>)}</div>
     </section>
   );
+}
+
+function Services() {
+  return (
+    <section className="statement" id="services"><div className="container statement-grid">
+      <div><p className="eyebrow light">WHAT WE CAN HELP WITH</p><h2>Flooring for the way <em>you live.</em></h2><p>From a single room refresh to a larger project, start with the style you love and the practical needs of your space.</p><a className="btn btn-light" href="#quote">Tell us about your space <span>↗</span></a></div>
+      <div className="services-list">{services.map((service, index) => <div key={service}><span>{String(index + 1).padStart(2, "0")}</span><strong>{service}</strong><span>↗</span></div>)}</div>
+    </div></section>
+  );
+}
+
+function Feature() {
+  return (
+    <section className="feature section-pad"><div className="container feature-grid">
+      <div className="feature-photo"><img src={images.vinyl} alt="Warm wood-look floor in a bright modern kitchen" loading="lazy" /><span className="feature-note">MADE FOR REAL LIFE <span>↗</span></span></div>
+      <div className="feature-content"><p className="eyebrow">BEAUTY MEETS PRACTICALITY</p><h2>A good floor changes <em>everything.</em></h2><p>Warmth underfoot. A finish that ties the room together. Materials selected with your space, daily routine and design goals in mind.</p><ul><li><span>01</span>Explore colour, texture and finish</li><li><span>02</span>Choose for your room and routine</li><li><span>03</span>Make the details feel intentional</li></ul><a className="under-link" href="#quote">Start your project <span>↗</span></a></div>
+    </div></section>
+  );
+}
+
+function Process() {
+  return (
+    <section className="process section-pad" id="process"><div className="container">
+      <div className="section-heading"><div><p className="eyebrow">A SIMPLE WAY TO BEGIN</p><h2>From idea to <em>underfoot.</em></h2></div><p>Great spaces begin with a conversation. Here is how your flooring journey can take shape.</p></div>
+      <div className="steps">{steps.map(([symbol, title, copy], index) => <article key={title}><span className="step-number">{String(index + 1).padStart(2, "0")}</span><div className="step-symbol">{symbol}</div><h3>{title}</h3><p>{copy}</p></article>)}</div>
+    </div></section>
+  );
+}
+
+function Banner() {
+  return <section className="banner"><div className="banner-image" /><div className="container banner-content"><p className="eyebrow light">EVERY ROOM BEGINS SOMEWHERE</p><h2>Let’s make your<br /><em>next step beautiful.</em></h2><a className="btn btn-light" href="#quote">Request a quote <span>↗</span></a></div></section>;
 }
 
 function FAQ() {
-  const [open, setOpen] = useState(0);
   return (
-    <section id="faq" className="faq section-reveal">
-      <div className="section-head">
-        <span className="pill">FREQUENTLY ASKED QUESTIONS</span>
-        <h2>Everything You Need to Know</h2>
-        <p>
-          Find answers to common questions about samples, install timelines, and
-          material options.
-        </p>
-      </div>
-      <div className="faq-list">
-        {faqs.map((faq, i) => (
-          <div className={`faq-item ${open === i ? "open" : ""}`} key={faq.q}>
-            <button
-              type="button"
-              onClick={() => setOpen(open === i ? -1 : i)}
-              aria-expanded={open === i}
-            >
-              <span>{faq.q}</span>
-              <ChevronDown size={20} />
-            </button>
-            <div className="faq-answer">
-              <p>{faq.a}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
+    <section className="faq section-pad" id="faq"><div className="container faq-grid">
+      <div><p className="eyebrow">GOOD TO KNOW</p><h2>Questions, <em>answered.</em></h2><p>Choosing a floor should feel exciting. Here are a few things to consider as you get started.</p></div>
+      <div className="faq-list">{faqs.map(([question, answer]) => <details key={question}><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</div>
+    </div></section>
   );
 }
 
-function VisitCTA() {
+function Quote({ flooring, onFlooringChange }) {
+  const [brief, setBrief] = useState("");
+  const [copied, setCopied] = useState(false);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const fields = new FormData(event.currentTarget);
+    setBrief(`FLOORTEX PROJECT BRIEF\n\nName: ${fields.get("name")}\nEmail: ${fields.get("email")}\nPostcode: ${fields.get("postcode")}\nFlooring interest: ${fields.get("flooring")}\n\nProject details:\n${fields.get("message")}`);
+  };
+  const onCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(brief);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
   return (
-    <section id="contact" className="visit section-reveal">
-      <div className="visit-media">
-        <img src={photos.showroom} alt="" />
-        <div className="visit-chip">
-          <strong>Private Showing</strong>
-          <span>Experience Floortex in Person</span>
-          <small>12 Oakridge Way · Daily 10 AM – 6 PM</small>
-        </div>
-      </div>
-      <div className="visit-panel">
-        <span className="pill light">SHOWING</span>
-        <h2>Schedule a private showroom walkthrough.</h2>
-        <p>
-          Join our team for an unhurried showing of marble, porcelain, and wood
-          samples — inspect finishes and review install details.
-        </p>
-        <ul>
-          <li>
-            <Check size={16} /> 1-on-1 finish consultation with design leads
-          </li>
-          <li>
-            <Check size={16} /> Detailed room measure & material analysis
-          </li>
-          <li>
-            <Check size={16} /> Transparent finishes library & sample kits
-          </li>
-        </ul>
-        <div className="visit-actions">
-          <a href="mailto:hello@floortex.com" className="btn btn-brand">
-            Reserve Showing Slot
-          </a>
-          <span>
-            Concierge: <strong>(555) 890-4410</strong>
-          </span>
-        </div>
-      </div>
-    </section>
+    <section className="quote section-pad" id="quote"><div className="container quote-grid">
+      <div><p className="eyebrow light">LET’S TALK FLOORING</p><h2>Tell us what you’re <em>imagining.</em></h2><p>Have a room in mind? Share a few details and build a ready-to-send project brief.</p><div className="quote-aside"><span>✧</span><p>Homes, workplaces and everything in between. We would love to hear about your project.</p></div></div>
+      <form className="quote-form" onSubmit={onSubmit}>
+        <div className="form-row"><label>Your name<input name="name" autoComplete="name" required placeholder="Your name" /></label><label>Email address<input name="email" type="email" autoComplete="email" required placeholder="you@example.com" /></label></div>
+        <div className="form-row"><label>Postcode<input name="postcode" autoComplete="postal-code" required placeholder="e.g. SW1A 1AA" /></label><label>Flooring interest<select name="flooring" value={flooring} onChange={event => onFlooringChange(event.target.value)} required><option value="">Choose an option</option>{[...services.slice(0, 3), "Wood & engineered flooring", "Commercial flooring", "Safety flooring", "Not sure yet"].map(item => <option key={item}>{item}</option>)}</select></label></div>
+        <label>Tell us about your space<textarea name="message" rows="4" required placeholder="Room type, approximate size, style ideas or any questions..." /></label>
+        <button className="btn btn-cream" type="submit">Create my project brief <span>↗</span></button>
+        <p className="form-note">Demo form: your brief is prepared on this device. No details are sent to Floortex yet.</p>
+        {brief && <div className="form-result" role="status"><strong>Your project brief is ready.</strong><p>Copy it below and send it to Floortex once your contact channel is connected.</p><button type="button" onClick={onCopy}>{copied ? "Copied!" : "Copy brief"}</button></div>}
+      </form>
+    </div></section>
   );
 }
 
 function Footer() {
-  const [email, setEmail] = useState("");
-  const [ok, setOk] = useState(false);
-
-  return (
-    <footer className="footer">
-      <div className="footer-top">
-        <div>
-          <Brand light />
-          <p>
-            A modern flooring discovery studio. Bridging pure material
-            transparency with high-performing install standards.
-          </p>
-        </div>
-        <div className="footer-subscribe">
-          <h3>Stay Informed on New Finishes</h3>
-          <p>
-            Subscribe for newly released collections, sample drops, and install
-            milestone notes.
-          </p>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (email) setOk(true);
-            }}
-          >
-            <input
-              type="email"
-              placeholder="Enter your email address..."
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              aria-label="Email address"
-            />
-            <button type="submit">Join</button>
-          </form>
-          {ok && <span className="ok">You’re on the list.</span>}
-        </div>
-      </div>
-
-      <div className="footer-grid">
-        <nav>
-          <h4>Navigation</h4>
-          <a href="#about">Cluster Features</a>
-          <a href="#finishes">Masterplan Map</a>
-          <a href="#collections">Model Showcase</a>
-          <a href="#areas">Service Neighborhood</a>
-          <a href="#stories">Resident Stories</a>
-          <a href="#contact">Private Showing</a>
-        </nav>
-        <nav>
-          <h4>Collections</h4>
-          {collections.map((c) => (
-            <a key={c.name} href="#collections">
-              {c.name}
-            </a>
-          ))}
-        </nav>
-        <div>
-          <h4>Sales Pavilion</h4>
-          <p>12 Oakridge Way</p>
-          <p>Daily: 10:00 AM – 6:00 PM</p>
-          <p>(555) 890-4410</p>
-        </div>
-        <div>
-          <h4>Studio Standards</h4>
-          <p>Natural stone sealing guidance</p>
-          <p>Low-VOC finish options</p>
-          <p>Trusted install partners</p>
-          <p>Zero-compromise aftercare</p>
-        </div>
-      </div>
-
-      <div className="footer-bottom">
-        <span>© {new Date().getFullYear()} Floortex. All rights reserved.</span>
-        <span>Privacy Policy · Terms of Service</span>
-      </div>
-    </footer>
-  );
+  return <footer className="footer"><div className="container footer-main">
+    <div><div className="footer-logo"><Brand /></div><p>Flooring made for living.<br />Beautiful spaces begin from the ground up.</p></div>
+    <div><h3>Explore</h3><a href="#collections">Collections</a><a href="#services">Services</a><a href="#process">Our process</a><a href="#faq">FAQs</a></div>
+    <div><h3>Get in touch</h3><a href="#quote">Start an enquiry ↗</a><span>UK-wide service area</span><span>Contact details coming soon</span></div>
+  </div><div className="container footer-bottom"><span>© {new Date().getFullYear()} Floortex. All rights reserved.</span><span>Imagery is illustrative. Business details are demo content pending confirmation.</span><a href="#top">Back to top ↑</a></div></footer>;
 }
 
-function App() {
-  useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          entry.target.querySelectorAll(".reveal-child").forEach((child, i) => {
-            child.style.transitionDelay = reduce ? "0ms" : `${i * 90}ms`;
-            child.classList.add("is-visible");
-          });
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.14 },
-    );
-
-    document.querySelectorAll(".section-reveal").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-        <Features />
-        <FinishExplorer />
-        <Collections />
-        <ServiceAreas />
-        <Reviews />
-        <Journal />
-        <FAQ />
-        <VisitCTA />
-      </main>
-      <Footer />
-    </>
-  );
+export default function App() {
+  const [flooring, setFlooring] = useState("");
+  return <><Header /><main><Hero /><Intro /><Collections onSelect={setFlooring} /><Services /><Feature /><Process /><Banner /><FAQ /><Quote flooring={flooring} onFlooringChange={setFlooring} /></main><Footer /></>;
 }
-
-export default App;
