@@ -361,17 +361,17 @@ function Header({ onScheduleTour }) {
 
   return (
     <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
-      <Brand light={!scrolled} />
+      <Brand />
       <nav className="desktop-nav" aria-label="Main navigation">
         {links.map(([name, href]) => (
           <a key={name} href={href}>
             {name}
           </a>
         ))}
-        <button type="button" className="header-cta" onClick={onScheduleTour}>
-          <Calendar size={15} /> Schedule Tour
-        </button>
       </nav>
+      <button type="button" className="header-cta" onClick={onScheduleTour}>
+        <Calendar size={15} /> Schedule Tour
+      </button>
       <button
         className="mobile-menu"
         aria-label={menuOpen ? "Close navigation" : "Open navigation"}
@@ -604,7 +604,7 @@ function FinishExplorer() {
                   style={{
                     left: `${(mobile ? mobilePositions : positions)[index].x}%`,
                     top: `${(mobile ? mobilePositions : positions)[index].y}%`,
-                    backgroundImage: `linear-gradient(180deg, rgba(12, 20, 16, 0.02) 24%, rgba(12, 20, 16, 0.82) 100%), url("${item.image}")`,
+                    backgroundImage: `linear-gradient(180deg, rgba(27, 25, 23, 0.02) 24%, rgba(27, 25, 23, 0.82) 100%), url("${item.image}")`,
                   }}
                   onClick={() => setActive(index)}
                   aria-label={`${item.id} ${item.name}`}

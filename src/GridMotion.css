@@ -4,7 +4,7 @@
   width: 100%;
   height: 540px;
   overflow: hidden;
-  background: #f1eee7;
+  background: var(--sand);
 }
 
 .grid-motion::after {
@@ -41,7 +41,7 @@
   flex: 0 0 auto;
   overflow: hidden;
   border-radius: var(--gm-radius);
-  background: #ddd8ce;
+  background: #e8d8ca;
   opacity: calc(1 - var(--gm-dim) * (1 - var(--spot, 0)));
   transition: opacity 180ms ease;
 }
