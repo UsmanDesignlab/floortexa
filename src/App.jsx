@@ -13,38 +13,25 @@ import {
   ZoomOut,
 } from "lucide-react";
 import GridMotion from "./GridMotion";
+import { carouselImages } from "./carouselImages";
 
 const photos = {
-  hero: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2400&q=90",
-  marble:
-    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1600&q=85",
-  porcelain:
-    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=85",
-  oak: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=85",
-  herringbone:
-    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=85",
-  stone:
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
-  process:
-    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1600&q=85",
-  villa:
-    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=85",
-  showroom:
-    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1600&q=85",
-  journal1:
-    "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=900&q=85",
-  journal2:
-    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=85",
-  journal3:
-    "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=900&q=85",
-  person1:
-    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=240&q=85",
-  person2:
-    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=85",
-  person3:
-    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=240&q=85",
-  person4:
-    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=240&q=85",
+  hero: "/images/bnr_img.jpg",
+  marble: "/images/LVT-Flooring-Essex.jpg",
+  porcelain: "/images/Vinyl-Flooring-Essex.jpg",
+  oak: "/images/Engineered-Wood-Flooring.jpg",
+  herringbone: "/images/Engineered-Wood-Flooring2.jpg",
+  stone: "/images/LAMINATE-FLOORING.jpg",
+  process: "/images/Carpet-fitter-Essex.jpg",
+  villa: "/images/Carpet-Shop-Essex.jpg",
+  showroom: "/images/Carpet-Shop-Essex1.jpg",
+  journal1: "/images/cp1.jpg",
+  journal2: "/images/stair.jpg",
+  journal3: "/images/lvt.jpg",
+  person1: "/images/IMG_3452.jpg",
+  person2: "/images/IMG_9073.jpg",
+  person3: "/images/ag_img.jpg",
+  person4: "/images/ag_img2.jpg",
 };
 
 const finishes = [
@@ -398,7 +385,7 @@ function Header({ onScheduleTour }) {
 }
 
 function Hero() {
-  const slides = [photos.hero, photos.villa, photos.showroom];
+  const slides = carouselImages;
   const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
@@ -410,16 +397,13 @@ function Hero() {
 
   return (
     <section id="home" className="hero" aria-label="Discover your ideal floor today">
-      {slides.map((image, index) => (
-        <img
-          key={image}
-          className={`hero-image ${activeSlide === index ? "is-active" : ""}`}
-          src={image}
-          alt=""
-          fetchPriority={index === 0 ? "high" : "auto"}
-          aria-hidden="true"
-        />
-      ))}
+      <img
+        key={slides[activeSlide]}
+        className="hero-image is-active"
+        src={slides[activeSlide]}
+        alt="Flooring project gallery"
+        fetchPriority={activeSlide === 0 ? "high" : "auto"}
+      />
       <div className="hero-shade" />
       <div className="hero-fade" />
       <div className="hero-content">
@@ -436,17 +420,10 @@ function Hero() {
           <Calendar size={16} /> Book today
         </a>
       </div>
-      <div className="hero-dots" aria-label="Hero image slides">
-        {slides.map((image, index) => (
-          <button
-            key={image}
-            type="button"
-            className={activeSlide === index ? "is-active" : ""}
-            aria-label={`Show image ${index + 1}`}
-            aria-pressed={activeSlide === index}
-            onClick={() => setActiveSlide(index)}
-          />
-        ))}
+      <div className="hero-controls" aria-label="Hero image slides">
+        <button type="button" aria-label="Previous image" onClick={() => setActiveSlide((current) => (current - 1 + slides.length) % slides.length)}>‹</button>
+        <span>{activeSlide + 1} / {slides.length}</span>
+        <button type="button" aria-label="Next image" onClick={() => setActiveSlide((current) => (current + 1) % slides.length)}>›</button>
       </div>
     </section>
   );
@@ -741,16 +718,7 @@ function Collections() {
 }
 
 function MaterialsGallery() {
-  const galleryImages = [
-    { src: photos.marble, alt: "Carrara marble flooring in a bright interior" },
-    { src: photos.porcelain, alt: "Porcelain stone flooring in a modern room" },
-    { src: photos.oak, alt: "Natural oak flooring in a calm living space" },
-    { src: photos.herringbone, alt: "European oak herringbone floor" },
-    { src: photos.stone, alt: "Warm natural stone flooring" },
-    { src: photos.process, alt: "Floor installation and material detail" },
-    { src: photos.villa, alt: "Contemporary home with premium flooring" },
-    { src: photos.showroom, alt: "Floortex showroom interior" },
-  ];
+  const galleryImages = carouselImages.slice(0, 24).map((src) => ({ src, alt: "Flooring project image" }));
 
   return (
     <section className="materials-gallery section-reveal" aria-labelledby="materials-gallery-title">

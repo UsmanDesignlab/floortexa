@@ -468,6 +468,31 @@ img {
   background: #fff;
 }
 
+.hero-controls {
+  position: absolute;
+  z-index: 3;
+  right: 6%;
+  bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hero-controls button {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+
 .hero-shade {
   position: absolute;
   inset: 0;
