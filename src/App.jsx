@@ -491,17 +491,35 @@ function Features() {
 function FinishExplorer() {
   const [active, setActive] = useState(0);
   const [zoom, setZoom] = useState(1);
+  const [mobile, setMobile] = useState(() => window.matchMedia("(max-width: 640px)").matches);
   const finish = finishes[active];
 
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 640px)");
+    const onChange = (event) => setMobile(event.matches);
+    query.addEventListener("change", onChange);
+    return () => query.removeEventListener("change", onChange);
+  }, []);
+
   const positions = [
-    { x: 18, y: 22 },
-    { x: 42, y: 18 },
-    { x: 68, y: 28 },
-    { x: 28, y: 48 },
-    { x: 55, y: 52 },
-    { x: 78, y: 58 },
-    { x: 20, y: 72 },
-    { x: 48, y: 78 },
+    { x: 13, y: 27 },
+    { x: 37.5, y: 27 },
+    { x: 62, y: 27 },
+    { x: 86.5, y: 27 },
+    { x: 13, y: 73 },
+    { x: 37.5, y: 73 },
+    { x: 62, y: 73 },
+    { x: 86.5, y: 73 },
+  ];
+  const mobilePositions = [
+    { x: 27, y: 13 },
+    { x: 73, y: 13 },
+    { x: 27, y: 38 },
+    { x: 73, y: 38 },
+    { x: 27, y: 63 },
+    { x: 73, y: 63 },
+    { x: 27, y: 88 },
+    { x: 73, y: 88 },
   ];
 
   return (
@@ -518,6 +536,7 @@ function FinishExplorer() {
       <div className="explorer-shell">
         <div className="map-panel">
           <div className="map-legend">
+            <strong>Explore the finish plan</strong>
             <span>
               <i className="dot available" /> Available
             </span>
@@ -527,7 +546,7 @@ function FinishExplorer() {
             <span>
               <i className="dot sold" /> Limited
             </span>
-            <span className="map-caption">2D Finish Plan & Boundaries</span>
+            <span className="map-caption">8 material zones</span>
           </div>
 
           <div className="map-stage" style={{ "--zoom": zoom }}>
@@ -536,17 +555,21 @@ function FinishExplorer() {
                 <button
                   key={item.id}
                   type="button"
-                  className={`map-pin ${item.status} ${active === index ? "is-active" : ""}`}
+                  className={`map-zone ${item.status} ${active === index ? "is-active" : ""}`}
                   style={{
-                    left: `${positions[index].x}%`,
-                    top: `${positions[index].y}%`,
+                    left: `${(mobile ? mobilePositions : positions)[index].x}%`,
+                    top: `${(mobile ? mobilePositions : positions)[index].y}%`,
+                    backgroundImage: `linear-gradient(180deg, rgba(12, 20, 16, 0.02) 24%, rgba(12, 20, 16, 0.82) 100%), url("${item.image}")`,
                   }}
                   onClick={() => setActive(index)}
                   aria-label={`${item.id} ${item.name}`}
                 >
-                  <span className="pin-id">{item.id}</span>
-                  <span className="pin-disc" />
-                  {active === index && <span className="pin-name">{item.name}</span>}
+                  <span className="zone-number">{item.id}</span>
+                  <span className="zone-copy">
+                    <strong>{item.name}</strong>
+                    <small>{item.type}</small>
+                  </span>
+                  <span className="zone-status">{item.status}</span>
                 </button>
               ))}
             </div>
@@ -562,8 +585,8 @@ function FinishExplorer() {
           </div>
 
           <div className="map-foot">
-            <p>* Click any finish pin to inspect detailed material specifications.</p>
-            <span>{finishes.length} Total Finishes · Sample kits ready</span>
+            <p>Select a material zone to see its size, finish, price, and room recommendations.</p>
+            <span>{finishes.length} finishes · sample kits ready</span>
           </div>
         </div>
 
