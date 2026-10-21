@@ -258,7 +258,8 @@ img {
   background: var(--brand);
   color: #fff !important;
   padding: 11px 16px;
-  border-radius: 12px;
+  border: 0;
+  border-radius: 8px;
   letter-spacing: 0.02em !important;
   text-transform: none !important;
   font-size: 14px !important;
@@ -272,6 +273,144 @@ img {
 .mobile-menu,
 .mobile-nav {
   display: none;
+}
+
+.tour-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(680px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: #fffefa;
+  color: var(--ink);
+  box-shadow: 0 30px 90px rgba(10, 28, 20, 0.3);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.tour-dialog::-webkit-scrollbar {
+  display: none;
+}
+
+.tour-dialog::backdrop {
+  background: rgba(12, 28, 21, 0.7);
+  backdrop-filter: blur(5px);
+}
+
+.tour-dialog-inner {
+  position: relative;
+  padding: clamp(20px, 3vw, 28px);
+}
+
+.tour-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.tour-eyebrow {
+  color: var(--brand);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.tour-dialog h2 {
+  max-width: 510px;
+  margin: 8px 0;
+  font-family: var(--display);
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.tour-dialog p {
+  max-width: 510px;
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.tour-dialog form,
+.tour-dialog label {
+  display: grid;
+  gap: 6px;
+}
+
+.tour-dialog form {
+  gap: 12px;
+}
+
+.tour-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.tour-dialog label {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tour-dialog .tour-field-label {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.tour-dialog .tour-field-label em {
+  color: var(--muted);
+  font-weight: 400;
+  font-style: normal;
+}
+
+.tour-dialog input,
+.tour-dialog select,
+.tour-dialog textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 400;
+}
+
+.tour-dialog textarea {
+  resize: vertical;
+  min-height: 64px;
+}
+
+.tour-dialog input:focus,
+.tour-dialog select:focus,
+.tour-dialog textarea:focus {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.tour-submit {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.tour-dialog-inner > small {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  text-align: center;
 }
 
 /* Hero — Tumbuh style: right-aligned, bottom fade */
@@ -552,23 +691,23 @@ img {
 
 /* Explorer / masterplan */
 .explorer {
-  padding: 88px 5%;
+  padding: 48px 3%;
   background: linear-gradient(180deg, #f6f4ef 0%, var(--canvas) 100%);
 }
 
 .explorer-shell {
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.72fr);
-  gap: 22px;
-  align-items: start;
+  gap: 16px;
+  align-items: stretch;
 }
 
 .map-panel,
 .detail-panel {
   background: #fff;
   border: 1px solid rgba(31, 50, 40, 0.08);
-  border-radius: 18px;
-  padding: 20px;
+  border-radius: 8px;
+  padding: 16px;
   box-shadow: 0 18px 50px rgba(30, 44, 35, 0.06);
 }
 
@@ -617,13 +756,10 @@ img {
 
 .map-stage {
   position: relative;
-  border-radius: 14px;
+  border-radius: 6px;
   overflow: hidden;
-  background:
-    linear-gradient(90deg, transparent 24.5%, rgba(255,255,255,.88) 24.5%, rgba(255,255,255,.88) 25.5%, transparent 25.5%, transparent 49.5%, rgba(255,255,255,.88) 49.5%, rgba(255,255,255,.88) 50.5%, transparent 50.5%, transparent 74.5%, rgba(255,255,255,.88) 74.5%, rgba(255,255,255,.88) 75.5%, transparent 75.5%),
-    linear-gradient(0deg, transparent 49%, rgba(255,255,255,.9) 49%, rgba(255,255,255,.9) 51%, transparent 51%),
-    #e9e5dc;
-  min-height: 520px;
+  background: #e9e5dc;
+  min-height: 780px;
 }
 
 .map-canvas {
@@ -637,8 +773,8 @@ img {
 
 .map-zone {
   position: absolute;
-  width: 22%;
-  height: 39%;
+  width: 23%;
+  height: 29%;
   transform: translate(-50%, -50%);
   padding: 13px;
   display: flex;
@@ -647,7 +783,7 @@ img {
   justify-content: space-between;
   overflow: hidden;
   border: 2px solid rgba(255,255,255,.94);
-  border-radius: 12px;
+  border-radius: 6px;
   background-color: #b9b4a8;
   background-size: cover;
   background-position: center;
@@ -660,7 +796,7 @@ img {
 .map-zone:hover,
 .map-zone.is-active {
   z-index: 2;
-  transform: translate(-50%, -50%) scale(1.045);
+  transform: translate(-50%, -50%) scale(1.015);
   border-color: #fff;
   box-shadow: 0 12px 28px rgba(22, 34, 27, .25), 0 0 0 3px var(--brand);
 }
@@ -779,12 +915,33 @@ img {
 
 .detail-panel {
   background: var(--white);
-  position: sticky;
-  top: 96px;
+  position: relative;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-panel > .btn.full {
+  margin-top: auto;
 }
 
 .detail-top {
-  margin-bottom: 14px;
+  margin-bottom: 18px;
+}
+
+.detail-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.detail-kicker {
+  color: var(--brand);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
 }
 
 .status {
@@ -797,7 +954,7 @@ img {
   text-transform: uppercase;
   background: var(--brand-soft);
   color: var(--brand);
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .status.reserved {
@@ -811,58 +968,101 @@ img {
 }
 
 .detail-panel h3 {
-  margin: 0 0 8px;
+  margin: 0 0 5px;
   font-family: var(--display);
   font-weight: 600;
-  font-size: 30px;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
+  font-size: clamp(30px, 3vw, 42px);
+  letter-spacing: -0.04em;
+  line-height: 1.08;
 }
 
-.detail-panel img {
+.detail-top p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.detail-top p span {
+  padding: 0 5px;
+}
+
+.detail-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.detail-media img {
+  display: block;
   width: 100%;
-  height: 190px;
+  height: clamp(220px, 19vw, 300px);
   object-fit: cover;
-  border-radius: 12px;
-  margin: 12px 0 16px;
+}
+
+.detail-model-link {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 13px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--brand);
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
 }
 
 .detail-panel dl {
   margin: 0;
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
 .detail-panel dl div {
   display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 8px;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  padding: 11px 12px;
+  border-radius: 6px;
+  background: var(--sand);
   font-size: 14px;
+}
+
+.detail-panel dl div:last-child {
+  grid-column: 1 / -1;
 }
 
 .detail-panel dt {
   color: var(--muted);
+  font-size: 12px;
 }
 
 .detail-panel dd {
   margin: 0;
   font-weight: 600;
-  text-align: right;
+  line-height: 1.4;
 }
 
 .includes {
-  margin: 16px 0 18px;
+  margin: 18px 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
 }
 
 .includes > span {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  margin-bottom: 8px;
+  color: var(--brand);
+  margin-bottom: 12px;
 }
 
 .includes ul {
@@ -870,7 +1070,7 @@ img {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 8px;
+  gap: 10px;
 }
 
 .includes li {
@@ -878,6 +1078,11 @@ img {
   align-items: center;
   gap: 8px;
   font-size: 14px;
+}
+
+.includes li svg {
+  color: var(--brand);
+  flex: none;
 }
 
 /* Collections — full-bleed glass cards like Tumbuh residences */
@@ -915,8 +1120,9 @@ img {
 }
 
 .collection-slide {
-  position: relative;
-  min-height: 92svh;
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -938,7 +1144,7 @@ img {
   width: min(480px, 90%);
   margin-right: 7%;
   padding: 34px 32px;
-  border-radius: 28px;
+  border-radius: 12px;
   background: rgba(24, 28, 26, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.16);
   backdrop-filter: blur(18px) saturate(140%);
@@ -989,7 +1195,7 @@ img {
 
 .glass-stats > div {
   border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 14px;
+  border-radius: 8px;
   padding: 12px;
 }
 
@@ -1017,20 +1223,30 @@ img {
 
 /* Areas */
 .areas {
-  padding: 90px 5%;
+  padding: 72px 5%;
+  background: #f6f4ef;
 }
 
 .areas-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 18px;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 22px;
+  align-items: stretch;
 }
 
 .areas-hero {
   position: relative;
-  min-height: 520px;
-  border-radius: var(--radius);
+  min-height: 600px;
+  border-radius: 8px;
   overflow: hidden;
+}
+
+.areas-hero::after {
+  content: "";
+  position: absolute;
+  inset: 35% 0 0;
+  background: linear-gradient(180deg, transparent, rgba(13, 29, 23, 0.76));
+  pointer-events: none;
 }
 
 .areas-hero img {
@@ -1041,52 +1257,76 @@ img {
 
 .areas-badge {
   position: absolute;
-  left: 18px;
-  bottom: 18px;
-  background: rgba(255, 255, 255, 0.94);
-  border-radius: 16px;
-  padding: 14px 16px;
-  max-width: 300px;
+  z-index: 1;
+  left: 32px;
+  right: 32px;
+  bottom: 30px;
+  color: #fff;
+}
+
+.areas-badge > span {
+  display: block;
+  margin-bottom: 9px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
 }
 
 .areas-badge strong {
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  font-family: var(--display);
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
 }
 
-.areas-badge span {
-  font-size: 13px;
-  color: var(--muted);
+.areas-badge p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 14px;
 }
 
 .areas-cards {
   display: grid;
-  gap: 12px;
+  grid-template-rows: repeat(6, 1fr);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
 }
 
 .areas-cards article {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  gap: 15px;
   align-items: center;
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: 18px 20px;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.25s ease;
+}
+
+.areas-cards article:last-child {
+  border-bottom: 0;
 }
 
 .areas-cards article:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.06);
+  background: var(--sand);
+}
+
+.area-number {
+  color: #8c9a90;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
 }
 
 .areas-cards h4 {
   margin: 0 0 4px;
   font-family: var(--display);
-  font-size: 17px;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .areas-cards p {
@@ -1156,7 +1396,7 @@ img {
   max-width: 860px;
   margin: 0 auto;
   background: var(--white);
-  border-radius: var(--radius);
+  border-radius: 8px;
   padding: 42px 40px;
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.05);
   animation: fadeUp 0.55s ease both;
@@ -1219,7 +1459,7 @@ img {
 
 .journal-card {
   background: var(--white);
-  border-radius: var(--radius);
+  border-radius: 8px;
   overflow: hidden;
   border: 1px solid var(--line);
   display: flex;
@@ -1283,21 +1523,40 @@ img {
 
 /* FAQ */
 .faq {
-  padding: 90px 5% 40px;
+  padding: 72px 5% 64px;
+}
+
+.faq .section-head {
+  max-width: 760px;
+  margin-bottom: 34px;
+}
+
+.faq .section-head h2 {
+  font-size: clamp(34px, 4vw, 48px);
+}
+
+.faq .section-head p {
+  max-width: 620px;
 }
 
 .faq-list {
-  max-width: 860px;
+  max-width: 980px;
   margin: 0 auto;
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .faq-item {
   background: var(--white);
   border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
+  border-radius: 8px;
   overflow: hidden;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.faq-item.open {
+  border-color: rgba(31, 72, 52, 0.35);
+  background: #fffefa;
 }
 
 .faq-item button {
@@ -1309,14 +1568,16 @@ img {
   gap: 18px;
   align-items: center;
   text-align: left;
-  padding: 20px 22px;
+  padding: 20px 24px;
   font-size: 16px;
   font-weight: 600;
+  line-height: 1.4;
 }
 
 .faq-item button svg {
   transition: transform 0.28s ease;
   flex-shrink: 0;
+  color: var(--brand);
 }
 
 .faq-item.open button svg {
@@ -1336,28 +1597,28 @@ img {
 .faq-answer p {
   overflow: hidden;
   margin: 0;
-  padding: 0 22px;
+  padding: 0 24px;
   color: var(--muted);
   line-height: 1.65;
 }
 
 .faq-item.open .faq-answer p {
-  padding-bottom: 20px;
+  padding-bottom: 22px;
 }
 
 /* Visit CTA */
 .visit {
-  margin: 40px 5% 70px;
+  margin: 24px 5% 64px;
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
-  gap: 18px;
+  gap: 16px;
   align-items: stretch;
 }
 
 .visit-media {
   position: relative;
   min-height: 520px;
-  border-radius: var(--radius);
+  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -1372,7 +1633,7 @@ img {
   left: 18px;
   bottom: 18px;
   background: rgba(255, 255, 255, 0.94);
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 14px 16px;
   max-width: 280px;
 }
@@ -1401,11 +1662,15 @@ img {
 .visit-panel {
   background: var(--brand);
   color: #fff;
-  border-radius: var(--radius);
-  padding: 42px 36px;
+  border-radius: 8px;
+  padding: 38px 36px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.visit-panel .pill {
+  align-self: flex-start;
 }
 
 .visit-panel h2 {
@@ -1449,6 +1714,7 @@ img {
   background: #fff;
   color: var(--brand);
   box-shadow: none;
+  border-radius: 8px;
 }
 
 .visit-actions .btn-brand:hover {
@@ -1613,6 +1879,20 @@ img {
     font-weight: 600;
   }
 
+  .mobile-tour {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    padding: 13px 16px;
+    background: #fff;
+    color: var(--brand);
+    font-weight: 700;
+  }
+
   .hero {
     justify-content: center;
   }
@@ -1642,7 +1922,7 @@ img {
 
   .collection-slide {
     justify-content: center;
-    min-height: 80svh;
+    min-height: 100svh;
   }
 
   .glass-card {
@@ -1654,12 +1934,6 @@ img {
     align-items: start;
   }
 
-  .map-stage {
-    min-height: 420px;
-  }
-
-  .map-stage { min-height: 650px; }
-  .map-zone { width: 43%; height: 22%; padding: 10px; }
   .zone-copy strong { font-size: 14px; }
 
   .footer-bottom {
@@ -1668,6 +1942,10 @@ img {
 }
 
 @media (max-width: 640px) {
+  .tour-fields {
+    grid-template-columns: 1fr;
+  }
+
   .features,
   .explorer,
   .areas,
@@ -1676,6 +1954,22 @@ img {
   .faq {
     padding-left: 4%;
     padding-right: 4%;
+  }
+
+  .areas-hero {
+    min-height: 400px;
+  }
+
+  .areas-badge {
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .areas-cards article {
+    grid-template-columns: 28px minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 16px 14px;
   }
 
   .glass-stats {
@@ -1692,6 +1986,16 @@ img {
 
   .map-foot {
     flex-direction: column;
+  }
+
+  .map-stage {
+    min-height: 1120px;
+  }
+
+  .map-zone {
+    width: 43%;
+    height: 14%;
+    padding: 10px;
   }
 }
 

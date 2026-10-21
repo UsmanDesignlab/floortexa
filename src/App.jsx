@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   BedDouble,
@@ -34,7 +34,7 @@ const photos = {
   journal1:
     "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=900&q=85",
   journal2:
-    "https://images.unsplash.com/photo-1600607687644-c7171b42498b?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=85",
   journal3:
     "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=900&q=85",
   person1:
@@ -143,6 +143,42 @@ const finishes = [
     room: "Open plan",
     image: photos.oak,
     includes: ["Long boards", "Silent underlay", "Stair nosing"],
+  },
+  {
+    id: "09",
+    name: "Ivory Porcelain",
+    status: "available",
+    type: "Porcelain Tile",
+    size: "24 × 48 in",
+    finish: "Soft matte",
+    price: "From $8 / sq ft",
+    room: "Kitchen · Living",
+    image: photos.porcelain,
+    includes: ["Easy care", "Large format", "Sample kit ready"],
+  },
+  {
+    id: "10",
+    name: "Natural Walnut",
+    status: "reserved",
+    type: "Engineered Wood",
+    size: "7 × 72 in",
+    finish: "Brushed",
+    price: "From $12 / sq ft",
+    room: "Living · Bedroom",
+    image: photos.oak,
+    includes: ["Wide plank", "Acoustic underlay", "Aftercare guide"],
+  },
+  {
+    id: "11",
+    name: "Honed Stone",
+    status: "available",
+    type: "Natural Stone",
+    size: "18 × 36 in",
+    finish: "Honed",
+    price: "From $11 / sq ft",
+    room: "Bath · Entry",
+    image: photos.stone,
+    includes: ["Sealing guidance", "Edge profiles", "Sample kit ready"],
   },
 ];
 
@@ -305,7 +341,7 @@ function Brand({ light = false }) {
   );
 }
 
-function Header() {
+function Header({ onScheduleTour }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -332,9 +368,9 @@ function Header() {
             {name}
           </a>
         ))}
-        <a href="#contact" className="header-cta">
+        <button type="button" className="header-cta" onClick={onScheduleTour}>
           <Calendar size={15} /> Schedule Tour
-        </a>
+        </button>
       </nav>
       <button
         className="mobile-menu"
@@ -351,6 +387,9 @@ function Header() {
               <ArrowUpRight size={16} />
             </a>
           ))}
+          <button type="button" className="mobile-tour" onClick={() => { setMenuOpen(false); onScheduleTour(); }}>
+            <Calendar size={16} /> Schedule Tour
+          </button>
           <a href="mailto:hello@floortex.com">hello@floortex.com</a>
         </nav>
       )}
@@ -502,31 +541,37 @@ function FinishExplorer() {
   }, []);
 
   const positions = [
-    { x: 13, y: 27 },
-    { x: 37.5, y: 27 },
-    { x: 62, y: 27 },
-    { x: 86.5, y: 27 },
-    { x: 13, y: 73 },
-    { x: 37.5, y: 73 },
-    { x: 62, y: 73 },
-    { x: 86.5, y: 73 },
+    { x: 12.5, y: 17 },
+    { x: 37.5, y: 17 },
+    { x: 62.5, y: 17 },
+    { x: 87.5, y: 17 },
+    { x: 12.5, y: 50 },
+    { x: 37.5, y: 50 },
+    { x: 62.5, y: 50 },
+    { x: 87.5, y: 50 },
+    { x: 25, y: 83 },
+    { x: 50, y: 83 },
+    { x: 75, y: 83 },
   ];
   const mobilePositions = [
-    { x: 27, y: 13 },
-    { x: 73, y: 13 },
-    { x: 27, y: 38 },
-    { x: 73, y: 38 },
-    { x: 27, y: 63 },
-    { x: 73, y: 63 },
-    { x: 27, y: 88 },
-    { x: 73, y: 88 },
+    { x: 27, y: 9 },
+    { x: 73, y: 9 },
+    { x: 27, y: 25.4 },
+    { x: 73, y: 25.4 },
+    { x: 27, y: 41.8 },
+    { x: 73, y: 41.8 },
+    { x: 27, y: 58.2 },
+    { x: 73, y: 58.2 },
+    { x: 27, y: 74.6 },
+    { x: 73, y: 74.6 },
+    { x: 50, y: 91 },
   ];
 
   return (
     <section id="finishes" className="explorer section-reveal">
       <div className="section-head">
         <span className="pill">SHOWROOM</span>
-        <h2>Interactive Finish Masterplan</h2>
+        <h2>Popular Services</h2>
         <p>
           Select any finish on the material map below to inspect format,
           surface, room fit, and indicative pricing.
@@ -546,7 +591,7 @@ function FinishExplorer() {
             <span>
               <i className="dot sold" /> Limited
             </span>
-            <span className="map-caption">8 material zones</span>
+            <span className="map-caption">{finishes.length} material zones</span>
           </div>
 
           <div className="map-stage" style={{ "--zoom": zoom }}>
@@ -592,17 +637,19 @@ function FinishExplorer() {
 
         <aside className="detail-panel reveal-child">
           <div className="detail-top">
-            <span className={`status ${finish.status}`}>{finish.status}</span>
-            <h3>
-              Finish {finish.id}
-              <br />
-              {finish.name}
-            </h3>
-            <a href="#collections" className="ghost-link">
-              View Model <ArrowUpRight size={14} />
+            <div className="detail-heading">
+              <span className="detail-kicker">FINISH {finish.id}</span>
+              <span className={`status ${finish.status}`}>{finish.status}</span>
+            </div>
+            <h3>{finish.name}</h3>
+            <p>{finish.type} <span aria-hidden="true">·</span> {finish.room}</p>
+          </div>
+          <div className="detail-media">
+            <img src={finish.image} alt={`${finish.name} flooring in an interior`} />
+            <a href="#collections" className="detail-model-link">
+              View collection <ArrowUpRight size={16} />
             </a>
           </div>
-          <img src={finish.image} alt={finish.name} />
           <dl>
             <div>
               <dt>Type</dt>
@@ -626,7 +673,7 @@ function FinishExplorer() {
             </div>
           </dl>
           <div className="includes">
-            <span>INCLUSIONS</span>
+            <span>Included with this finish</span>
             <ul>
               {finish.includes.map((line) => (
                 <li key={line}>
@@ -656,8 +703,12 @@ function Collections() {
         </p>
       </div>
 
-      {collections.map((item) => (
-        <article key={item.name} className="collection-slide section-reveal">
+      {collections.map((item, index) => (
+        <article
+          key={item.name}
+          className="collection-slide section-reveal"
+          style={{ zIndex: index + 1 }}
+        >
           <img src={item.image} alt={item.name} loading="lazy" />
           <div className="glass-card">
             <span>{item.tag}</span>
@@ -741,14 +792,16 @@ function ServiceAreas() {
         <div className="areas-hero reveal-child">
           <img src={photos.showroom} alt="Floortex pavilion" />
           <div className="areas-badge">
+            <span>VISIT OUR SHOWROOM</span>
             <strong>Floortex Pavilion</strong>
-            <span>12 Oakridge Way · Daily 10 AM – 6 PM</span>
+            <p>12 Oakridge Way · Daily 10 AM – 6 PM</p>
           </div>
         </div>
         <div className="areas-cards">
-          {serviceAreas.map((area) => (
+          {serviceAreas.map((area, index) => (
             <article key={area.name} className="reveal-child">
-              <div>
+              <span className="area-number">{String(index + 1).padStart(2, "0")}</span>
+              <div className="area-info">
                 <h4>{area.name}</h4>
                 <p>{area.detail}</p>
               </div>
@@ -884,7 +937,7 @@ function FAQ() {
   );
 }
 
-function VisitCTA() {
+function VisitCTA({ onScheduleTour }) {
   return (
     <section id="contact" className="visit section-reveal">
       <div className="visit-media">
@@ -914,9 +967,9 @@ function VisitCTA() {
           </li>
         </ul>
         <div className="visit-actions">
-          <a href="mailto:hello@floortex.com" className="btn btn-brand">
+          <button type="button" onClick={onScheduleTour} className="btn btn-brand">
             Reserve Showing Slot
-          </a>
+          </button>
           <span>
             Concierge: <strong>(555) 890-4410</strong>
           </span>
@@ -1007,7 +1060,50 @@ function Footer() {
   );
 }
 
+function ScheduleTourDialog({ open, onClose }) {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (open && !dialog.open) dialog.showModal();
+    if (!open && dialog.open) dialog.close();
+  }, [open]);
+
+  const submitRequest = (event) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const subject = "Floortex showroom tour request";
+    const body = `Name: ${form.get("name")}\nEmail: ${form.get("email")}\nPreferred date: ${form.get("date")}\nPreferred time: ${form.get("time")}\nProject details: ${form.get("details") || "Not provided"}`;
+    window.location.href = `mailto:hello@floortex.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    onClose();
+  };
+
+  return (
+    <dialog ref={dialogRef} className="tour-dialog" aria-labelledby="tour-dialog-title" onClose={onClose} onClick={(event) => { if (event.target === dialogRef.current) onClose(); }}>
+      <div className="tour-dialog-inner">
+        <button type="button" className="tour-close" aria-label="Close schedule tour dialog" onClick={onClose}><X size={20} /></button>
+        <span className="tour-eyebrow">PRIVATE SHOWROOM VISIT</span>
+        <h2 id="tour-dialog-title">See your next floor in person.</h2>
+        <p>Choose a preferred time and tell us about your space. We’ll prepare an email request for our showroom team.</p>
+        <form onSubmit={submitRequest}>
+          <div className="tour-fields">
+            <label>Full name<input name="name" type="text" autoComplete="name" required placeholder="Your name" /></label>
+            <label>Email address<input name="email" type="email" autoComplete="email" required placeholder="you@example.com" /></label>
+            <label>Preferred date<input name="date" type="date" required /></label>
+            <label>Preferred time<select name="time" required defaultValue=""><option value="" disabled>Select a time</option><option>10:00 AM</option><option>11:30 AM</option><option>1:00 PM</option><option>2:30 PM</option><option>4:00 PM</option></select></label>
+          </div>
+          <label><span className="tour-field-label">Tell us about your project <em>(optional)</em></span><textarea name="details" rows="2" placeholder="Rooms, materials, or anything you'd like to discuss" /></label>
+          <button type="submit" className="btn btn-brand tour-submit"><Calendar size={17} /> Prepare tour request</button>
+        </form>
+        <small>12 Oakridge Way · Open daily, 10 AM – 6 PM</small>
+      </div>
+    </dialog>
+  );
+}
+
 function App() {
+  const [tourOpen, setTourOpen] = useState(false);
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const observer = new IntersectionObserver(
@@ -1031,20 +1127,21 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header onScheduleTour={() => setTourOpen(true)} />
       <main>
         <Hero />
         <Features />
-        <FinishExplorer />
         <MaterialsGallery />
+        <FinishExplorer />
         <Collections />
         <ServiceAreas />
         <Reviews />
         <Journal />
         <FAQ />
-        <VisitCTA />
+        <VisitCTA onScheduleTour={() => setTourOpen(true)} />
       </main>
       <Footer />
+      <ScheduleTourDialog open={tourOpen} onClose={() => setTourOpen(false)} />
     </>
   );
 }
