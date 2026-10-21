@@ -12,6 +12,7 @@ import {
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
+import GridMotion from "./GridMotion";
 
 const photos = {
   hero: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2400&q=90",
@@ -358,9 +359,28 @@ function Header() {
 }
 
 function Hero() {
+  const slides = [photos.hero, photos.villa, photos.showroom];
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % slides.length);
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, [slides.length]);
+
   return (
     <section id="home" className="hero" aria-label="Discover your ideal floor today">
-      <img className="hero-image" src={photos.hero} alt="" fetchPriority="high" />
+      {slides.map((image, index) => (
+        <img
+          key={image}
+          className={`hero-image ${activeSlide === index ? "is-active" : ""}`}
+          src={image}
+          alt=""
+          fetchPriority={index === 0 ? "high" : "auto"}
+          aria-hidden="true"
+        />
+      ))}
       <div className="hero-shade" />
       <div className="hero-fade" />
       <div className="hero-content">
@@ -376,6 +396,18 @@ function Hero() {
         <a href="#contact" className="btn btn-brand">
           <Calendar size={16} /> Book today
         </a>
+      </div>
+      <div className="hero-dots" aria-label="Hero image slides">
+        {slides.map((image, index) => (
+          <button
+            key={image}
+            type="button"
+            className={activeSlide === index ? "is-active" : ""}
+            aria-label={`Show image ${index + 1}`}
+            aria-pressed={activeSlide === index}
+            onClick={() => setActiveSlide(index)}
+          />
+        ))}
       </div>
     </section>
   );
@@ -630,6 +662,43 @@ function Collections() {
           </div>
         </article>
       ))}
+    </section>
+  );
+}
+
+function MaterialsGallery() {
+  const galleryImages = [
+    { src: photos.marble, alt: "Carrara marble flooring in a bright interior" },
+    { src: photos.porcelain, alt: "Porcelain stone flooring in a modern room" },
+    { src: photos.oak, alt: "Natural oak flooring in a calm living space" },
+    { src: photos.herringbone, alt: "European oak herringbone floor" },
+    { src: photos.stone, alt: "Warm natural stone flooring" },
+    { src: photos.process, alt: "Floor installation and material detail" },
+    { src: photos.villa, alt: "Contemporary home with premium flooring" },
+    { src: photos.showroom, alt: "Floortex showroom interior" },
+  ];
+
+  return (
+    <section className="materials-gallery section-reveal" aria-labelledby="materials-gallery-title">
+      <div className="materials-gallery-head">
+        <span className="pill">MATERIALS IN MOTION</span>
+        <h2 id="materials-gallery-title">Find the floor that feels like home.</h2>
+        <p>Explore marble, porcelain, timber, and stone in real interiors.</p>
+      </div>
+      <GridMotion
+        items={galleryImages}
+        rows={4}
+        aspectRatio={1.45}
+        gap={16}
+        radius={12}
+        angle={-7}
+        speed={18}
+        direction="alternate"
+        parallax={0.45}
+        spotlight={0.55}
+        dim={0.12}
+        fade={0.28}
+      />
     </section>
   );
 }
@@ -944,6 +1013,7 @@ function App() {
         <Hero />
         <Features />
         <FinishExplorer />
+        <MaterialsGallery />
         <Collections />
         <ServiceAreas />
         <Reviews />
