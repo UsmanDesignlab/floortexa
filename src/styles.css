@@ -5,7 +5,7 @@
   --ink: #1b1917;
   --muted: #6d6761;
   --line: #e9ded3;
-  --sand: #f4ebe3;
+  --sand: #f8f6f3;
   --brand: #b9501d;
   --brand-soft: #fff0e4;
   --brand-mid: #e17835;
@@ -696,7 +696,8 @@ img {
 /* Explorer / masterplan */
 .explorer {
   padding: 48px 3%;
-  background: linear-gradient(180deg, #fff5ec 0%, var(--canvas) 100%);
+  background: var(--canvas);
+  border-top: 1px solid var(--line);
 }
 
 .explorer-shell {
@@ -1100,7 +1101,8 @@ img {
 .materials-gallery {
   padding: 72px 0 82px;
   overflow: hidden;
-  background: var(--sand);
+  background: var(--canvas);
+  border-top: 1px solid var(--line);
 }
 
 .materials-gallery-head {
@@ -1228,7 +1230,8 @@ img {
 /* Areas */
 .areas {
   padding: 72px 5%;
-  background: #fff5ec;
+  background: var(--canvas);
+  border-top: 1px solid var(--line);
 }
 
 .areas-grid {
@@ -1357,7 +1360,8 @@ img {
 /* Reviews */
 .reviews {
   padding: 90px 5%;
-  background: var(--sand);
+  background: var(--canvas);
+  border-top: 1px solid var(--line);
 }
 
 .review-people {
