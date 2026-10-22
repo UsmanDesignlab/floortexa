@@ -1,42 +1,32 @@
-import { useState } from "react";
-import { Header } from "./components/layout/Header";
-import { Footer } from "./components/layout/Footer";
-import { ScheduleTourDialog } from "./components/dialogs/ScheduleTourDialog";
-import {
-  Collections,
-  FAQ,
-  Features,
-  FinishExplorer,
-  Hero,
-  Journal,
-  MaterialsGallery,
-  Reviews,
-  ServiceAreas,
-  VisitCTA,
-} from "./components/sections";
-import { useScrollReveal } from "./hooks/useScrollReveal";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Shell } from "./components/layout/Shell";
+import { ScrollToTop } from "./components/layout/ScrollToTop";
+import HomePage from "./pages/HomePage";
+import CategoriesPage from "./pages/CategoriesPage";
+import CategoryPage from "./pages/CategoryPage";
+import ProjectsPage from "./pages/ProjectsPage";
+import BlogsPage from "./pages/BlogsPage";
+import BlogDetailPage from "./pages/BlogDetailPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
 
 export default function App() {
-  const [tourOpen, setTourOpen] = useState(false);
-  useScrollReveal();
-
   return (
-    <>
-      <Header onScheduleTour={() => setTourOpen(true)} />
-      <main>
-        <Hero />
-        <Features />
-        <MaterialsGallery />
-        <FinishExplorer />
-        <Collections />
-        <ServiceAreas />
-        <Reviews />
-        <Journal />
-        <FAQ />
-        <VisitCTA onScheduleTour={() => setTourOpen(true)} />
-      </main>
-      <Footer />
-      <ScheduleTourDialog open={tourOpen} onClose={() => setTourOpen(false)} />
-    </>
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route element={<Shell />}>
+          <Route index element={<HomePage />} />
+          <Route path="categories" element={<CategoriesPage />} />
+          <Route path="categories/:id" element={<CategoryPage />} />
+          <Route path="projects" element={<ProjectsPage />} />
+          <Route path="blogs" element={<BlogsPage />} />
+          <Route path="blogs/:id" element={<BlogDetailPage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="contact" element={<ContactPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

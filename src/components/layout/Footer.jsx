@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Brand } from "../ui/Brand";
 import { collections } from "../../data/content";
 
@@ -49,24 +50,23 @@ export function Footer() {
         <nav>
           <h4 className="mb-3.5 text-xs tracking-[0.1em] text-white/45 uppercase">Navigation</h4>
           {[
-            ["Cluster Features", "#about"],
-            ["Masterplan Map", "#finishes"],
-            ["Model Showcase", "#collections"],
-            ["Service Neighborhood", "#areas"],
-            ["Resident Stories", "#stories"],
-            ["Private Showing", "#contact"],
+            ["Categories", "/categories"],
+            ["Projects", "/projects"],
+            ["Blogs", "/blogs"],
+            ["About Us", "/about"],
+            ["Contact Us", "/contact"],
           ].map(([label, href]) => (
-            <a key={label} href={href} className="mb-2 block text-sm text-white/80 hover:text-white">
+            <Link key={label} to={href} className="mb-2 block text-sm text-white/80 hover:text-white">
               {label}
-            </a>
+            </Link>
           ))}
         </nav>
         <nav>
           <h4 className="mb-3.5 text-xs tracking-[0.1em] text-white/45 uppercase">Collections</h4>
           {collections.map((item) => (
-            <a key={item.name} href="#collections" className="mb-2 block text-sm text-white/80 hover:text-white">
+            <Link key={item.name} to="/categories" className="mb-2 block text-sm text-white/80 hover:text-white">
               {item.name}
-            </a>
+            </Link>
           ))}
         </nav>
         <div>

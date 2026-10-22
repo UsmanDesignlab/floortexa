@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Calendar } from "lucide-react";
 import { Button } from "../ui/Button";
 import { carouselImages } from "../../carouselImages";
@@ -39,7 +40,7 @@ export function Hero() {
           Uncover a world of marble, porcelain tile, and natural wood with transparent specs. Your
           perfect finish awaits just a visit away!
         </p>
-        <Button as="a" href="#contact">
+        <Button as={Link} to="/contact">
           <Calendar size={16} /> Book today
         </Button>
       </div>

@@ -1,11 +1,12 @@
+import { Link } from "react-router-dom";
 import { cn } from "../../lib/cn";
 
 /** Floortex wordmark used in the header and footer. */
-export function Brand({ light = false, href = "#home", className }) {
+export function Brand({ light = false, className }) {
   return (
-    <a
+    <Link
       aria-label="Floortex home"
-      href={href}
+      to="/"
       className={cn("inline-flex items-center gap-2.5 text-inherit", className)}
     >
       <span
@@ -18,6 +19,6 @@ export function Brand({ light = false, href = "#home", className }) {
         f.
       </span>
       <span className="font-display text-xl font-bold leading-none tracking-[-0.03em]">Floortex</span>
-    </a>
+    </Link>
   );
 }

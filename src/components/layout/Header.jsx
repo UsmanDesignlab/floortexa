@@ -1,10 +1,18 @@
 import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { ArrowUpRight, Calendar, Menu, X } from "lucide-react";
 import { Brand } from "../ui/Brand";
 import { Button } from "../ui/Button";
-import { navLinks } from "../../data/content";
 import { useScrolled } from "../../hooks/useScrolled";
 import { cn } from "../../lib/cn";
+
+const navLinks = [
+  { label: "Categories", to: "/categories" },
+  { label: "Projects", to: "/projects" },
+  { label: "Blogs", to: "/blogs" },
+  { label: "About Us", to: "/about" },
+  { label: "Contact Us", to: "/contact" },
+];
 
 export function Header({ onScheduleTour }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,11 +27,20 @@ export function Header({ onScheduleTour }) {
       )}
     >
       <Brand />
-      <nav className="flex items-center justify-self-center gap-7 max-[980px]:hidden" aria-label="Main navigation">
-        {navLinks.map(([name, href]) => (
-          <a key={name} href={href} className="text-xs font-semibold uppercase tracking-[0.14em]">
-            {name}
-          </a>
+      <nav className="flex items-center justify-self-center gap-6 max-[1100px]:gap-4 max-[980px]:hidden" aria-label="Main navigation">
+        {navLinks.map((link) => (
+          <NavLink
+            key={link.to}
+            to={link.to}
+            className={({ isActive }) =>
+              cn(
+                "text-[11px] font-semibold uppercase tracking-[0.14em] transition hover:text-brand",
+                isActive && "text-brand",
+              )
+            }
+          >
+            {link.label}
+          </NavLink>
         ))}
       </nav>
       <Button
@@ -46,16 +63,16 @@ export function Header({ onScheduleTour }) {
           className="absolute top-[78px] right-[4%] left-[4%] hidden flex-col gap-3.5 rounded-[18px] bg-[rgba(27,25,23,0.96)] p-[22px] text-white backdrop-blur-2xl max-[980px]:flex"
           aria-label="Mobile navigation"
         >
-          {navLinks.map(([name, href]) => (
-            <a
-              key={name}
-              href={href}
+          {navLinks.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
               className="flex justify-between text-lg font-semibold"
               onClick={() => setMenuOpen(false)}
             >
-              {name}
+              {link.label}
               <ArrowUpRight size={16} />
-            </a>
+            </Link>
           ))}
           <Button
             variant="inverse"
@@ -68,9 +85,6 @@ export function Header({ onScheduleTour }) {
           >
             <Calendar size={16} /> Schedule Tour
           </Button>
-          <a href="mailto:hello@floortex.com" className="flex justify-between text-lg font-semibold">
-            hello@floortex.com
-          </a>
         </nav>
       ) : null}
     </header>

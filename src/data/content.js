@@ -300,8 +300,9 @@ export const faqs = [
 ];
 
 export const navLinks = [
-  ["About", "#about"],
-  ["Journal", "#journal"],
-  ["Amenities", "#collections"],
-  ["Contact", "#contact"],
+  { label: "Categories", to: "/categories" },
+  { label: "Projects", to: "/projects" },
+  { label: "Blogs", to: "/blogs" },
+  { label: "About Us", to: "/about" },
+  { label: "Contact Us", to: "/contact" },
 ];
