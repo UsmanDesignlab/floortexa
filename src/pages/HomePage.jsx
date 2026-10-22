@@ -25,9 +25,9 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
-      <FinishExplorer />
       <Features />
       <MaterialsGallery />
+      <FinishExplorer />
       <ServiceAreas />
       <Reviews />
       <BlogCarousel blogs={blogs} loading={blogsLoading} />
