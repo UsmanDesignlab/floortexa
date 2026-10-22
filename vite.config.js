@@ -4,8 +4,10 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
-  // Floortexa admin usually runs on 3001 when another app already owns 3000.
-  const apiTarget = env.VITE_API_PROXY_TARGET || "http://localhost:3001";
+  // Prefer 127.0.0.1 over localhost — on Windows, localhost→IPv6 often causes
+  // Vite AggregateError ECONNREFUSED when Next is listening on a different stack.
+  const rawTarget = env.VITE_API_PROXY_TARGET || "http://127.0.0.1:3001";
+  const apiTarget = rawTarget.replace("://localhost", "://127.0.0.1");
 
   return {
     plugins: [react(), tailwindcss()],
