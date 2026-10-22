@@ -5,7 +5,7 @@ export function CategoryCard({ category }) {
   return (
     <Link
       to={`/categories/${category.id}`}
-      className="group relative block min-h-[320px] overflow-hidden rounded-xl bg-ink text-white shadow-[0_18px_40px_rgba(27,25,23,0.12)]"
+      className="group relative block min-h-[240px] overflow-hidden rounded-xl bg-ink text-white shadow-[0_18px_40px_rgba(27,25,23,0.12)] sm:min-h-[300px]"
     >
       {category.image ? (
         <img

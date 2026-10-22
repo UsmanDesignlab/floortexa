@@ -14,7 +14,7 @@ export function CategoryShowcase() {
   });
 
   return (
-    <section id="categories" className={cn(reveal, "bg-sand/40 px-[5%] py-[90px] max-[640px]:px-[4%]")}>
+    <section id="categories" className={cn(reveal, "border-t border-line bg-canvas px-[5%] py-[90px] max-[640px]:px-[4%]")}>
       <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
         <div className="max-w-xl">
           <Pill>CATEGORIES</Pill>
@@ -22,7 +22,7 @@ export function CategoryShowcase() {
             Explore by material family
           </h2>
           <p className="mt-3 text-[17px] leading-relaxed text-muted">
-            Large-format category cards with imagery from the Floortex catalog.
+            Large-format category cards — one after another — with imagery from the Floortex catalog.
           </p>
         </div>
         <Button as={Link} to="/categories" variant="outline">
@@ -33,7 +33,8 @@ export function CategoryShowcase() {
       {loading ? <p className="text-sm text-muted">Loading categories…</p> : null}
       {error ? <p className="text-sm text-red-600">{error}</p> : null}
 
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      {/* Stacked cards: one above the next (full-width on mobile, 1 col always) */}
+      <div className="mx-auto flex max-w-4xl flex-col gap-5">
         {items.map((category) => (
           <CategoryCard key={category.id} category={category} />
         ))}
