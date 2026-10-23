@@ -254,31 +254,31 @@ export const reviews = [
 
 export const journal = [
   {
-    category: "MATERIALS",
-    date: "August 18, 2026",
+    category: "Guides",
+    date: "15 September 2026",
     read: "5 min read",
-    title: "Carpet vs LVT vs laminate — which floor suits your home?",
+    title: "The Complete Guide to Herringbone Flooring",
     excerpt:
-      "A practical guide to rooms, moisture, pets, budget, and where each flooring type earns its place.",
-    image: photos.journal1,
+      "Herringbone is one of the most timeless patterns in flooring — but which material is right for your home? We break down engineered oak, LVT, and laminate options.",
+    image: "/images/journal-herringbone.jpg",
   },
   {
-    category: "INSTALL",
-    date: "August 10, 2026",
-    read: "7 min read",
-    title: "Why a proper measure and underlay decide how long a floor lasts",
-    excerpt:
-      "Subfloor prep, underlay choice, and stair fitting — the quiet work that protects a beautiful finish.",
-    image: photos.journal2,
-  },
-  {
-    category: "CARE",
-    date: "July 29, 2026",
+    category: "Comparisons",
+    date: "8 September 2026",
     read: "4 min read",
-    title: "Simple care routines for carpet, LVT, and wood floors",
+    title: "LVT vs Laminate: Which is Right for Your Home?",
     excerpt:
-      "Low-effort habits that keep Essex family floors clean, calm, and looking fresh for years.",
-    image: photos.journal3,
+      "Both look great and are easy to maintain — but LVT and laminate have key differences in durability, water resistance, and feel underfoot.",
+    image: "/images/journal-lvt-vs-laminate.jpg",
+  },
+  {
+    category: "Care & Maintenance",
+    date: "1 September 2026",
+    read: "3 min read",
+    title: "How to Keep Your Carpet Looking New",
+    excerpt:
+      "A well-fitted carpet can last 10–15 years with the right care. Our fitters share their top tips for vacuuming, stain removal, and protecting high-traffic areas.",
+    image: "/images/journal-carpet-care.jpg",
   },
 ];
 
