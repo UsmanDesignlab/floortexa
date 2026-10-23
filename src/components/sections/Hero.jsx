@@ -43,7 +43,7 @@ export function Hero() {
         <Button
           as={Link}
           to="/contact"
-          className="!rounded-md !px-8 !py-4 !text-base !shadow-[0_10px_28px_rgba(0,0,0,0.35)]"
+          className="!rounded-md !px-8 !py-4 !text-base !shadow-none"
         >
           <Calendar size={18} /> Book today
         </Button>
