@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, BedDouble, Ruler } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Pill } from "../ui/Pill";
 import { useResourceList } from "../../hooks/useResourceList";
 import { mediaUrl } from "../../lib/api";
@@ -18,12 +18,10 @@ function mapCategory(category, index) {
   const copy = stripHtml(category.description);
   return {
     id: category.id,
-            tag: `CATEGORY ${String(index + 1).padStart(2, "0")}`,
+    tag: `CATEGORY ${String(index + 1).padStart(2, "0")}`,
     name: category.title || "Collection",
     price: "Ask showroom",
     copy: copy.slice(0, 140) || "Explore this Floortex material family in the catalog.",
-    rooms: "Homes · Stairs · Essex",
-    area: "Supply & fit",
     image: mediaUrl(category.image) || "/images/LVT-Flooring-Essex.jpg",
     note: "Includes free measure & fitting advice",
   };
@@ -128,25 +126,7 @@ export function Collections() {
                   <div className="mb-2.5 border-b border-white/12 pb-2.5 text-[10px] font-semibold tracking-[0.1em] text-white/55 uppercase">
                     Starting base price · {item.price}
                   </div>
-                  <p className="mb-3 line-clamp-2 text-[12px] leading-relaxed text-white/78">{item.copy}</p>
-
-                  <div className="mb-3 grid grid-cols-2 gap-1.5">
-                    <div className="rounded-md border border-white/15 bg-white/[0.06] p-2">
-                      <small className="mb-0.5 block text-[9px] tracking-[0.1em] text-white/45">BEST FOR</small>
-                      <strong className="inline-flex items-start gap-1 text-[10px] font-semibold leading-snug">
-                        <BedDouble size={12} className="mt-0.5 shrink-0 opacity-75" />
-                        <span>{item.rooms}</span>
-                      </strong>
-                    </div>
-                    <div className="rounded-md border border-white/15 bg-white/[0.06] p-2">
-                      <small className="mb-0.5 block text-[9px] tracking-[0.1em] text-white/45">FORMAT</small>
-                      <strong className="inline-flex items-start gap-1 text-[10px] font-semibold leading-snug">
-                        <Ruler size={12} className="mt-0.5 shrink-0 opacity-75" />
-                        <span>{item.area}</span>
-                      </strong>
-                    </div>
-                  </div>
-
+                  <p className="mb-3 line-clamp-3 text-[12px] leading-relaxed text-white/78">{item.copy}</p>
                   <p className="mb-3 text-[11px] text-white/58">{item.note}</p>
                   <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-white">
                     View Specifications{" "}
