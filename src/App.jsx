@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import CategoriesPage from "./pages/CategoriesPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProjectsPage from "./pages/ProjectsPage";
+import ProjectDetailPage from "./pages/ProjectDetailPage";
 import BlogsPage from "./pages/BlogsPage";
 import BlogDetailPage from "./pages/BlogDetailPage";
 import AboutPage from "./pages/AboutPage";
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="categories" element={<CategoriesPage />} />
           <Route path="categories/:id" element={<CategoryPage />} />
           <Route path="projects" element={<ProjectsPage />} />
+          <Route path="projects/:id" element={<ProjectDetailPage />} />
           <Route path="blogs" element={<BlogsPage />} />
           <Route path="blogs/:id" element={<BlogDetailPage />} />
           <Route path="about" element={<AboutPage />} />

@@ -16,7 +16,7 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
 export default function HomePage() {
   const { openTour } = useOutletContext();
   const { items: blogs, loading: blogsLoading } = useResourceList("blogs", {
-    limit: 3,
+    limit: 6,
     sort: "created_at",
     direction: "desc",
   });

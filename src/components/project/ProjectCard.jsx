@@ -1,15 +1,20 @@
+import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 import { mediaUrl } from "../../lib/api";
 
 export function ProjectCard({ project }) {
   return (
-    <article className="overflow-hidden rounded-2xl border border-line bg-white shadow-[0_14px_34px_rgba(27,25,23,0.05)]">
+    <Link
+      to={`/projects/${project.id}`}
+      className="group block overflow-hidden rounded-2xl border border-line bg-white shadow-[0_14px_34px_rgba(27,25,23,0.05)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(27,25,23,0.08)]"
+    >
       <div className="grid gap-0 md:grid-cols-2">
         <div className="relative min-h-[240px] bg-sand">
           {project.before_image || project.after_image ? (
             <img
               src={mediaUrl(project.after_image || project.before_image)}
               alt={project.title}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
               loading="lazy"
             />
           ) : null}
@@ -25,34 +30,13 @@ export function ProjectCard({ project }) {
             <p className="mt-2 text-sm font-semibold text-muted">{project.location}</p>
           ) : null}
           {project.description ? (
-            <p className="mt-4 text-[15px] leading-relaxed text-muted">{project.description}</p>
+            <p className="mt-4 line-clamp-3 text-[15px] leading-relaxed text-muted">{project.description}</p>
           ) : null}
-          {(project.before_image || project.after_image) && (
-            <div className="mt-6 grid grid-cols-2 gap-3">
-              {project.before_image ? (
-                <div>
-                  <p className="mb-1.5 text-[10px] font-bold tracking-[0.12em] text-muted uppercase">Before</p>
-                  <img
-                    src={mediaUrl(project.before_image)}
-                    alt={`${project.title} before`}
-                    className="h-24 w-full rounded-lg object-cover"
-                  />
-                </div>
-              ) : null}
-              {project.after_image ? (
-                <div>
-                  <p className="mb-1.5 text-[10px] font-bold tracking-[0.12em] text-muted uppercase">After</p>
-                  <img
-                    src={mediaUrl(project.after_image)}
-                    alt={`${project.title} after`}
-                    className="h-24 w-full rounded-lg object-cover"
-                  />
-                </div>
-              ) : null}
-            </div>
-          )}
+          <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink">
+            Explore <ArrowUpRight size={15} />
+          </span>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }
