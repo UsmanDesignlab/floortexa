@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
-import { Button } from "../components/ui/Button";
+import { ArrowUpRight, Layers, MapPin, Ruler } from "lucide-react";
 import { sampleImages } from "../data/sampleImages";
+import { mediaUrl } from "../lib/api";
+import { useResourceList } from "../hooks/useResourceList";
 
 const stats = [
   { value: "15+", label: "years fitting floors across London & Essex" },
@@ -34,23 +35,13 @@ const principles = [
   },
 ];
 
-const stackCards = [
-  {
-    title: "Carpet & stair runners",
-    copy: "Bespoke runners, rods, and full-room carpet fitted with care.",
-  },
-  {
-    title: "LVT & vinyl",
-    copy: "Waterproof wood-look planks for kitchens, halls, and busy rooms.",
-  },
-  {
-    title: "Wood & laminate",
-    copy: "Engineered oak, herringbone, and durable click systems.",
-  },
-];
-
 export default function AboutPage() {
   const [slide, setSlide] = useState(0);
+  const { items: projects, loading: projectsLoading } = useResourceList("projects", {
+    limit: 3,
+    sort: "created_at",
+    direction: "desc",
+  });
 
   useEffect(() => {
     if (sampleImages.length < 2) return undefined;
@@ -90,7 +81,7 @@ export default function AboutPage() {
 
       {/* Stats cards strip */}
       <section className="px-[5%] pb-16 max-[640px]:px-[4%] lg:px-16">
-        <div className="overflow-hidden rounded-[22px] border border-line bg-white">
+        <div className="overflow-hidden rounded-lg border border-line bg-white">
           <div className="grid divide-y divide-line sm:grid-cols-2 sm:divide-x lg:grid-cols-4 lg:divide-y-0">
             {stats.map((stat) => (
               <div key={stat.value} className="px-7 py-8 sm:px-8 sm:py-10">
@@ -145,7 +136,7 @@ export default function AboutPage() {
         <h2 className="mb-10 max-w-xl font-display text-[clamp(30px,4vw,46px)] font-medium leading-[1.1] tracking-tight">
           Four ideas we keep coming back to
         </h2>
-        <div className="overflow-hidden rounded-[22px] border border-line bg-white">
+        <div className="overflow-hidden rounded-lg border border-line bg-white">
           <div className="grid md:grid-cols-2">
             {principles.map((item, index) => (
               <article
@@ -165,60 +156,72 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Stacked cards — cards behind, big CTA card on top */}
-      <section className="relative px-[5%] pt-10 pb-24 max-[640px]:px-[4%] sm:pt-14 sm:pb-32 lg:px-16">
-        <p className="mb-4 flex items-center gap-3 text-[11px] font-bold tracking-[0.18em] text-brand-mid uppercase">
-          <span className="h-px w-7 bg-brand" aria-hidden="true" />
-          What we fit
-        </p>
-        <h2 className="mb-10 max-w-xl font-display text-[clamp(30px,4vw,46px)] font-medium leading-[1.1] tracking-tight">
-          Every floor, every finish
-        </h2>
-
-        {/* Back row of cards */}
-        <div className="grid gap-4 sm:grid-cols-3 sm:gap-5">
-          {stackCards.map((card, index) => (
-            <article
-              key={card.title}
-              className="overflow-hidden rounded-md border border-line bg-white shadow-[0_12px_30px_rgba(27,25,23,0.06)]"
-            >
-              <div className="aspect-[16/10] overflow-hidden bg-sand">
-                <img
-                  key={sampleImages[(slide + index) % sampleImages.length]}
-                  src={sampleImages[(slide + index) % sampleImages.length]}
-                  alt=""
-                  className="h-full w-full object-cover [animation:heroFade_0.7s_ease_both]"
-                  loading="lazy"
-                />
-              </div>
-              <div className="p-5 sm:p-6">
-                <h3 className="font-display text-[18px] font-semibold tracking-tight">{card.title}</h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-muted">{card.copy}</p>
-              </div>
-            </article>
-          ))}
+      {/* Projects — same style as project detail "Other projects" */}
+      <section className="border-t border-line px-[5%] py-16 max-[640px]:px-[4%] sm:py-24 lg:px-16">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="mb-4 flex items-center gap-3 text-[11px] font-bold tracking-[0.18em] text-brand-mid uppercase">
+              <span className="h-px w-7 bg-brand" aria-hidden="true" />
+              Projects
+            </p>
+            <h2 className="font-display text-[clamp(28px,3.4vw,42px)] font-medium tracking-tight text-ink">
+              Recent projects
+            </h2>
+          </div>
+          <Link
+            to="/projects"
+            className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-ink transition hover:gap-2"
+          >
+            See all projects <ArrowUpRight size={16} />
+          </Link>
         </div>
 
-        {/* Overlapping front card */}
-        <div className="relative z-[1] -mt-10 sm:-mt-14 md:-mt-16">
-          <div className="mx-auto max-w-4xl rounded-lg border border-line bg-white px-7 py-10 shadow-[0_28px_60px_rgba(27,25,23,0.14)] sm:px-12 sm:py-12">
-            <h2 className="max-w-2xl font-display text-[clamp(28px,4vw,44px)] font-medium leading-[1.12] tracking-tight">
-              Ready to transform your floors?
-            </h2>
-            <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-muted">
-              Book a free home survey — we&apos;ll measure up, advise on materials, and give you a
-              clear, itemised quote.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button as={Link} to="/contact" className="!rounded-md !px-6">
-                Contact us
-                <ArrowRight size={16} />
-              </Button>
-              <Button as={Link} to="/projects" variant="outline" className="!rounded-md !px-6">
-                View projects
-              </Button>
-            </div>
-          </div>
+        {projectsLoading ? <p className="text-sm text-muted">Loading projects…</p> : null}
+        {!projectsLoading && projects.length === 0 ? (
+          <p className="text-sm text-muted">No projects yet.</p>
+        ) : null}
+
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
+          {projects.map((item) => {
+            const thumb = item.after_image || item.before_image;
+            return (
+              <Link key={item.id} to={`/projects/${item.id}`} className="group block">
+                <div className="overflow-hidden rounded-xl bg-sand">
+                  <div className="aspect-[16/11] overflow-hidden">
+                    {thumb ? (
+                      <img
+                        src={mediaUrl(thumb)}
+                        alt={item.title}
+                        className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-line" />
+                    )}
+                  </div>
+                </div>
+                <h3 className="mt-5 font-display text-[20px] font-medium leading-snug tracking-tight text-ink sm:text-[22px]">
+                  {item.title}
+                </h3>
+                <p className="mt-2 inline-flex items-center gap-1.5 text-[13px] text-muted">
+                  <MapPin size={13} />
+                  {item.location || "London & Essex"}
+                </p>
+                <ul className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-ink/70">
+                  {item.category_title ? (
+                    <li className="inline-flex items-center gap-1.5">
+                      <Layers size={13} className="opacity-70" />
+                      {item.category_title}
+                    </li>
+                  ) : null}
+                  <li className="inline-flex items-center gap-1.5">
+                    <Ruler size={13} className="opacity-70" />
+                    Supply &amp; fit
+                  </li>
+                </ul>
+              </Link>
+            );
+          })}
         </div>
       </section>
     </main>
