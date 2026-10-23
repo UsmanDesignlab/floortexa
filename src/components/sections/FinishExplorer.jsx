@@ -41,7 +41,6 @@ export function FinishExplorer() {
   });
   const [active, setActive] = useState(0);
   const [drawerId, setDrawerId] = useState(null);
-  const [slide, setSlide] = useState(0);
 
   const zones = useMemo(() => items.map(mapProduct), [items]);
 
@@ -49,25 +48,11 @@ export function FinishExplorer() {
     if (active >= zones.length) setActive(0);
   }, [active, zones.length]);
 
-  useEffect(() => {
-    if (sampleImages.length < 2) return undefined;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return undefined;
-    const timer = window.setInterval(() => {
-      setSlide((current) => (current + 1) % sampleImages.length);
-    }, 3200);
-    return () => window.clearInterval(timer);
-  }, []);
-
   function openProduct(index) {
     const zone = zones[index];
     if (!zone) return;
     setActive(index);
     setDrawerId(zone.id);
-  }
-
-  function cardImage(index) {
-    return sampleImages[(slide + index) % sampleImages.length];
   }
 
   return (
@@ -117,12 +102,11 @@ export function FinishExplorer() {
                     aria-label={`Open ${item.name}`}
                   >
                     <img
-                      key={cardImage(index)}
-                      src={cardImage(index)}
+                      src={item.image}
                       alt=""
                       aria-hidden
                       loading="lazy"
-                      className="absolute inset-0 h-full w-full object-cover object-center [animation:heroFade_0.7s_ease_both]"
+                      className="absolute inset-0 h-full w-full object-cover object-center"
                     />
                     <span className="absolute inset-0 bg-gradient-to-t from-[rgba(27,25,23,0.82)] via-[rgba(27,25,23,0.15)] to-transparent" />
                     <span className="relative z-[1] rounded-sm bg-[rgba(12,25,19,0.7)] px-2.5 py-1 text-[10px] font-bold tracking-[0.06em] text-white uppercase backdrop-blur-sm">
