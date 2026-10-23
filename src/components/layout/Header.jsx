@@ -11,7 +11,6 @@ const navLinks = [
   { label: "Categories", to: "/categories" },
   { label: "Projects", to: "/projects" },
   { label: "Blogs", to: "/blogs" },
-  { label: "Contact", to: "/contact" },
 ];
 
 export function Header() {
@@ -76,31 +75,40 @@ export function Header() {
       </div>
 
       {menuOpen ? (
-        <div className="fixed inset-x-0 top-[72px] bottom-0 z-40 bg-ink sm:top-[92px] max-[980px]:block min-[981px]:hidden">
+        <div className="fixed inset-x-0 top-[72px] bottom-0 z-40 flex flex-col bg-ink sm:top-[92px] max-[980px]:flex min-[981px]:hidden">
           <nav
-            className="flex h-full flex-col gap-1 overflow-y-auto overscroll-contain px-5 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto overscroll-contain px-5 py-6 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             aria-label="Mobile navigation"
           >
             {navLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                end={link.end}
-                onClick={() => setMenuOpen(false)}
-                className={({ isActive }) =>
-                  cn(
-                    "flex items-center justify-between border-b border-white/10 py-4 text-[18px] transition",
-                    isActive
-                      ? "font-bold text-white"
-                      : "font-semibold text-white/60 hover:text-white",
-                  )
-                }
-              >
-                {link.label}
-                <ArrowUpRight size={16} className="opacity-70" />
-              </NavLink>
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  end={link.end}
+                  onClick={() => setMenuOpen(false)}
+                  className={({ isActive }) =>
+                    cn(
+                      "flex items-center justify-between border-b border-white/10 py-4 text-[18px] transition",
+                      isActive
+                        ? "font-bold text-white"
+                        : "font-semibold text-white/60 hover:text-white",
+                    )
+                  }
+                >
+                  {link.label}
+                  <ArrowUpRight size={16} className="opacity-70" />
+                </NavLink>
             ))}
           </nav>
+          <div className="shrink-0 border-t border-white/10 px-5 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+            <Link
+              to="/contact"
+              onClick={() => setMenuOpen(false)}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-md border-0 bg-white px-5 py-3.5 text-[15px] font-semibold text-ink transition hover:bg-white/90"
+            >
+              <Mail size={16} /> Contact
+            </Link>
+          </div>
         </div>
       ) : null}
     </header>
