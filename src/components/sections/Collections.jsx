@@ -18,7 +18,7 @@ function mapCategory(category, index) {
   const copy = stripHtml(category.description);
   return {
     id: category.id,
-    tag: `COLLECTION ${String(index + 1).padStart(2, "0")}`,
+            tag: `CATEGORY ${String(index + 1).padStart(2, "0")}`,
     name: category.title || "Collection",
     price: "Ask showroom",
     copy: copy.slice(0, 140) || "Explore this Floortex material family in the catalog.",
@@ -74,11 +74,11 @@ export function Collections() {
   return (
     <section id="collections" className={cn(reveal, "border-t border-line bg-[#e8e8e8] pt-[72px] pb-12")}>
       <div className="mx-auto mb-10 max-w-[720px] px-[5%] text-center">
-        <Pill className="bg-[#e4eee6] text-[#3f5c48]">RESIDENCES · ARCHITECTURAL PORTFOLIO</Pill>
+        <Pill className="bg-[#e4eee6] text-[#3f5c48]">CATEGORIES</Pill>
         <h2 className="my-3.5 font-display text-[clamp(34px,4.8vw,56px)] font-medium leading-[1.08] tracking-[-0.04em]">
-          Residential Flooring
+          Flooring
           <br />
-          Collections
+          Categories
         </h2>
         <p className="mx-auto m-0 max-w-[560px] text-[17px] leading-[1.65] text-muted">
           Explore Floortex flooring from the catalog — carpet, LVT, laminate, vinyl, engineered wood,
@@ -96,7 +96,7 @@ export function Collections() {
         <div
           ref={scrollerRef}
           className="flex gap-5 overflow-x-auto px-[5%] pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          aria-label="Residential flooring collections"
+          aria-label="Flooring categories"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onFocusCapture={() => setPaused(true)}
