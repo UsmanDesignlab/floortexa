@@ -8,8 +8,8 @@ const variants = {
 };
 
 const sizes = {
-  md: "rounded-xl px-5 py-3.5 text-[15px]",
-  sm: "rounded-lg px-4 py-[11px] text-sm",
+  md: "rounded-md px-5 py-3.5 text-[15px]",
+  sm: "rounded-md px-4 py-[11px] text-sm",
 };
 
 /**
