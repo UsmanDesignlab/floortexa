@@ -46,7 +46,7 @@ export function Features() {
         <article
           className={cn(
             revealChild,
-            "row-span-2 flex min-h-[560px] flex-col overflow-hidden rounded-lg bg-brand p-0 text-white shadow-[0_18px_40px_rgba(28,28,24,0.04)]",
+            "row-span-2 flex min-h-[560px] flex-col overflow-hidden rounded-lg border border-line bg-white p-0 text-ink shadow-[0_18px_40px_rgba(28,28,24,0.04)]",
             "max-[1100px]:col-span-2 max-[1100px]:row-auto max-[1100px]:min-h-[480px] max-[980px]:col-auto",
           )}
         >
@@ -54,7 +54,7 @@ export function Features() {
             <h3 className="mb-3 font-display text-[clamp(26px,2.6vw,34px)] font-semibold leading-[1.15] tracking-[-0.03em]">
               From sample board to fitted floor
             </h3>
-            <p className="m-0 leading-relaxed text-white/70">
+            <p className="m-0 leading-relaxed text-muted">
               Compare real materials in your light, book a free home measure, then let our Essex
               fitters handle supply, prep, and a clean finish — stair runners included.
             </p>

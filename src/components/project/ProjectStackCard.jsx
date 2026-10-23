@@ -32,7 +32,7 @@ export function ProjectStackCard({ project, index = 0 }) {
       )}
     >
       <Link to={`/projects/${project.id}`} className="group flex flex-col gap-6">
-        <div className="aspect-[3/2] w-full overflow-hidden bg-white/5">
+        <div className="aspect-[3/2] w-full overflow-hidden rounded-xl bg-sand">
           {image ? (
             <img
               src={mediaUrl(image)}
@@ -41,19 +41,19 @@ export function ProjectStackCard({ project, index = 0 }) {
               loading="lazy"
             />
           ) : (
-            <div className="h-full w-full bg-white/10" />
+            <div className="h-full w-full bg-line" />
           )}
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <h2 className="font-display text-[clamp(20px,1.7vw,24px)] font-medium leading-[1.25] tracking-tight text-white">
+          <h2 className="font-display text-[clamp(20px,1.7vw,24px)] font-medium leading-[1.25] tracking-tight text-ink">
             {project.title}
           </h2>
-          <p className="inline-flex items-center gap-1.5 text-[14px] text-white/55">
+          <p className="inline-flex items-center gap-1.5 text-[14px] text-muted">
             <MapPin size={14} className="shrink-0 opacity-80" />
             {project.location || "London & Essex"}
           </p>
-          <ul className="mt-1 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-white/70">
+          <ul className="mt-1 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-ink/70">
             {project.category_title ? (
               <li className="inline-flex items-center gap-2">
                 <Layers size={14} className="opacity-70" />
