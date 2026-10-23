@@ -1,53 +1,76 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, MapPin } from "lucide-react";
+import { ArrowUpRight, Layers, MapPin, Ruler } from "lucide-react";
 import { mediaUrl } from "../../lib/api";
 import { cn } from "../../lib/cn";
 
-export function ProjectStackCard({ project, active = false }) {
+export function ProjectStackCard({ project }) {
   const image = project.after_image || project.before_image;
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) setVisible(true);
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="relative h-[100svh] snap-start snap-always">
-      <div className="sticky top-0 flex h-[100svh] items-end overflow-hidden bg-ink">
-        {image ? (
-          <img
-            src={mediaUrl(image)}
-            alt={project.title}
-            className={cn(
-              "absolute inset-0 h-full w-full object-cover transition duration-700 ease-out",
-              active ? "scale-100 opacity-100" : "scale-105 opacity-80",
+    <article
+      ref={ref}
+      className={cn(
+        "transition duration-700 ease-out",
+        visible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0",
+      )}
+    >
+      <Link to={`/projects/${project.id}`} className="group block">
+        <div className="relative overflow-hidden rounded-[22px] bg-white/5">
+          <div className="aspect-[16/10] w-full overflow-hidden sm:aspect-[16/9]">
+            {image ? (
+              <img
+                src={mediaUrl(image)}
+                alt={project.title}
+                className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
+                loading="lazy"
+              />
+            ) : (
+              <div className="h-full w-full bg-white/10" />
             )}
-            loading="lazy"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-ink" />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/20" />
-
-        <div className="relative z-[1] flex w-full flex-col justify-end gap-6 px-[5%] pb-10 pt-28 max-[640px]:px-[4%] sm:flex-row sm:items-end sm:justify-between sm:pb-14">
-          <div className="max-w-xl text-white">
-            <p className="mb-2 inline-flex items-center gap-1.5 text-[13px] text-white/75">
-              <MapPin size={14} />
-              {project.location || "Essex · London"}
-            </p>
-            <h2 className="font-display text-[clamp(28px,4.5vw,48px)] font-semibold leading-[1.08] tracking-tight">
-              {project.title}
-            </h2>
-            <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-white/80">
-              {project.category_title ? <li>{project.category_title}</li> : null}
-              <li>Supply &amp; fit</li>
-              <li>Professional install</li>
-            </ul>
           </div>
-
-          <Link
-            to={`/projects/${project.id}`}
-            className="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-white/25 bg-black/45 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-md transition hover:border-white/50 hover:bg-black/60 sm:self-auto"
-          >
-            Explore <ArrowUpRight size={16} />
-          </Link>
+          <span className="absolute right-4 bottom-4 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/50 px-4 py-2 text-sm font-semibold text-white backdrop-blur-md transition group-hover:border-white/40 group-hover:bg-black/65 sm:right-5 sm:bottom-5">
+            Explore <ArrowUpRight size={15} />
+          </span>
         </div>
-      </div>
-    </section>
+
+        <div className="mt-6 px-0.5 sm:mt-7">
+          <h2 className="font-display text-[clamp(26px,3.2vw,40px)] font-medium leading-[1.1] tracking-tight text-white">
+            {project.title}
+          </h2>
+          <p className="mt-2.5 inline-flex items-center gap-1.5 text-[14px] text-white/55">
+            <MapPin size={14} />
+            {project.location || "London & Essex"}
+          </p>
+          <ul className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] text-white/70">
+            {project.category_title ? (
+              <li className="inline-flex items-center gap-2">
+                <Layers size={14} className="opacity-70" />
+                {project.category_title}
+              </li>
+            ) : null}
+            <li className="inline-flex items-center gap-2">
+              <Ruler size={14} className="opacity-70" />
+              Supply &amp; fit
+            </li>
+          </ul>
+        </div>
+      </Link>
+    </article>
   );
 }
