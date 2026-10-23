@@ -5,7 +5,6 @@ import { collections } from "../../data/content";
 
 export function Footer({ onContact }) {
   const [email, setEmail] = useState("");
-  const [ok, setOk] = useState(false);
 
   return (
     <footer className="bg-ink px-[5%] pt-16 pb-7 text-white/85 max-[640px]:px-[4%]">
@@ -26,7 +25,9 @@ export function Footer({ onContact }) {
             className="flex gap-2"
             onSubmit={(event) => {
               event.preventDefault();
-              if (email) setOk(true);
+              const value = email.trim();
+              if (!value) return;
+              onContact?.(value);
             }}
           >
             <input
@@ -42,7 +43,6 @@ export function Footer({ onContact }) {
               Join
             </button>
           </form>
-          {ok ? <span className="mt-2.5 inline-block text-[13px] text-[#f2b78f]">You’re on the list.</span> : null}
         </div>
       </div>
 
@@ -50,10 +50,11 @@ export function Footer({ onContact }) {
         <nav>
           <h4 className="mb-3.5 text-xs tracking-[0.1em] text-white/45 uppercase">Navigation</h4>
           {[
+            ["Home", "/"],
+            ["About Us", "/about"],
             ["Categories", "/categories"],
             ["Projects", "/projects"],
             ["Blogs", "/blogs"],
-            ["About Us", "/about"],
           ].map(([label, href]) => (
             <Link key={label} to={href} className="mb-2 block text-sm text-white/80 hover:text-white">
               {label}
@@ -61,7 +62,7 @@ export function Footer({ onContact }) {
           ))}
           <button
             type="button"
-            onClick={onContact}
+            onClick={() => onContact?.()}
             className="mb-2 block text-left text-sm text-white/80 hover:text-white"
           >
             Contact Us

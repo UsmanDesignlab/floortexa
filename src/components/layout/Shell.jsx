@@ -9,7 +9,8 @@ export function Shell() {
   const [contactEmail, setContactEmail] = useState("");
 
   const openContact = useCallback((email = "") => {
-    setContactEmail(typeof email === "string" ? email : "");
+    const value = typeof email === "string" ? email.trim() : "";
+    setContactEmail(value);
     setContactOpen(true);
   }, []);
 

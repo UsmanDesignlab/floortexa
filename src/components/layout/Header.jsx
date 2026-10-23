@@ -6,10 +6,11 @@ import { useScrolled } from "../../hooks/useScrolled";
 import { cn } from "../../lib/cn";
 
 const navLinks = [
+  { label: "Home", to: "/", end: true },
+  { label: "About Us", to: "/about" },
   { label: "Categories", to: "/categories" },
   { label: "Projects", to: "/projects" },
   { label: "Blogs", to: "/blogs" },
-  { label: "About Us", to: "/about" },
 ];
 
 export function Header({ onContact }) {
@@ -33,6 +34,7 @@ export function Header({ onContact }) {
           <NavLink
             key={link.to}
             to={link.to}
+            end={link.end}
             className={({ isActive }) =>
               cn(
                 "text-xs uppercase tracking-[0.14em] transition",
@@ -48,7 +50,7 @@ export function Header({ onContact }) {
       </nav>
       <button
         type="button"
-        className="inline-flex justify-self-end items-center justify-center gap-2 rounded-lg border-0 bg-ink px-5 py-3 text-[15px] font-semibold tracking-[0.02em] text-white transition duration-300 hover:bg-black max-[980px]:hidden"
+        className="inline-flex justify-self-end items-center justify-center gap-2 rounded-md border-0 bg-ink px-5 py-3 text-[15px] font-semibold tracking-[0.02em] text-white transition duration-300 hover:bg-black max-[980px]:hidden"
         onClick={onContact}
       >
         <Mail size={16} /> Contact
@@ -70,6 +72,7 @@ export function Header({ onContact }) {
             <NavLink
               key={link.to}
               to={link.to}
+              end={link.end}
               onClick={() => setMenuOpen(false)}
               className={({ isActive }) =>
                 cn(
@@ -86,7 +89,7 @@ export function Header({ onContact }) {
           ))}
           <button
             type="button"
-            className="mt-1 inline-flex w-full items-center justify-center gap-2 rounded-lg border-0 bg-white px-5 py-3.5 text-[15px] font-semibold text-ink transition hover:bg-white/90"
+            className="mt-1 inline-flex w-full items-center justify-center gap-2 rounded-md border-0 bg-white px-5 py-3.5 text-[15px] font-semibold text-ink transition hover:bg-white/90"
             onClick={() => {
               setMenuOpen(false);
               onContact();

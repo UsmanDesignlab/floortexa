@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Mail, Search, X } from "lucide-react";
 import { Button } from "../ui/Button";
 import { submitContact } from "../../lib/api";
@@ -12,11 +12,12 @@ function RequiredMark() {
   return <span className="text-red-600"> *</span>;
 }
 
-export function ContactDialog({ open, onClose }) {
+export function ContactDialog({ open, onClose, initialEmail = "" }) {
   const dialogRef = useRef(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [ok, setOk] = useState(false);
+  const [email, setEmail] = useState("");
   const [categoryQuery, setCategoryQuery] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [categoryOpen, setCategoryOpen] = useState(false);
@@ -35,18 +36,23 @@ export function ContactDialog({ open, onClose }) {
 
   const selectedCategory = categories.find((item) => item.id === categoryId);
 
+  useLayoutEffect(() => {
+    if (open) setEmail(String(initialEmail || "").trim());
+  }, [open, initialEmail]);
+
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
-    if (open && !dialog.open) {
+    if (open) {
       setError("");
       setOk(false);
       setCategoryQuery("");
       setCategoryId("");
       setCategoryOpen(false);
-      dialog.showModal();
+      if (!dialog.open) dialog.showModal();
+    } else if (dialog.open) {
+      dialog.close();
     }
-    if (!open && dialog.open) dialog.close();
   }, [open]);
 
   const onSubmit = async (event) => {
@@ -59,7 +65,7 @@ export function ContactDialog({ open, onClose }) {
     try {
       await submitContact({
         full_name: String(form.get("name") || ""),
-        email: String(form.get("email") || ""),
+        email: String(form.get("email") || email || ""),
         phone: String(form.get("phone") || ""),
         category_id: categoryId || null,
         details: String(form.get("details") || "").trim() || "Contact enquiry",
@@ -67,6 +73,7 @@ export function ContactDialog({ open, onClose }) {
       });
       setOk(true);
       formEl.reset();
+      setEmail("");
       setCategoryQuery("");
       setCategoryId("");
     } catch (err) {
@@ -133,6 +140,8 @@ export function ContactDialog({ open, onClose }) {
                 type="email"
                 autoComplete="email"
                 required
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
                 placeholder="you@example.com"
                 className={fieldClass}
               />
