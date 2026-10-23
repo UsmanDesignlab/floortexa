@@ -7,14 +7,14 @@ export function Brand({ light = false, mono = false, className }) {
     <Link
       aria-label="Floortexa home"
       to="/"
-      className={cn("inline-flex items-center gap-1.5 text-inherit sm:gap-2", className)}
+      className={cn("inline-flex items-center gap-0.5 text-inherit", className)}
     >
       <img
-        src="/logo.png"
+        src="/logo.png?v=6"
         alt=""
         aria-hidden="true"
         className={cn(
-          "h-9 w-auto object-contain sm:h-10",
+          "h-9 w-auto object-contain object-left sm:h-10",
           light && "brightness-0 invert",
           mono && "opacity-100",
         )}
