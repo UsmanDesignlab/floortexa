@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { AnimatedTitle } from "../components/ui/AnimatedTitle";
 import { Button } from "../components/ui/Button";
@@ -38,7 +38,6 @@ const principles = [
 ];
 
 export default function AboutPage() {
-  const { openContact } = useOutletContext();
   const [slide, setSlide] = useState(0);
   const { items: projects, loading: projectsLoading } = useResourceList("projects", {
     limit: 3,
@@ -163,7 +162,7 @@ export default function AboutPage() {
             </h2>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <Button type="button" onClick={openContact} className="!rounded-md !px-5 !py-2.5 !text-sm">
+            <Button as={Link} to="/contact" className="!rounded-md !px-5 !py-2.5 !text-sm">
               Contact us
             </Button>
             <Button

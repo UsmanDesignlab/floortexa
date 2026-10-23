@@ -1,3 +1,5 @@
+import { trackPromise } from "./loadingStore";
+
 /**
  * In local dev, leave VITE_API_BASE_URL empty so requests go to the Vite
  * origin (/api/...) and get proxied to Floortexa admin (usually :3001).
@@ -40,22 +42,34 @@ export async function listResource(resource, params = {}) {
     if (value !== undefined && value !== null && value !== "") search.set(key, String(value));
   });
   const query = search.toString();
-  const response = await fetch(
-    `${API_BASE}/api/storefront/${resource}${query ? `?${query}` : ""}`,
+  return trackPromise(
+    (async () => {
+      const response = await fetch(
+        `${API_BASE}/api/storefront/${resource}${query ? `?${query}` : ""}`,
+      );
+      return parseJson(response);
+    })(),
   );
-  return parseJson(response);
 }
 
 export async function getResource(resource, id) {
-  const response = await fetch(`${API_BASE}/api/storefront/${resource}/${id}`);
-  return parseJson(response);
+  return trackPromise(
+    (async () => {
+      const response = await fetch(`${API_BASE}/api/storefront/${resource}/${id}`);
+      return parseJson(response);
+    })(),
+  );
 }
 
 export async function submitContact(payload) {
-  const response = await fetch(`${API_BASE}/api/storefront/contact`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  return parseJson(response);
+  return trackPromise(
+    (async () => {
+      const response = await fetch(`${API_BASE}/api/storefront/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      return parseJson(response);
+    })(),
+  );
 }

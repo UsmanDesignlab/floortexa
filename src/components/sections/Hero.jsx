@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Calendar } from "lucide-react";
 import { Button } from "../ui/Button";
 import { carouselImages } from "../../carouselImages";
 
 export function Hero() {
-  const { openContact } = useOutletContext();
   const slides = carouselImages;
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -43,8 +42,8 @@ export function Hero() {
           honest samples and a tidy finish. Your perfect floor is just a visit away.
         </p>
         <Button
-          type="button"
-          onClick={openContact}
+          as={Link}
+          to="/contact"
           className="!rounded-md !px-8 !py-4 !text-base !shadow-none"
         >
           <Calendar size={18} /> Book today

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { ArrowUpRight, Mail, Menu, X } from "lucide-react";
 import { Brand } from "../ui/Brand";
 import { useScrolled } from "../../hooks/useScrolled";
@@ -13,7 +13,7 @@ const navLinks = [
   { label: "Blogs", to: "/blogs" },
 ];
 
-export function Header({ onContact }) {
+export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const scrolled = useScrolled(40);
 
@@ -48,13 +48,12 @@ export function Header({ onContact }) {
           </NavLink>
         ))}
       </nav>
-      <button
-        type="button"
+      <Link
+        to="/contact"
         className="inline-flex justify-self-end items-center justify-center gap-2 rounded-md border-0 bg-ink px-5 py-3 text-[15px] font-semibold tracking-[0.02em] text-white transition duration-300 hover:bg-black max-[980px]:hidden"
-        onClick={onContact}
       >
         <Mail size={16} /> Contact
-      </button>
+      </Link>
       <button
         type="button"
         className="hidden h-11 w-11 place-items-center rounded-lg border border-black/10 bg-white text-ink max-[980px]:grid"
@@ -87,16 +86,13 @@ export function Header({ onContact }) {
               <ArrowUpRight size={16} />
             </NavLink>
           ))}
-          <button
-            type="button"
+          <Link
+            to="/contact"
+            onClick={() => setMenuOpen(false)}
             className="mt-1 inline-flex w-full items-center justify-center gap-2 rounded-md border-0 bg-white px-5 py-3.5 text-[15px] font-semibold text-ink transition hover:bg-white/90"
-            onClick={() => {
-              setMenuOpen(false);
-              onContact();
-            }}
           >
             <Mail size={16} /> Contact
-          </button>
+          </Link>
         </nav>
       ) : null}
     </header>

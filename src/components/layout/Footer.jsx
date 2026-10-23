@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Brand } from "../ui/Brand";
 import { collections } from "../../data/content";
+import { siteContact } from "../../data/siteContact";
 
-export function Footer({ onContact }) {
+export function Footer() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
 
   return (
@@ -12,8 +14,8 @@ export function Footer({ onContact }) {
         <div>
           <Brand light />
           <p className="mt-4 max-w-[380px] leading-relaxed text-white/60">
-            A modern flooring discovery studio. Bridging pure material transparency with
-            high-performing install standards.
+            Premium flooring installation across London and Essex — carpet, LVT, laminate,
+            herringbone, and stair runners fitted with craft and honest advice.
           </p>
         </div>
         <div>
@@ -27,7 +29,7 @@ export function Footer({ onContact }) {
               event.preventDefault();
               const value = email.trim();
               if (!value) return;
-              onContact?.(value);
+              navigate(`/contact?email=${encodeURIComponent(value)}`);
             }}
           >
             <input
@@ -55,18 +57,12 @@ export function Footer({ onContact }) {
             ["Categories", "/categories"],
             ["Projects", "/projects"],
             ["Blogs", "/blogs"],
+            ["Contact Us", "/contact"],
           ].map(([label, href]) => (
             <Link key={label} to={href} className="mb-2 block text-sm text-white/80 hover:text-white">
               {label}
             </Link>
           ))}
-          <button
-            type="button"
-            onClick={() => onContact?.()}
-            className="mb-2 block text-left text-sm text-white/80 hover:text-white"
-          >
-            Contact Us
-          </button>
         </nav>
         <nav>
           <h4 className="mb-3.5 text-xs tracking-[0.1em] text-white/45 uppercase">Collections</h4>
@@ -77,12 +73,15 @@ export function Footer({ onContact }) {
           ))}
         </nav>
         <div>
-          <h4 className="mb-3.5 text-xs tracking-[0.1em] text-white/45 uppercase">Sales Pavilion</h4>
-          {["12 Oakridge Way", "Daily: 10:00 AM – 6:00 PM", "(555) 890-4410"].map((line) => (
-            <p key={line} className="mb-2 text-sm text-white/80">
-              {line}
-            </p>
-          ))}
+          <h4 className="mb-3.5 text-xs tracking-[0.1em] text-white/45 uppercase">Showroom</h4>
+          <p className="mb-2 text-sm text-white/80">{siteContact.address}</p>
+          <p className="mb-2 text-sm text-white/80">{siteContact.hours}</p>
+          <a href={siteContact.phoneHref} className="mb-2 block text-sm text-white/80 hover:text-white">
+            {siteContact.phone}
+          </a>
+          <a href={siteContact.emailHref} className="mb-2 block text-sm text-white/80 hover:text-white">
+            {siteContact.email}
+          </a>
         </div>
         <div>
           <h4 className="mb-3.5 text-xs tracking-[0.1em] text-white/45 uppercase">Studio Standards</h4>
@@ -100,7 +99,7 @@ export function Footer({ onContact }) {
       </div>
 
       <div className="flex justify-between gap-4 border-t border-white/10 pt-[18px] text-[13px] text-white/45 max-[980px]:flex-col">
-        <span>© {new Date().getFullYear()} Floortex. All rights reserved.</span>
+        <span>© {new Date().getFullYear()} Floortexa Ltd. All rights reserved.</span>
         <span>Privacy Policy · Terms of Service</span>
       </div>
     </footer>

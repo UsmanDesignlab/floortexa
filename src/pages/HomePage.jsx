@@ -1,4 +1,3 @@
-import { useOutletContext } from "react-router-dom";
 import {
   Collections,
   FAQ,
@@ -14,7 +13,6 @@ import { useResourceList } from "../hooks/useResourceList";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
 export default function HomePage() {
-  const { openContact } = useOutletContext();
   const { items: blogs, loading: blogsLoading } = useResourceList("blogs", {
     limit: 6,
     sort: "created_at",
@@ -32,7 +30,7 @@ export default function HomePage() {
       <Reviews />
       <BlogCarousel blogs={blogs} loading={blogsLoading} />
       <FAQ />
-      <VisitCTA onContact={openContact} />
+      <VisitCTA />
     </main>
   );
 }

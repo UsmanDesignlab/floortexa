@@ -93,3 +93,21 @@
     transform: scale(1);
   }
 }
+
+@keyframes loaderInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes loaderInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

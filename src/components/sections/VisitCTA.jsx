@@ -1,11 +1,13 @@
+import { Link } from "react-router-dom";
 import { Check } from "lucide-react";
 import { Button } from "../ui/Button";
 import { Pill } from "../ui/Pill";
 import { photos } from "../../data/content";
+import { siteContact } from "../../data/siteContact";
 import { reveal } from "../../lib/classes";
 import { cn } from "../../lib/cn";
 
-export function VisitCTA({ onContact }) {
+export function VisitCTA() {
   return (
     <section
       id="contact"
@@ -15,11 +17,13 @@ export function VisitCTA({ onContact }) {
       )}
     >
       <div className="relative min-h-[520px] overflow-hidden rounded-lg">
-        <img src={photos.visit} alt="Floortex Essex showroom" className="h-full w-full object-cover" />
+        <img src={photos.visit} alt="Floortexa Essex showroom" className="h-full w-full object-cover" />
         <div className="absolute bottom-[18px] left-[18px] max-w-[280px] rounded-lg bg-white/95 px-4 py-3.5">
           <strong className="mb-1 block text-xs tracking-[0.1em] text-brand uppercase">Private Showing</strong>
-          <span className="mb-1 block font-display text-lg font-semibold">Experience Floortex in Person</span>
-          <small className="text-muted">12 Oakridge Way · Daily 10 AM – 6 PM</small>
+          <span className="mb-1 block font-display text-lg font-semibold">Experience Floortexa in Person</span>
+          <small className="text-muted">
+            {siteContact.address} · {siteContact.hours}
+          </small>
         </div>
       </div>
       <div className="flex flex-col justify-center rounded-lg bg-ink px-9 py-[38px] text-white">
@@ -45,11 +49,14 @@ export function VisitCTA({ onContact }) {
           ))}
         </ul>
         <div className="flex flex-wrap items-center gap-4">
-          <Button variant="inverse" className="rounded-lg" onClick={onContact}>
+          <Button as={Link} to="/contact" variant="inverse" className="rounded-lg">
             Contact
           </Button>
           <span>
-            Concierge: <strong>(555) 890-4410</strong>
+            Call:{" "}
+            <a href={siteContact.phoneHref} className="font-semibold text-white underline-offset-2 hover:underline">
+              {siteContact.phone}
+            </a>
           </span>
         </div>
       </div>
