@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
-import { ArrowUpRight, Layers, MapPin, Ruler } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { AnimatedTitle } from "../components/ui/AnimatedTitle";
 import { Button } from "../components/ui/Button";
+import { ProjectStackCard } from "../components/project/ProjectStackCard";
 import { sampleImages } from "../data/sampleImages";
-import { mediaUrl } from "../lib/api";
 import { useResourceList } from "../hooks/useResourceList";
 
 const stats = [
@@ -57,21 +58,15 @@ export default function AboutPage() {
 
   return (
     <main className="bg-canvas text-ink">
-      {/* Hero — Synapse-style light intro */}
-      <section className="relative overflow-hidden px-[5%] pt-32 pb-16 max-[640px]:px-[4%] sm:pt-36 sm:pb-20 lg:px-16">
+      {/* Hero — same title animation as Projects */}
+      <section className="relative overflow-hidden px-[5%] pt-28 pb-16 max-[640px]:px-[4%] max-[640px]:pt-24 sm:pt-32 sm:pb-20 lg:px-16">
         <div className="pointer-events-none absolute top-24 right-[8%] h-[320px] w-[320px] rounded-full bg-sand/80 blur-3xl" />
-        <p className="mb-5 flex items-center gap-3 text-[11px] font-bold tracking-[0.18em] text-brand-mid uppercase">
-          <span className="h-px w-7 bg-brand" aria-hidden="true" />
-          About Floortexa
-        </p>
-        <h1 className="max-w-4xl font-display text-[clamp(40px,6.5vw,72px)] font-medium leading-[1.05] tracking-[-0.035em]">
-          London&apos;s flooring specialists —
-          <span className="text-brand-mid"> fitted with precision and care.</span>
-        </h1>
-        <div className="mt-8 max-w-2xl space-y-5 text-[16px] leading-[1.75] text-muted sm:text-[17px]">
+        <AnimatedTitle text="About Floortexa" />
+        <div className="mt-6 max-w-2xl space-y-5 text-[15px] leading-relaxed text-muted sm:text-[17px]">
           <p>
-            Premium flooring installation across London and Essex — carpet, LVT, herringbone,
-            laminate, and stair runners fitted with craft and honest advice.
+            London&apos;s flooring specialists — fitted with precision and care. Premium flooring
+            installation across London and Essex — carpet, LVT, herringbone, laminate, and stair
+            runners fitted with craft and honest advice.
           </p>
           <p>
             Floortexa Ltd was founded with a single purpose: to bring premium flooring to homes and
@@ -100,8 +95,7 @@ export default function AboutPage() {
       {/* Story + image */}
       <section className="grid items-center gap-10 px-[5%] py-10 max-[640px]:px-[4%] lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-16 lg:py-16">
         <div>
-          <p className="mb-4 flex items-center gap-3 text-[11px] font-bold tracking-[0.18em] text-brand-mid uppercase">
-            <span className="h-px w-7 bg-brand" aria-hidden="true" />
+          <p className="mb-4 text-[11px] font-bold tracking-[0.18em] text-brand-mid uppercase">
             Our story
           </p>
           <h2 className="max-w-xl font-display text-[clamp(30px,4vw,46px)] font-medium leading-[1.1] tracking-tight">
@@ -131,8 +125,7 @@ export default function AboutPage() {
 
       {/* How we work — 2x2 bordered grid */}
       <section className="px-[5%] py-16 max-[640px]:px-[4%] sm:py-20 lg:px-16">
-        <p className="mb-4 flex items-center gap-3 text-[11px] font-bold tracking-[0.18em] text-brand-mid uppercase">
-          <span className="h-px w-7 bg-brand" aria-hidden="true" />
+        <p className="mb-4 text-[11px] font-bold tracking-[0.18em] text-brand-mid uppercase">
           How we work
         </p>
         <h2 className="mb-10 max-w-xl font-display text-[clamp(30px,4vw,46px)] font-medium leading-[1.1] tracking-tight">
@@ -158,12 +151,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Projects — same style as project detail "Other projects" */}
+      {/* Projects — same cards + animation as Projects page */}
       <section className="border-t border-line px-[5%] py-16 max-[640px]:px-[4%] sm:py-24 lg:px-16">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="mb-4 flex items-center gap-3 text-[11px] font-bold tracking-[0.18em] text-brand-mid uppercase">
-              <span className="h-px w-7 bg-brand" aria-hidden="true" />
+            <p className="mb-4 text-[11px] font-bold tracking-[0.18em] text-brand-mid uppercase">
               Projects
             </p>
             <h2 className="font-display text-[clamp(28px,3.4vw,42px)] font-medium tracking-tight text-ink">
@@ -190,47 +182,10 @@ export default function AboutPage() {
           <p className="text-sm text-muted">No projects yet.</p>
         ) : null}
 
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
-          {projects.map((item) => {
-            const thumb = item.after_image || item.before_image;
-            return (
-              <Link key={item.id} to={`/projects/${item.id}`} className="group block">
-                <div className="overflow-hidden rounded-xl bg-sand">
-                  <div className="aspect-[16/11] overflow-hidden">
-                    {thumb ? (
-                      <img
-                        src={mediaUrl(thumb)}
-                        alt={item.title}
-                        className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="h-full w-full bg-line" />
-                    )}
-                  </div>
-                </div>
-                <h3 className="mt-5 font-display text-[20px] font-medium leading-snug tracking-tight text-ink sm:text-[22px]">
-                  {item.title}
-                </h3>
-                <p className="mt-2 inline-flex items-center gap-1.5 text-[13px] text-muted">
-                  <MapPin size={13} />
-                  {item.location || "London & Essex"}
-                </p>
-                <ul className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-ink/70">
-                  {item.category_title ? (
-                    <li className="inline-flex items-center gap-1.5">
-                      <Layers size={13} className="opacity-70" />
-                      {item.category_title}
-                    </li>
-                  ) : null}
-                  <li className="inline-flex items-center gap-1.5">
-                    <Ruler size={13} className="opacity-70" />
-                    Supply &amp; fit
-                  </li>
-                </ul>
-              </Link>
-            );
-          })}
+        <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-[30px]">
+          {projects.map((item, index) => (
+            <ProjectStackCard key={item.id} project={item} index={index} />
+          ))}
         </div>
       </section>
     </main>
