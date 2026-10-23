@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { Pill } from "../ui/Pill";
 import { mediaUrl } from "../../lib/api";
 import { reveal } from "../../lib/classes";
 import { cn } from "../../lib/cn";
@@ -84,10 +85,16 @@ export function BlogCarousel({ blogs, loading = false }) {
 
   return (
     <section className={cn(reveal, "border-t border-line bg-canvas px-[5%] py-[90px] max-[640px]:px-[4%]")}>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <p className="m-0 max-w-xl text-[15px] leading-relaxed text-muted sm:text-[16px]">
-          Practical advice on carpet, LVT, laminate, wood floors, and fitting.
-        </p>
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div className="max-w-xl">
+          <Pill>JOURNAL</Pill>
+          <h2 className="mt-3.5 font-display text-[clamp(34px,4.8vw,56px)] font-medium leading-[1.08] tracking-[-0.04em]">
+            Latest from the studio
+          </h2>
+          <p className="mt-3 m-0 text-[15px] leading-relaxed text-muted sm:text-[17px]">
+            Practical advice on carpet, LVT, laminate, wood floors, and fitting.
+          </p>
+        </div>
         <Link
           to="/blogs"
           className="text-[14px] font-semibold text-ink underline-offset-4 transition hover:underline"
