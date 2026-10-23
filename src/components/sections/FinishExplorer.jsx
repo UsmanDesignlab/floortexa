@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, ZoomIn, ZoomOut } from "lucide-react";
+import { Check } from "lucide-react";
 import { Button } from "../ui/Button";
 import { SectionHead } from "../ui/SectionHead";
 import { ProductDrawer } from "../product/ProductDrawer";
@@ -37,7 +37,6 @@ export function FinishExplorer() {
     direction: "desc",
   });
   const [active, setActive] = useState(0);
-  const [zoom, setZoom] = useState(1);
   const [drawerId, setDrawerId] = useState(null);
 
   const zones = useMemo(() => items.map(mapProduct), [items]);
@@ -87,62 +86,38 @@ export function FinishExplorer() {
             </div>
 
             <div className="min-h-[240px] overflow-hidden rounded-md bg-[#f0e5db] p-3 sm:min-h-[280px] sm:p-4">
-              <div
-                className="origin-top-left transition-transform duration-300"
-                style={{ transform: `scale(${zoom})` }}
-              >
-                <div className="grid grid-cols-[repeat(auto-fill,minmax(132px,148px))] justify-start gap-2.5 sm:grid-cols-[repeat(auto-fill,minmax(140px,158px))] sm:gap-3">
-                  {zones.map((item, index) => (
-                    <button
-                      key={item.id}
-                      type="button"
-                      className={cn(
-                        "relative flex h-[168px] w-full flex-col items-start justify-between overflow-hidden rounded-md border-2 border-white/95 p-2.5 text-left text-white shadow-[0_6px_16px_rgba(22,34,27,0.14)] transition duration-200 sm:h-[190px] sm:p-3",
-                        "touch-manipulation hover:z-[2] hover:border-white hover:shadow-[0_12px_28px_rgba(22,34,27,0.25),0_0_0_3px_#ff6b00]",
-                        active === index &&
-                          "z-[2] border-white shadow-[0_12px_28px_rgba(22,34,27,0.25),0_0_0_3px_#ff6b00]",
-                      )}
-                      style={{
-                        backgroundImage: `linear-gradient(180deg, rgba(27, 25, 23, 0.02) 24%, rgba(27, 25, 23, 0.82) 100%), url("${item.image}")`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                      }}
-                      onClick={() => openProduct(index)}
-                      aria-label={`Open ${item.name}`}
-                    >
-                      <span className="rounded-full bg-[rgba(12,25,19,0.7)] px-2 py-0.5 text-[9px] font-bold tracking-[0.06em] text-white uppercase backdrop-blur-sm">
-                        {item.code}
-                      </span>
-                      <span className="mt-auto block w-full">
-                        <strong className="block text-[13px] leading-snug [text-shadow:0_1px_8px_rgba(0,0,0,0.35)] sm:text-sm">
-                          {item.name}
-                        </strong>
-                        <small className="mt-0.5 block text-[9px] text-white/85 [text-shadow:0_1px_8px_rgba(0,0,0,0.35)]">
-                          {item.type}
-                        </small>
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-3 flex gap-1.5">
-                <button
-                  type="button"
-                  aria-label="Zoom in"
-                  className="grid h-9 w-9 place-items-center rounded-xl border-0 bg-white shadow-[0_8px_18px_rgba(0,0,0,0.08)]"
-                  onClick={() => setZoom((value) => Math.min(1.15, +(value + 0.05).toFixed(2)))}
-                >
-                  <ZoomIn size={15} />
-                </button>
-                <button
-                  type="button"
-                  aria-label="Zoom out"
-                  className="grid h-9 w-9 place-items-center rounded-xl border-0 bg-white shadow-[0_8px_18px_rgba(0,0,0,0.08)]"
-                  onClick={() => setZoom((value) => Math.max(0.9, +(value - 0.05).toFixed(2)))}
-                >
-                  <ZoomOut size={15} />
-                </button>
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(132px,148px))] justify-start gap-2.5 sm:grid-cols-[repeat(auto-fill,minmax(140px,158px))] sm:gap-3">
+                {zones.map((item, index) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={cn(
+                      "relative flex h-[168px] w-full flex-col items-start justify-between overflow-hidden rounded-md border-2 border-white/95 p-2.5 text-left text-white shadow-[0_6px_16px_rgba(22,34,27,0.14)] transition duration-200 sm:h-[190px] sm:p-3",
+                      "touch-manipulation hover:z-[2] hover:border-white hover:shadow-[0_12px_28px_rgba(22,34,27,0.25),0_0_0_3px_#ff6b00]",
+                      active === index &&
+                        "z-[2] border-white shadow-[0_12px_28px_rgba(22,34,27,0.25),0_0_0_3px_#ff6b00]",
+                    )}
+                    style={{
+                      backgroundImage: `linear-gradient(180deg, rgba(27, 25, 23, 0.02) 24%, rgba(27, 25, 23, 0.82) 100%), url("${item.image}")`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                    onClick={() => openProduct(index)}
+                    aria-label={`Open ${item.name}`}
+                  >
+                    <span className="rounded-full bg-[rgba(12,25,19,0.7)] px-2 py-0.5 text-[9px] font-bold tracking-[0.06em] text-white uppercase backdrop-blur-sm">
+                      {item.code}
+                    </span>
+                    <span className="mt-auto block w-full">
+                      <strong className="block text-[13px] leading-snug [text-shadow:0_1px_8px_rgba(0,0,0,0.35)] sm:text-sm">
+                        {item.name}
+                      </strong>
+                      <small className="mt-0.5 block text-[9px] text-white/85 [text-shadow:0_1px_8px_rgba(0,0,0,0.35)]">
+                        {item.type}
+                      </small>
+                    </span>
+                  </button>
+                ))}
               </div>
             </div>
 
