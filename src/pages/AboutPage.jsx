@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { ArrowUpRight, Layers, MapPin, Ruler } from "lucide-react";
+import { Button } from "../components/ui/Button";
 import { sampleImages } from "../data/sampleImages";
 import { mediaUrl } from "../lib/api";
 import { useResourceList } from "../hooks/useResourceList";
@@ -36,6 +37,7 @@ const principles = [
 ];
 
 export default function AboutPage() {
+  const { openContact } = useOutletContext();
   const [slide, setSlide] = useState(0);
   const { items: projects, loading: projectsLoading } = useResourceList("projects", {
     limit: 3,
@@ -168,12 +170,19 @@ export default function AboutPage() {
               Recent projects
             </h2>
           </div>
-          <Link
-            to="/projects"
-            className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-ink transition hover:gap-2"
-          >
-            See all projects <ArrowUpRight size={16} />
-          </Link>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button type="button" onClick={openContact} className="!rounded-md !px-5 !py-2.5 !text-sm">
+              Contact us
+            </Button>
+            <Button
+              as={Link}
+              to="/projects"
+              variant="outline"
+              className="!rounded-md !px-5 !py-2.5 !text-sm"
+            >
+              See all projects <ArrowUpRight size={15} />
+            </Button>
+          </div>
         </div>
 
         {projectsLoading ? <p className="text-sm text-muted">Loading projects…</p> : null}

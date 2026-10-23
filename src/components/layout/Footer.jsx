@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Brand } from "../ui/Brand";
 import { collections } from "../../data/content";
 
-export function Footer() {
+export function Footer({ onContact }) {
   const [email, setEmail] = useState("");
   const [ok, setOk] = useState(false);
 
@@ -54,12 +54,18 @@ export function Footer() {
             ["Projects", "/projects"],
             ["Blogs", "/blogs"],
             ["About Us", "/about"],
-            ["Contact Us", "/contact"],
           ].map(([label, href]) => (
             <Link key={label} to={href} className="mb-2 block text-sm text-white/80 hover:text-white">
               {label}
             </Link>
           ))}
+          <button
+            type="button"
+            onClick={onContact}
+            className="mb-2 block text-left text-sm text-white/80 hover:text-white"
+          >
+            Contact Us
+          </button>
         </nav>
         <nav>
           <h4 className="mb-3.5 text-xs tracking-[0.1em] text-white/45 uppercase">Collections</h4>

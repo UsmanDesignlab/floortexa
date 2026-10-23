@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { mediaUrl } from "../../lib/api";
 import { Drawer } from "../ui/Drawer";
 import { Button } from "../ui/Button";
 import { useResource } from "../../hooks/useResource";
 
 export function ProductDrawer({ productId, open, onClose }) {
+  const { openContact } = useOutletContext();
   const { item, loading, error } = useResource("products", productId, open && Boolean(productId));
   const product = item;
 
@@ -54,7 +55,14 @@ export function ProductDrawer({ productId, open, onClose }) {
               </ul>
             </div>
           ) : null}
-          <Button as={Link} to="/contact" className="w-full" onClick={onClose}>
+          <Button
+            type="button"
+            className="w-full"
+            onClick={() => {
+              onClose?.();
+              openContact?.();
+            }}
+          >
             Ask about this finish
           </Button>
         </div>

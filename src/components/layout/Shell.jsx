@@ -12,7 +12,7 @@ export function Shell() {
     <>
       <Header onContact={openContact} />
       <Outlet context={{ openContact }} />
-      <Footer />
+      <Footer onContact={openContact} />
       <ContactDialog open={contactOpen} onClose={() => setContactOpen(false)} />
     </>
   );
