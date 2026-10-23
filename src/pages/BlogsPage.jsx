@@ -1,4 +1,4 @@
-import { Pill } from "../components/ui/Pill";
+import { AnimatedTitle } from "../components/ui/AnimatedTitle";
 import { BlogCard } from "../components/blog/BlogCard";
 import { useResourceList } from "../hooks/useResourceList";
 
@@ -8,34 +8,29 @@ export default function BlogsPage() {
     sort: "created_at",
     direction: "desc",
   });
-  const [featured, ...rest] = items;
 
   return (
-    <main className="bg-canvas px-[5%] pt-32 pb-20 max-[640px]:px-[4%]">
-      <div className="mb-12 max-w-2xl">
-        <Pill>BLOGS</Pill>
-        <h1 className="mt-3.5 font-display text-[clamp(36px,5vw,56px)] font-medium tracking-tight">
-          Floortex journal
-        </h1>
-        <p className="mt-3 text-[17px] leading-relaxed text-muted">
-          Guides and studio notes on materials, install craft, and living with beautiful floors.
+    <main className="min-h-screen bg-canvas text-ink">
+      <section className="px-[5%] pt-28 pb-12 max-[640px]:px-[4%] max-[640px]:pt-24 sm:pt-32 sm:pb-14 lg:px-16">
+        <AnimatedTitle text="Our Journal" />
+        <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-muted sm:text-[17px]">
+          Guides and studio notes on carpet, LVT, laminate, wood floors, and fitting across Essex.
         </p>
-      </div>
+      </section>
 
-      {loading ? <p className="text-sm text-muted">Loading blogs…</p> : null}
-      {error ? <p className="text-sm text-red-600">{error}</p> : null}
+      <section className="px-[5%] pb-24 max-[640px]:px-[4%] sm:pb-32 lg:px-16">
+        {loading ? <p className="text-sm text-muted">Loading blogs…</p> : null}
+        {error ? <p className="text-sm text-red-600">{error}</p> : null}
+        {!loading && !error && items.length === 0 ? (
+          <p className="text-sm text-muted">No published blogs yet.</p>
+        ) : null}
 
-      {featured ? (
-        <div className="mb-8">
-          <BlogCard blog={featured} featured />
+        <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-[30px]">
+          {items.map((blog, index) => (
+            <BlogCard key={blog.id} blog={blog} index={index} />
+          ))}
         </div>
-      ) : null}
-
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {rest.map((blog) => (
-          <BlogCard key={blog.id} blog={blog} />
-        ))}
-      </div>
+      </section>
     </main>
   );
 }
