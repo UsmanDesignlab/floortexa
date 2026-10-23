@@ -4,7 +4,6 @@ export { Features } from "./Features";
 export { FinishExplorer } from "./FinishExplorer";
 export { Hero } from "./Hero";
 export { Journal } from "./Journal";
-export { MaterialsGallery } from "./MaterialsGallery";
 export { Reviews } from "./Reviews";
 export { ServiceAreas } from "./ServiceAreas";
 export { VisitCTA } from "./VisitCTA";

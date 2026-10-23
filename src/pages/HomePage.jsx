@@ -1,15 +1,14 @@
 import { useOutletContext } from "react-router-dom";
 import {
+  Collections,
   FAQ,
   Features,
+  FinishExplorer,
   Hero,
-  MaterialsGallery,
   Reviews,
   ServiceAreas,
   VisitCTA,
 } from "../components/sections";
-import { PopularProducts } from "../components/sections/PopularProducts";
-import { CategoryShowcase } from "../components/sections/CategoryShowcase";
 import { BlogCarousel } from "../components/blog/BlogCarousel";
 import { useResourceList } from "../hooks/useResourceList";
 import { useScrollReveal } from "../hooks/useScrollReveal";
@@ -27,9 +26,8 @@ export default function HomePage() {
     <main>
       <Hero />
       <Features />
-      <MaterialsGallery />
-      <PopularProducts />
-      <CategoryShowcase />
+      <Collections />
+      <FinishExplorer />
       <ServiceAreas />
       <Reviews />
       <BlogCarousel blogs={blogs} loading={blogsLoading} />
