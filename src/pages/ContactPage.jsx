@@ -1,6 +1,7 @@
 import { Clock3, Mail, MapPin, Phone } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import { AnimatedTitle } from "../components/ui/AnimatedTitle";
+import { Reveal } from "../components/ui/Reveal";
 import { ContactForm } from "../components/contact/ContactForm";
 import { siteContact } from "../data/siteContact";
 
@@ -47,7 +48,7 @@ export default function ContactPage() {
       <section className="px-[5%] pb-24 max-[640px]:px-[4%] sm:pb-32 lg:px-16">
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
           <aside className="space-y-8">
-            <div className="overflow-hidden rounded-xl border border-line bg-white p-6 sm:p-8">
+            <Reveal className="overflow-hidden rounded-xl border border-line bg-white p-6 sm:p-8">
               <h2 className="font-display text-[clamp(24px,3vw,32px)] font-medium tracking-tight">
                 Contact details
               </h2>
@@ -87,24 +88,33 @@ export default function ContactPage() {
                   );
                 })}
               </ul>
-            </div>
+            </Reveal>
 
-            <div className="rounded-xl border border-line bg-white p-6 sm:p-8">
+            <Reveal
+              delay={90}
+              className="rounded-xl border border-line bg-white p-6 sm:p-8"
+            >
               <h2 className="font-display text-[clamp(22px,2.6vw,28px)] font-medium tracking-tight">
                 Service area
               </h2>
               <p className="mt-4 text-[15px] leading-relaxed text-muted">{siteContact.serviceArea}</p>
               <p className="mt-3 text-[15px] leading-relaxed text-muted">
                 Not sure if we cover your postcode?{" "}
-                <a href={siteContact.phoneHref} className="font-semibold text-ink underline-offset-2 hover:underline">
+                <a
+                  href={siteContact.phoneHref}
+                  className="font-semibold text-ink underline-offset-2 hover:underline"
+                >
                   Give us a call
                 </a>
                 .
               </p>
-            </div>
+            </Reveal>
           </aside>
 
-          <div className="rounded-xl border border-line bg-white p-6 shadow-[0_18px_50px_rgba(27,25,23,0.06)] sm:p-8 lg:p-10">
+          <Reveal
+            delay={120}
+            className="rounded-xl border border-line bg-white p-6 shadow-[0_18px_50px_rgba(27,25,23,0.06)] sm:p-8 lg:p-10"
+          >
             <h2 className="font-display text-[clamp(24px,3vw,32px)] font-medium tracking-tight">
               Send us a message
             </h2>
@@ -113,7 +123,7 @@ export default function ContactPage() {
               about. We&apos;ll reply during working hours.
             </p>
             <ContactForm initialEmail={initialEmail} />
-          </div>
+          </Reveal>
         </div>
       </section>
     </main>

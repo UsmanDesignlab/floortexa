@@ -94,20 +94,17 @@
   }
 }
 
-@keyframes loaderInLeft {
-  from {
-    transform: translateX(-100%);
-  }
+@keyframes loaderSpin {
   to {
-    transform: translateX(0);
+    transform: rotate(360deg);
   }
 }
 
-@keyframes loaderInRight {
-  from {
-    transform: translateX(100%);
+@keyframes loaderBar {
+  0% {
+    transform: translateX(-120%);
   }
-  to {
-    transform: translateX(0);
+  100% {
+    transform: translateX(420%);
   }
 }
