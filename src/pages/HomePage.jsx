@@ -14,7 +14,7 @@ import { useResourceList } from "../hooks/useResourceList";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
 export default function HomePage() {
-  const { openTour } = useOutletContext();
+  const { openContact } = useOutletContext();
   const { items: blogs, loading: blogsLoading } = useResourceList("blogs", {
     limit: 6,
     sort: "created_at",
@@ -32,7 +32,7 @@ export default function HomePage() {
       <Reviews />
       <BlogCarousel blogs={blogs} loading={blogsLoading} />
       <FAQ />
-      <VisitCTA onScheduleTour={openTour} />
+      <VisitCTA onContact={openContact} />
     </main>
   );
 }

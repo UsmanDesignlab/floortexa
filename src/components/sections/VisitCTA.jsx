@@ -5,7 +5,7 @@ import { photos } from "../../data/content";
 import { reveal } from "../../lib/classes";
 import { cn } from "../../lib/cn";
 
-export function VisitCTA({ onScheduleTour }) {
+export function VisitCTA({ onContact }) {
   return (
     <section
       id="contact"
@@ -45,8 +45,8 @@ export function VisitCTA({ onScheduleTour }) {
           ))}
         </ul>
         <div className="flex flex-wrap items-center gap-4">
-          <Button variant="inverse" className="rounded-lg" onClick={onScheduleTour}>
-            Reserve Showing Slot
+          <Button variant="inverse" className="rounded-lg" onClick={onContact}>
+            Contact
           </Button>
           <span>
             Concierge: <strong>(555) 890-4410</strong>

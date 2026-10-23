@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, Layers, MapPin, Ruler, Sparkles } from "lucide-react";
+import { ArrowLeft, Layers, MapPin, Ruler, Sparkles } from "lucide-react";
 import { mediaUrl } from "../lib/api";
 import { useResource } from "../hooks/useResource";
 import { useResourceList } from "../hooks/useResourceList";
@@ -14,7 +14,7 @@ export default function ProjectDetailPage() {
   });
 
   const hero = project?.after_image || project?.before_image;
-  const related = others.filter((item) => item.id !== id).slice(0, 4);
+  const related = others.filter((item) => item.id !== id).slice(0, 3);
 
   return (
     <main className="bg-black text-white">
@@ -138,19 +138,19 @@ export default function ProjectDetailPage() {
             </section>
           )}
 
-          {/* Other projects */}
+          {/* Other projects — Nuvarsa style */}
           {related.length > 0 ? (
             <section className="border-t border-white/10 px-[5%] py-16 max-[640px]:px-[4%] sm:py-24">
               <h2 className="mb-10 font-display text-[clamp(28px,3.4vw,42px)] font-medium tracking-tight">
                 Other projects
               </h2>
-              <div className="grid gap-8 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12">
+              <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
                 {related.map((item) => {
                   const thumb = item.after_image || item.before_image;
                   return (
                     <Link key={item.id} to={`/projects/${item.id}`} className="group block">
-                      <div className="relative overflow-hidden rounded-[20px] bg-white/5">
-                        <div className="aspect-[16/10] overflow-hidden">
+                      <div className="overflow-hidden rounded-[18px] bg-white/5">
+                        <div className="aspect-[16/11] overflow-hidden">
                           {thumb ? (
                             <img
                               src={mediaUrl(thumb)}
@@ -158,16 +158,30 @@ export default function ProjectDetailPage() {
                               className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
                               loading="lazy"
                             />
-                          ) : null}
+                          ) : (
+                            <div className="h-full w-full bg-white/10" />
+                          )}
                         </div>
-                        <span className="absolute right-3 bottom-3 inline-flex items-center gap-1 rounded-full border border-white/20 bg-black/50 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md">
-                          Explore <ArrowUpRight size={13} />
-                        </span>
                       </div>
-                      <h3 className="mt-4 font-display text-xl font-medium tracking-tight sm:text-2xl">
+                      <h3 className="mt-5 font-display text-[20px] font-medium leading-snug tracking-tight text-white sm:text-[22px]">
                         {item.title}
                       </h3>
-                      <p className="mt-1.5 text-sm text-white/50">{item.location}</p>
+                      <p className="mt-2 inline-flex items-center gap-1.5 text-[13px] text-white/50">
+                        <MapPin size={13} />
+                        {item.location}
+                      </p>
+                      <ul className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-white/65">
+                        {item.category_title ? (
+                          <li className="inline-flex items-center gap-1.5">
+                            <Layers size={13} className="opacity-70" />
+                            {item.category_title}
+                          </li>
+                        ) : null}
+                        <li className="inline-flex items-center gap-1.5">
+                          <Ruler size={13} className="opacity-70" />
+                          Supply &amp; fit
+                        </li>
+                      </ul>
                     </Link>
                   );
                 })}

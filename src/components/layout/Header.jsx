@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { ArrowUpRight, Calendar, Menu, X } from "lucide-react";
+import { ArrowUpRight, Mail, Menu, X } from "lucide-react";
 import { Brand } from "../ui/Brand";
 import { useScrolled } from "../../hooks/useScrolled";
 import { cn } from "../../lib/cn";
@@ -10,10 +10,9 @@ const navLinks = [
   { label: "Projects", to: "/projects" },
   { label: "Blogs", to: "/blogs" },
   { label: "About Us", to: "/about" },
-  { label: "Contact Us", to: "/contact" },
 ];
 
-export function Header({ onScheduleTour }) {
+export function Header({ onContact }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const scrolled = useScrolled(40);
 
@@ -48,9 +47,9 @@ export function Header({ onScheduleTour }) {
       <button
         type="button"
         className="inline-flex justify-self-end items-center justify-center gap-2 rounded-lg border-0 bg-ink px-5 py-3 text-[15px] font-semibold tracking-[0.02em] text-white transition duration-300 hover:bg-black max-[980px]:hidden"
-        onClick={onScheduleTour}
+        onClick={onContact}
       >
-        <Calendar size={16} /> Schedule Tour
+        <Mail size={16} /> Contact
       </button>
       <button
         type="button"
@@ -81,10 +80,10 @@ export function Header({ onScheduleTour }) {
             className="mt-1 inline-flex w-full items-center justify-center gap-2 rounded-lg border-0 bg-white px-5 py-3.5 text-[15px] font-semibold text-ink transition hover:bg-white/90"
             onClick={() => {
               setMenuOpen(false);
-              onScheduleTour();
+              onContact();
             }}
           >
-            <Calendar size={16} /> Schedule Tour
+            <Mail size={16} /> Contact
           </button>
         </nav>
       ) : null}

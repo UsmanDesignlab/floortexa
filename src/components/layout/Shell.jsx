@@ -2,18 +2,18 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { ScheduleTourDialog } from "../dialogs/ScheduleTourDialog";
+import { ContactDialog } from "../dialogs/ContactDialog";
 
 export function Shell() {
-  const [tourOpen, setTourOpen] = useState(false);
-  const openTour = () => setTourOpen(true);
+  const [contactOpen, setContactOpen] = useState(false);
+  const openContact = () => setContactOpen(true);
 
   return (
     <>
-      <Header onScheduleTour={openTour} />
-      <Outlet context={{ openTour }} />
+      <Header onContact={openContact} />
+      <Outlet context={{ openContact }} />
       <Footer />
-      <ScheduleTourDialog open={tourOpen} onClose={() => setTourOpen(false)} />
+      <ContactDialog open={contactOpen} onClose={() => setContactOpen(false)} />
     </>
   );
 }

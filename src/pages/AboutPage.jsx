@@ -95,7 +95,7 @@ export default function AboutPage() {
           </ul>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button as={Link} to="/contact">
-              Schedule a showing
+              Contact
             </Button>
             <Button as={Link} to="/projects" variant="outline">
               View projects
