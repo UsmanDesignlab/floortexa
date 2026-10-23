@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { ArrowUpRight, Mail, Menu, X } from "lucide-react";
 import { Brand } from "../ui/Brand";
 import { useScrolled } from "../../hooks/useScrolled";
@@ -35,8 +35,10 @@ export function Header({ onContact }) {
             to={link.to}
             className={({ isActive }) =>
               cn(
-                "text-xs font-semibold uppercase tracking-[0.14em] text-ink/70 transition hover:text-ink",
-                isActive && "text-ink",
+                "text-xs uppercase tracking-[0.14em] transition",
+                isActive
+                  ? "font-bold text-black"
+                  : "font-semibold text-black/45 hover:text-black",
               )
             }
           >
@@ -65,15 +67,22 @@ export function Header({ onContact }) {
           aria-label="Mobile navigation"
         >
           {navLinks.map((link) => (
-            <Link
+            <NavLink
               key={link.to}
               to={link.to}
-              className="flex justify-between text-lg font-semibold"
               onClick={() => setMenuOpen(false)}
+              className={({ isActive }) =>
+                cn(
+                  "flex justify-between text-lg transition",
+                  isActive
+                    ? "font-bold text-white"
+                    : "font-semibold text-white/55 hover:text-white",
+                )
+              }
             >
               {link.label}
               <ArrowUpRight size={16} />
-            </Link>
+            </NavLink>
           ))}
           <button
             type="button"
