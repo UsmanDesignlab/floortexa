@@ -28,6 +28,32 @@ export function ProductDrawer({ productId, open, onClose }) {
           ) : null}
           <h3 className="font-display text-[28px] font-semibold tracking-tight text-ink">{product.title}</h3>
           <p className="whitespace-pre-wrap text-[15px] leading-relaxed text-muted">{product.description}</p>
+          {Array.isArray(product.prices) && product.prices.length > 0 ? (
+            <div className="space-y-3 border-t border-line pt-4">
+              <p className="text-[11px] font-bold tracking-[0.14em] text-ink uppercase">Pricing</p>
+              <ul className="space-y-2">
+                {product.prices.map((price) => (
+                  <li
+                    key={price.id}
+                    className="flex items-start justify-between gap-4 text-[14px]"
+                  >
+                    <div className="min-w-0">
+                      <p className="font-medium text-ink">{price.title || price.label}</p>
+                      {price.details ? (
+                        <p className="mt-0.5 text-[13px] leading-snug text-muted">{price.details}</p>
+                      ) : null}
+                    </div>
+                    <p className="shrink-0 font-semibold text-ink">
+                      £{price.price}
+                      {price.unit ? (
+                        <span className="font-normal text-muted"> / {price.unit}</span>
+                      ) : null}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
           <Button as={Link} to="/contact" className="w-full" onClick={onClose}>
             Ask about this finish
           </Button>

@@ -15,6 +15,11 @@ function mapProduct(product, index) {
     .replace(/<[^>]+>/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+  const prices = Array.isArray(product.prices) ? product.prices : [];
+  const from = prices[0];
+  const priceLabel = from
+    ? `From £${from.price}${from.unit ? ` / ${from.unit}` : ""}`
+    : "Ask showroom";
   return {
     id: product.id,
     code: padIndex(index),
@@ -22,7 +27,7 @@ function mapProduct(product, index) {
     type: product.category_title || "Popular finish",
     summary: blurb.slice(0, 160) || "Open this product for full details and showroom guidance.",
     image: mediaUrl(product.image) || "/images/LVT-Flooring-Essex.jpg",
-    includes: ["Sample kit ready", "Transparent specs", "Install guidance"],
+    includes: [priceLabel, "Sample kit ready", "Install guidance"],
   };
 }
 
