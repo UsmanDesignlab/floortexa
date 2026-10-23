@@ -57,6 +57,7 @@ export function FinishExplorer() {
   return (
     <section id="popular" className={cn(reveal, "border-t border-line bg-canvas px-[3%] py-12 max-[640px]:px-[4%]")}>
       <SectionHead
+        titleFirst
         pill="POPULAR PRODUCTS"
         title={<h2>Finishes homeowners ask for most</h2>}
         description={

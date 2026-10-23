@@ -27,17 +27,17 @@ export function VisitCTA({ onScheduleTour }) {
           SHOWING
         </Pill>
         <h2 className="mt-3 mb-3.5 font-display text-[clamp(30px,3.4vw,42px)] font-medium leading-[1.15] tracking-[-0.035em]">
-          Schedule a private showroom walkthrough.
+          Book a free home measure or showroom visit.
         </h2>
         <p className="mb-5 leading-[1.65] text-white/80">
-          Join our team for an unhurried showing of marble, porcelain, and wood samples — inspect
-          finishes and review install details.
+          Compare carpet, LVT, laminate, and wood samples with our team — then plan a clean supply
+          and fit for your Essex home.
         </p>
         <ul className="mb-7 grid list-none gap-3 p-0">
           {[
-            "1-on-1 finish consultation with design leads",
-            "Detailed room measure & material analysis",
-            "Transparent finishes library & sample kits",
+            "1-on-1 flooring advice for every room",
+            "Free home measure & stair assessment",
+            "Sample boards and clear fitting quotes",
           ].map((item) => (
             <li key={item} className="flex items-center gap-2.5 text-[15px]">
               <Check size={16} /> {item}

@@ -26,7 +26,7 @@ export function BlogCarousel({ blogs, loading = false }) {
             Latest from the studio
           </h2>
           <p className="mt-3 text-[17px] leading-relaxed text-muted">
-            Perspectives on marble, tile, timber, and install craft.
+            Practical advice on carpet, LVT, laminate, wood floors, and fitting.
           </p>
         </div>
         <Button as={Link} to="/blogs" variant="outline">

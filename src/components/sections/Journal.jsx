@@ -13,7 +13,7 @@ export function Journal() {
         pill="JOURNAL"
         title={<h2>Latest Flooring Journal</h2>}
         description={
-          <p>Perspectives on marble, tile, timber, and install craft from the Floortex studio.</p>
+          <p>Practical advice on carpet, LVT, laminate, wood floors, and fitting from Floortex.</p>
         }
         action={
           <Button as="a" href="#contact" variant="outline">

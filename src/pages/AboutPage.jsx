@@ -31,8 +31,8 @@ export default function AboutPage() {
             A flooring studio built around clarity, craft, and calm decisions.
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85">
-            Floortex began with a simple problem: homeowners needed honest material guidance, sample
-            kits that made sense in their own light, and install partners they could trust.
+            Floortex began with a simple problem: Essex homeowners needed honest flooring advice,
+            samples that made sense in their own light, and fitters they could trust.
           </p>
         </div>
       </section>
@@ -46,13 +46,13 @@ export default function AboutPage() {
         </div>
         <div className="space-y-5 text-[17px] leading-relaxed text-muted">
           <p>
-            What started as a local materials studio grew into a complete Floortex experience —
-            marble, porcelain, timber, and stone curated with transparent pricing and practical
-            install standards.
+            What started as a local flooring business grew into a complete Floortex experience —
+            carpet, LVT, laminate, vinyl, and engineered wood with clear pricing and tidy fitting
+            across Essex.
           </p>
           <p>
-            Today we help families, designers, and trade partners shortlist finishes, schedule
-            private showings, and move from measure to final edge with fewer surprises.
+            Today we help homeowners and trade partners compare samples, book a free measure, and
+            move from quote to fitted floor with fewer surprises.
           </p>
         </div>
       </section>
@@ -83,9 +83,9 @@ export default function AboutPage() {
           </h2>
           <ul className="mt-6 space-y-3">
             {[
-              "Sample kits sized for living with a finish for a few days",
-              "Clear room-fit guidance for marble, porcelain, and wood",
-              "Trusted install partners and aftercare that lasts",
+              "Sample boards you can live with at home for a few days",
+              "Clear guidance for carpet, LVT, laminate, vinyl, and wood",
+              "Professional Essex fitters and aftercare that lasts",
             ].map((line) => (
               <li key={line} className="flex items-start gap-3 text-[15px] text-ink">
                 <Check size={18} className="mt-0.5 shrink-0 text-brand" />

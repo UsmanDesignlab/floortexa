@@ -27,39 +27,57 @@ export function Reviews() {
         }
       />
 
-      <div className="mb-7 flex flex-wrap justify-center gap-3">
-        {reviews.map((item, index) => (
-          <button
-            key={item.name}
-            type="button"
-            className={cn(
-              "inline-flex items-center gap-2.5 rounded-full border border-transparent bg-white/55 py-2 pr-3.5 pl-2 text-[13px] font-semibold transition duration-300",
-              active === index && "-translate-y-0.5 bg-brand text-white",
-            )}
-            onClick={() => setActive(index)}
-            aria-label={`View review from ${item.name}`}
-          >
-            <img src={item.image} alt="" className="h-[34px] w-[34px] rounded-full object-cover" />
-            <span>{item.name}</span>
-          </button>
-        ))}
+      <div className="mb-7 flex flex-wrap justify-center gap-3" role="tablist" aria-label="Client reviews">
+        {reviews.map((item, index) => {
+          const isActive = active === index;
+          return (
+            <button
+              key={item.name}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              className={cn(
+                "inline-flex cursor-pointer items-center gap-2.5 rounded-full border py-2 pr-4 pl-2 text-[13px] font-semibold text-ink transition duration-300",
+                isActive
+                  ? "-translate-y-0.5 border-brand bg-brand text-white shadow-[0_8px_20px_rgba(27,25,23,0.2)]"
+                  : "border-line bg-sand text-ink hover:border-brand/40 hover:bg-white",
+              )}
+              onClick={() => setActive(index)}
+              aria-label={`View review from ${item.name}`}
+            >
+              <img
+                src={item.image}
+                alt=""
+                className="h-[34px] w-[34px] rounded-full border border-black/10 object-cover"
+              />
+              <span className={isActive ? "text-white" : "text-ink"}>{item.name}</span>
+            </button>
+          );
+        })}
       </div>
 
       <article
         key={active}
-        className="mx-auto max-w-[860px] animate-[fadeUp_0.55s_ease_both] rounded-lg bg-white px-10 py-[42px] shadow-[0_24px_50px_rgba(0,0,0,0.05)] motion-reduce:animate-none max-[640px]:px-[22px] max-[640px]:py-7"
+        role="tabpanel"
+        className="mx-auto max-w-[860px] animate-[fadeUp_0.55s_ease_both] rounded-lg border border-line bg-white px-10 py-[42px] shadow-[0_24px_50px_rgba(0,0,0,0.05)] motion-reduce:animate-none max-[640px]:px-[22px] max-[640px]:py-7"
       >
-        <h3 className="mb-4 font-display text-[clamp(26px,3vw,36px)] font-medium leading-[1.25] tracking-[-0.03em]">
+        <h3 className="mb-4 font-display text-[clamp(26px,3vw,36px)] font-medium leading-[1.25] tracking-[-0.03em] text-ink">
           “{review.quote}”
         </h3>
-        <p className="mb-7 text-base leading-[1.7] text-muted">{review.body}</p>
+        <p className="mb-7 text-base leading-[1.7] text-[#4a4642]">{review.body}</p>
         <div className="flex items-center gap-3">
-          <img src={review.image} alt="" className="h-12 w-12 rounded-full object-cover" />
+          <img
+            src={review.image}
+            alt=""
+            className="h-12 w-12 rounded-full border border-line object-cover"
+          />
           <div>
-            <strong className="block">{review.name}</strong>
-            <span className="text-[13px] text-muted">{review.role}</span>
+            <strong className="block text-ink">{review.name}</strong>
+            <span className="text-[13px] font-medium text-[#4a4642]">{review.role}</span>
           </div>
-          <span className="ml-auto tracking-wide text-brand-mid">★★★★★</span>
+          <span className="ml-auto tracking-wide text-ink" aria-label="5 out of 5 stars">
+            ★★★★★
+          </span>
         </div>
       </article>
     </section>

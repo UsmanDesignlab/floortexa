@@ -37,8 +37,8 @@ export function Hero() {
           floor today
         </h1>
         <p className="mx-auto mt-6 mb-8 max-w-[540px] text-[19px] leading-[1.65] text-white/90">
-          Uncover a world of marble, porcelain tile, and natural wood with transparent specs. Your
-          perfect finish awaits just a visit away!
+          Carpet, LVT, laminate, vinyl, and engineered wood — supplied and fitted across Essex with
+          honest samples and a tidy finish. Your perfect floor is just a visit away.
         </p>
         <Button
           as={Link}

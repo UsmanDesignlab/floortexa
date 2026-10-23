@@ -16,7 +16,7 @@ export function FAQ() {
         title={<h2>Everything You Need to Know</h2>}
         description={
           <p>
-            Find answers to common questions about samples, install timelines, and material options.
+            Common questions about carpet, LVT, laminate, wood floors, samples, and Essex fitting.
           </p>
         }
       />

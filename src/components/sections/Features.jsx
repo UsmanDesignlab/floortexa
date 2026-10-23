@@ -71,8 +71,8 @@ export function Features() {
             {collectionCount} curated flooring collections
           </h3>
           <p className="m-0 text-[15px] leading-[1.55] text-muted">
-            Marble-look porcelain, quiet oak, herringbone, carpet ranges, and commercial-ready
-            surfaces — each with transparent pricing and install notes.
+            Carpet, LVT, laminate, vinyl, engineered wood, and stair runners — each with clear
+            pricing, sample options, and professional fitting notes.
           </p>
           <div className="mt-7 border-t border-black/8 pt-[18px]">
             <strong className="block font-display text-[56px] leading-none font-medium tracking-[-0.04em]">

@@ -8,11 +8,11 @@ export function ServiceAreas() {
     <section id="areas" className={cn(reveal, "border-t border-line bg-canvas px-[5%] py-[72px] max-[640px]:px-[4%]")}>
       <SectionHead
         pill="LOCATION"
-        title={<h2>Showroom & Strategic Connectivity</h2>}
+        title={<h2>Serving homes across Essex</h2>}
         description={
           <p>
-            Quiet studio visits with direct coverage across residential and commercial projects —
-            samples, measure, and install.
+            Showroom samples, free home measures, and professional fitting — carpet, LVT, laminate,
+            vinyl, and wood floors across Essex.
           </p>
         }
       />
@@ -25,9 +25,9 @@ export function ServiceAreas() {
               VISIT OUR SHOWROOM
             </span>
             <strong className="mb-1.5 block font-display text-[clamp(28px,3vw,42px)] font-semibold tracking-[-0.04em]">
-              Floortex Pavilion
+              Floortex Essex
             </strong>
-            <p className="m-0 text-sm text-white/85">12 Oakridge Way · Daily 10 AM – 6 PM</p>
+            <p className="m-0 text-sm text-white/85">Carpet · LVT · Wood · Daily 10 AM – 6 PM</p>
           </div>
         </div>
         <div className="grid grid-rows-6 overflow-hidden rounded-lg border border-line bg-white">
