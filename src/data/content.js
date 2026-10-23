@@ -6,15 +6,16 @@ export const photos = {
   herringbone: "/images/Engineered-Wood-Flooring2.jpg",
   stone: "/images/LAMINATE-FLOORING.jpg",
   process: "/images/Carpet-fitter-Essex.jpg",
-  villa: "/images/Carpet-Shop-Essex.jpg",
+  villa: "/images/bnr_img.jpg",
   showroom: "/images/Carpet-Shop-Essex1.jpg",
   journal1: "/images/cp1.jpg",
   journal2: "/images/stair.jpg",
   journal3: "/images/lvt.jpg",
-  person1: "/images/IMG_3452.jpg",
-  person2: "/images/IMG_9073.jpg",
-  person3: "/images/ag_img.jpg",
-  person4: "/images/ag_img2.jpg",
+  person1: "/images/stair1.jpg",
+  person2: "/images/Bespoke-Stair-runner-carpet.jpg",
+  person3: "/images/lvt1.jpg",
+  person4: "/images/LAMINATE-FLOORING3.jpg",
+  feature: "/images/bnr_img.jpg",
 };
 
 export const finishes = [

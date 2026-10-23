@@ -39,7 +39,7 @@ export function Collections() {
   const collections = useMemo(() => items.map(mapCategory), [items]);
 
   return (
-    <section id="collections" className={cn(reveal, "border-t border-line bg-[#f5f3ef] pt-[72px] pb-12")}>
+    <section id="collections" className={cn(reveal, "border-t border-line bg-[#e8e8e8] pt-[72px] pb-12")}>
       <div className="mx-auto mb-10 max-w-[720px] px-[5%] text-center">
         <Pill className="bg-[#e4eee6] text-[#3f5c48]">RESIDENCES · ARCHITECTURAL PORTFOLIO</Pill>
         <h2 className="my-3.5 font-display text-[clamp(34px,4.8vw,56px)] font-medium leading-[1.08] tracking-[-0.04em]">
