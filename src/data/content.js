@@ -12,8 +12,8 @@ export const photos = {
   journal2: "/images/stair.jpg",
   journal3: "/images/lvt.jpg",
   person1: "/images/stair1.jpg",
-  person2: "/images/Bespoke-Stair-runner-carpet.jpg",
-  person3: "/images/lvt1.jpg",
+  person2: "/images/stair.jpg",
+  person3: "/images/lvt.jpg",
   person4: "/images/LAMINATE-FLOORING3.jpg",
   feature: "/images/bnr_img.jpg",
 };

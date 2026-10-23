@@ -2,7 +2,7 @@ import { cn } from "../../lib/cn";
 
 const variants = {
   brand:
-    "bg-brand text-white shadow-[0_12px_28px_rgba(255,107,0,0.22)] hover:bg-brand-deep",
+    "bg-brand text-white shadow-none hover:bg-brand-deep",
   outline: "border border-line bg-transparent text-ink",
   inverse: "bg-white text-brand shadow-none hover:bg-[#f2f2ec]",
 };

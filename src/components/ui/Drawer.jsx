@@ -31,8 +31,8 @@ export function Drawer({ open, onClose, title, children, wide = false }) {
       <aside
         className={cn(
           "absolute inset-y-0 right-0 flex h-full w-full max-w-full flex-col bg-white shadow-[-20px_0_60px_rgba(0,0,0,0.18)]",
-          "sm:max-w-[440px]",
-          wide && "sm:max-w-[560px]",
+          "sm:max-w-[480px]",
+          wide && "sm:max-w-[min(720px,92vw)]",
         )}
         role="dialog"
         aria-modal="true"

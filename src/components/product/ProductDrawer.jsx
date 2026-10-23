@@ -18,7 +18,7 @@ export function ProductDrawer({ productId, open, onClose }) {
             <img
               src={mediaUrl(product.image)}
               alt={product.title}
-              className="h-56 w-full rounded-xl object-cover"
+              className="h-72 w-full rounded-md object-cover sm:h-80"
             />
           ) : null}
           {product.category_title ? (
