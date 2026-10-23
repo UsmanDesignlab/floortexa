@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
@@ -6,14 +6,26 @@ import { ContactDialog } from "../dialogs/ContactDialog";
 
 export function Shell() {
   const [contactOpen, setContactOpen] = useState(false);
-  const openContact = () => setContactOpen(true);
+  const [contactEmail, setContactEmail] = useState("");
+
+  const openContact = useCallback((email = "") => {
+    setContactEmail(typeof email === "string" ? email : "");
+    setContactOpen(true);
+  }, []);
 
   return (
     <>
-      <Header onContact={openContact} />
+      <Header onContact={() => openContact()} />
       <Outlet context={{ openContact }} />
       <Footer onContact={openContact} />
-      <ContactDialog open={contactOpen} onClose={() => setContactOpen(false)} />
+      <ContactDialog
+        open={contactOpen}
+        initialEmail={contactEmail}
+        onClose={() => {
+          setContactOpen(false);
+          setContactEmail("");
+        }}
+      />
     </>
   );
 }
