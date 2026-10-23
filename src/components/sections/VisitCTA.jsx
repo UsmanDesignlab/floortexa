@@ -15,7 +15,7 @@ export function VisitCTA({ onScheduleTour }) {
       )}
     >
       <div className="relative min-h-[520px] overflow-hidden rounded-lg">
-        <img src={photos.showroom} alt="" className="h-full w-full object-cover" />
+        <img src={photos.visit} alt="Floortex Essex showroom" className="h-full w-full object-cover" />
         <div className="absolute bottom-[18px] left-[18px] max-w-[280px] rounded-lg bg-white/95 px-4 py-3.5">
           <strong className="mb-1 block text-xs tracking-[0.1em] text-brand uppercase">Private Showing</strong>
           <span className="mb-1 block font-display text-lg font-semibold">Experience Floortex in Person</span>

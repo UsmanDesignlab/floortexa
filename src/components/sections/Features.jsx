@@ -61,8 +61,8 @@ export function Features() {
           </div>
           <img
             src={photos.feature}
-            alt="Bespoke stair runner fitted by Floortex"
-            className="mt-auto h-[280px] w-full object-cover"
+            alt="Floortex flooring samples and showroom materials"
+            className="mt-auto min-h-[320px] w-full flex-1 object-cover object-center"
           />
         </article>
 

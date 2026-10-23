@@ -7,7 +7,8 @@ export const photos = {
   stone: "/images/LAMINATE-FLOORING.jpg",
   process: "/images/Carpet-fitter-Essex.jpg",
   villa: "/images/bnr_img.jpg",
-  showroom: "/images/Carpet-Shop-Essex1.jpg",
+  showroom: "/images/Carpet-Shop-Essex.jpg",
+  visit: "/images/Carpet-Shop3.jpg",
   journal1: "/images/cp1.jpg",
   journal2: "/images/stair.jpg",
   journal3: "/images/lvt.jpg",
@@ -15,7 +16,7 @@ export const photos = {
   person2: "/images/stair.jpg",
   person3: "/images/lvt.jpg",
   person4: "/images/LAMINATE-FLOORING3.jpg",
-  feature: "/images/bnr_img.jpg",
+  feature: "/images/Carpet-Tile-Solutions-3.jpg",
 };
 
 export const finishes = [
