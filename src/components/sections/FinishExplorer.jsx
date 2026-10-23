@@ -3,6 +3,7 @@ import { SectionHead } from "../ui/SectionHead";
 import { ProductDrawer } from "../product/ProductDrawer";
 import { useResourceList } from "../../hooks/useResourceList";
 import { mediaUrl } from "../../lib/api";
+import { sampleImages } from "../../data/sampleImages";
 import { reveal } from "../../lib/classes";
 import { cn } from "../../lib/cn";
 
@@ -26,7 +27,7 @@ function mapProduct(product, index) {
     name: product.title || "Product",
     type: product.category_title || "Popular finish",
     summary: blurb.slice(0, 160) || "Open this product for full details and showroom guidance.",
-    image: mediaUrl(product.image) || "/images/LVT-Flooring-Essex.jpg",
+    image: mediaUrl(product.image) || sampleImages[index % sampleImages.length],
     includes: [priceLabel, "Sample kit ready", "Install guidance"],
   };
 }
@@ -40,6 +41,7 @@ export function FinishExplorer() {
   });
   const [active, setActive] = useState(0);
   const [drawerId, setDrawerId] = useState(null);
+  const [slide, setSlide] = useState(0);
 
   const zones = useMemo(() => items.map(mapProduct), [items]);
 
@@ -47,11 +49,25 @@ export function FinishExplorer() {
     if (active >= zones.length) setActive(0);
   }, [active, zones.length]);
 
+  useEffect(() => {
+    if (sampleImages.length < 2) return undefined;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return undefined;
+    const timer = window.setInterval(() => {
+      setSlide((current) => (current + 1) % sampleImages.length);
+    }, 3200);
+    return () => window.clearInterval(timer);
+  }, []);
+
   function openProduct(index) {
     const zone = zones[index];
     if (!zone) return;
     setActive(index);
     setDrawerId(zone.id);
+  }
+
+  function cardImage(index) {
+    return sampleImages[(slide + index) % sampleImages.length];
   }
 
   return (
@@ -78,7 +94,7 @@ export function FinishExplorer() {
         ) : null}
 
         {zones.length > 0 ? (
-          <div className="rounded-lg border border-[rgba(27,25,23,0.08)] bg-white p-5 shadow-[0_18px_50px_rgba(27,25,23,0.06)] sm:p-7">
+          <div className="rounded-md border border-[rgba(27,25,23,0.08)] bg-white p-5 shadow-[0_18px_50px_rgba(27,25,23,0.06)] sm:p-7">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3 text-[13px] text-muted">
               <strong className="text-base font-bold text-ink sm:text-lg">Explore the finish plan</strong>
               <span className="font-semibold text-ink">
@@ -86,14 +102,14 @@ export function FinishExplorer() {
               </span>
             </div>
 
-            <div className="overflow-hidden rounded-md bg-[#e8e8e8] p-4 sm:p-6">
+            <div className="overflow-hidden rounded-sm bg-[#e8e8e8] p-4 sm:p-6">
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
                 {zones.map((item, index) => (
                   <button
                     key={item.id}
                     type="button"
                     className={cn(
-                      "relative flex aspect-[3/4] w-full flex-col items-start justify-between overflow-hidden rounded-md border border-white/80 p-3 text-left text-white shadow-sm transition duration-200 sm:p-4",
+                      "relative flex aspect-[3/4] w-full flex-col items-start justify-between overflow-hidden rounded-sm border border-white/80 p-3 text-left text-white shadow-sm transition duration-200 sm:p-4",
                       "touch-manipulation hover:z-[2] hover:border-ink/50 hover:shadow-md",
                       active === index && "z-[2] border-ink ring-1 ring-ink",
                     )}
@@ -101,14 +117,15 @@ export function FinishExplorer() {
                     aria-label={`Open ${item.name}`}
                   >
                     <img
-                      src={item.image}
+                      key={cardImage(index)}
+                      src={cardImage(index)}
                       alt=""
                       aria-hidden
                       loading="lazy"
-                      className="absolute inset-0 h-full w-full object-cover object-center"
+                      className="absolute inset-0 h-full w-full object-cover object-center [animation:heroFade_0.7s_ease_both]"
                     />
                     <span className="absolute inset-0 bg-gradient-to-t from-[rgba(27,25,23,0.82)] via-[rgba(27,25,23,0.15)] to-transparent" />
-                    <span className="relative z-[1] rounded-full bg-[rgba(12,25,19,0.7)] px-2.5 py-1 text-[10px] font-bold tracking-[0.06em] text-white uppercase backdrop-blur-sm">
+                    <span className="relative z-[1] rounded-sm bg-[rgba(12,25,19,0.7)] px-2.5 py-1 text-[10px] font-bold tracking-[0.06em] text-white uppercase backdrop-blur-sm">
                       {item.code}
                     </span>
                     <span className="relative z-[1] mt-auto block w-full">
