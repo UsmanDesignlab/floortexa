@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { ArrowUpRight, Calendar, Menu, X } from "lucide-react";
 import { Brand } from "../ui/Brand";
-import { Button } from "../ui/Button";
 import { useScrolled } from "../../hooks/useScrolled";
 import { cn } from "../../lib/cn";
 
@@ -21,21 +20,24 @@ export function Header({ onScheduleTour }) {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 grid h-[78px] grid-cols-[1fr_auto_1fr] items-center border-b border-line bg-white px-[4.5%] text-ink transition duration-300",
+        "fixed inset-x-0 top-0 z-50 grid h-[92px] grid-cols-[1fr_auto_1fr] items-center border-b border-black/10 bg-white px-[4.5%] text-ink transition duration-300",
         "max-[980px]:flex max-[980px]:justify-between",
-        scrolled && "bg-white/95 shadow-[0_1px_0_rgba(0,0,0,0.04)] backdrop-blur-2xl",
+        scrolled && "bg-white/95 shadow-[0_1px_0_rgba(0,0,0,0.06)] backdrop-blur-2xl",
       )}
     >
-      <Brand />
-      <nav className="flex items-center justify-self-center gap-6 max-[1100px]:gap-4 max-[980px]:hidden" aria-label="Main navigation">
+      <Brand mono />
+      <nav
+        className="flex items-center justify-self-center gap-7 max-[1100px]:gap-5 max-[980px]:hidden"
+        aria-label="Main navigation"
+      >
         {navLinks.map((link) => (
           <NavLink
             key={link.to}
             to={link.to}
             className={({ isActive }) =>
               cn(
-                "text-[11px] font-semibold uppercase tracking-[0.14em] transition hover:text-brand",
-                isActive && "text-brand",
+                "text-xs font-semibold uppercase tracking-[0.14em] text-ink/70 transition hover:text-ink",
+                isActive && "text-ink",
               )
             }
           >
@@ -43,24 +45,24 @@ export function Header({ onScheduleTour }) {
           </NavLink>
         ))}
       </nav>
-      <Button
-        size="sm"
-        className="justify-self-end tracking-[0.02em] max-[980px]:hidden"
-        onClick={onScheduleTour}
-      >
-        <Calendar size={15} /> Schedule Tour
-      </Button>
       <button
         type="button"
-        className="hidden h-[42px] w-[42px] place-items-center rounded-lg border-0 bg-sand text-inherit max-[980px]:grid"
+        className="inline-flex justify-self-end items-center justify-center gap-2 rounded-lg border-0 bg-ink px-5 py-3 text-[15px] font-semibold tracking-[0.02em] text-white transition duration-300 hover:bg-black max-[980px]:hidden"
+        onClick={onScheduleTour}
+      >
+        <Calendar size={16} /> Schedule Tour
+      </button>
+      <button
+        type="button"
+        className="hidden h-11 w-11 place-items-center rounded-lg border border-black/10 bg-white text-ink max-[980px]:grid"
         aria-label={menuOpen ? "Close navigation" : "Open navigation"}
         onClick={() => setMenuOpen(!menuOpen)}
       >
-        {menuOpen ? <X size={20} /> : <Menu size={20} />}
+        {menuOpen ? <X size={22} /> : <Menu size={22} />}
       </button>
       {menuOpen ? (
         <nav
-          className="absolute top-[78px] right-[4%] left-[4%] hidden flex-col gap-3.5 rounded-[18px] bg-[rgba(27,25,23,0.96)] p-[22px] text-white backdrop-blur-2xl max-[980px]:flex"
+          className="absolute top-[92px] right-[4%] left-[4%] hidden flex-col gap-3.5 rounded-[18px] border border-white/10 bg-ink p-[22px] text-white shadow-[0_20px_50px_rgba(0,0,0,0.25)] max-[980px]:flex"
           aria-label="Mobile navigation"
         >
           {navLinks.map((link) => (
@@ -74,17 +76,16 @@ export function Header({ onScheduleTour }) {
               <ArrowUpRight size={16} />
             </Link>
           ))}
-          <Button
-            variant="inverse"
-            full
-            className="rounded-lg"
+          <button
+            type="button"
+            className="mt-1 inline-flex w-full items-center justify-center gap-2 rounded-lg border-0 bg-white px-5 py-3.5 text-[15px] font-semibold text-ink transition hover:bg-white/90"
             onClick={() => {
               setMenuOpen(false);
               onScheduleTour();
             }}
           >
             <Calendar size={16} /> Schedule Tour
-          </Button>
+          </button>
         </nav>
       ) : null}
     </header>

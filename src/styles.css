@@ -6,12 +6,12 @@
   --muted: #6d6761;
   --line: #e9ded3;
   --sand: #f8f6f3;
-  --brand: #ff6b00;
-  --brand-soft: #fff0e5;
-  --brand-mid: #ff8533;
-  --brand-deep: #e65e00;
-  --display: "Poppins", sans-serif;
-  --body: "Poppins", sans-serif;
+  --brand: #1b1917;
+  --brand-soft: #f0eeeb;
+  --brand-mid: #4a4642;
+  --brand-deep: #000000;
+  --display: "Manrope", sans-serif;
+  --body: "Manrope", sans-serif;
 }
 
 @theme inline {
@@ -31,7 +31,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 96px;
+    scroll-padding-top: 108px;
   }
 
   body {

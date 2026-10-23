@@ -92,23 +92,26 @@ export function FinishExplorer() {
                     key={item.id}
                     type="button"
                     className={cn(
-                      "relative flex h-[168px] w-full flex-col items-start justify-between overflow-hidden rounded-md border-2 border-white/95 p-2.5 text-left text-white shadow-[0_6px_16px_rgba(22,34,27,0.14)] transition duration-200 sm:h-[190px] sm:p-3",
-                      "touch-manipulation hover:z-[2] hover:border-white hover:shadow-[0_12px_28px_rgba(22,34,27,0.25),0_0_0_3px_#ff6b00]",
+                      "relative flex aspect-[4/5] w-full flex-col items-start justify-between overflow-hidden rounded-md border-2 border-white/95 p-2.5 text-left text-white shadow-[0_6px_16px_rgba(22,34,27,0.14)] transition duration-200 sm:p-3",
+                      "touch-manipulation hover:z-[2] hover:border-white hover:shadow-[0_12px_28px_rgba(22,34,27,0.25),0_0_0_3px_#1b1917]",
                       active === index &&
-                        "z-[2] border-white shadow-[0_12px_28px_rgba(22,34,27,0.25),0_0_0_3px_#ff6b00]",
+                        "z-[2] border-white shadow-[0_12px_28px_rgba(22,34,27,0.25),0_0_0_3px_#1b1917]",
                     )}
-                    style={{
-                      backgroundImage: `linear-gradient(180deg, rgba(27, 25, 23, 0.02) 24%, rgba(27, 25, 23, 0.82) 100%), url("${item.image}")`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                    }}
                     onClick={() => openProduct(index)}
                     aria-label={`Open ${item.name}`}
                   >
-                    <span className="rounded-full bg-[rgba(12,25,19,0.7)] px-2 py-0.5 text-[9px] font-bold tracking-[0.06em] text-white uppercase backdrop-blur-sm">
+                    <img
+                      src={item.image}
+                      alt=""
+                      aria-hidden
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover object-center"
+                    />
+                    <span className="absolute inset-0 bg-gradient-to-t from-[rgba(27,25,23,0.82)] via-[rgba(27,25,23,0.15)] to-transparent" />
+                    <span className="relative z-[1] rounded-full bg-[rgba(12,25,19,0.7)] px-2 py-0.5 text-[9px] font-bold tracking-[0.06em] text-white uppercase backdrop-blur-sm">
                       {item.code}
                     </span>
-                    <span className="mt-auto block w-full">
+                    <span className="relative z-[1] mt-auto block w-full">
                       <strong className="block text-[13px] leading-snug [text-shadow:0_1px_8px_rgba(0,0,0,0.35)] sm:text-sm">
                         {item.name}
                       </strong>
@@ -144,11 +147,11 @@ export function FinishExplorer() {
               </h3>
               <p className="m-0 text-sm leading-normal text-muted">{finish.type}</p>
             </div>
-            <div className="relative mb-5 overflow-hidden rounded-md">
+            <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-md bg-sand">
               <img
                 src={finish.image}
                 alt={finish.name}
-                className="block h-[clamp(220px,19vw,300px)] w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover object-center"
               />
             </div>
             <dl className="m-0 grid grid-cols-1 gap-2.5">
