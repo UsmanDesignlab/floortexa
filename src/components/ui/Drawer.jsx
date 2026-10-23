@@ -1,11 +1,30 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { cn } from "../../lib/cn";
 
+const EXIT_MS = 420;
+
 export function Drawer({ open, onClose, title, children, wide = false }) {
+  const [mounted, setMounted] = useState(open);
+  const [entered, setEntered] = useState(false);
+
   useEffect(() => {
-    if (!open) return undefined;
+    if (open) {
+      setMounted(true);
+      const frame = window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => setEntered(true));
+      });
+      return () => window.cancelAnimationFrame(frame);
+    }
+
+    setEntered(false);
+    const timer = window.setTimeout(() => setMounted(false), EXIT_MS);
+    return () => window.clearTimeout(timer);
+  }, [open]);
+
+  useEffect(() => {
+    if (!mounted) return undefined;
     const onKey = (event) => {
       if (event.key === "Escape") onClose();
     };
@@ -16,21 +35,26 @@ export function Drawer({ open, onClose, title, children, wide = false }) {
       document.body.style.overflow = previous;
       window.removeEventListener("keydown", onKey);
     };
-  }, [open, onClose]);
+  }, [mounted, onClose]);
 
-  if (!open || typeof document === "undefined") return null;
+  if (!mounted || typeof document === "undefined") return null;
 
   return createPortal(
     <div className="fixed inset-0 z-[200]">
       <button
         type="button"
         aria-label="Close drawer"
-        className="absolute inset-0 border-0 bg-ink/45 backdrop-blur-[2px]"
+        className={cn(
+          "absolute inset-0 border-0 bg-ink/45 backdrop-blur-[2px] transition-opacity duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
+          entered ? "opacity-100" : "opacity-0",
+        )}
         onClick={onClose}
       />
       <aside
         className={cn(
           "absolute inset-y-0 right-0 flex h-full w-full max-w-full flex-col bg-white shadow-[-20px_0_60px_rgba(0,0,0,0.18)]",
+          "transition-transform duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform",
+          entered ? "translate-x-0" : "translate-x-full",
           "sm:max-w-[480px]",
           wide && "sm:max-w-[min(720px,92vw)]",
         )}
