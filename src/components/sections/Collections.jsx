@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, BedDouble, Ruler } from "lucide-react";
 import { Pill } from "../ui/Pill";
@@ -31,12 +31,45 @@ function mapCategory(category, index) {
 
 export function Collections() {
   const { items, loading, error } = useResourceList("categories", {
-    limit: 6,
+    limit: 12,
     sort: "created_at",
     direction: "desc",
   });
 
   const collections = useMemo(() => items.map(mapCategory), [items]);
+  const loopItems = useMemo(
+    () => (collections.length > 1 ? [...collections, ...collections] : collections),
+    [collections],
+  );
+
+  const scrollerRef = useRef(null);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (collections.length < 2) return undefined;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return undefined;
+
+    const el = scrollerRef.current;
+    if (!el) return undefined;
+
+    let frame = 0;
+    const speed = 0.45;
+
+    const tick = () => {
+      if (!paused && el) {
+        el.scrollLeft += speed;
+        const half = el.scrollWidth / 2;
+        if (half > 0 && el.scrollLeft >= half) {
+          el.scrollLeft -= half;
+        }
+      }
+      frame = window.requestAnimationFrame(tick);
+    };
+
+    frame = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frame);
+  }, [collections.length, paused]);
 
   return (
     <section id="collections" className={cn(reveal, "border-t border-line bg-[#e8e8e8] pt-[72px] pb-12")}>
@@ -48,8 +81,8 @@ export function Collections() {
           Collections
         </h2>
         <p className="mx-auto m-0 max-w-[560px] text-[17px] leading-[1.65] text-muted">
-          Scroll to explore Floortex flooring from the catalog — carpet, LVT, laminate, vinyl,
-          engineered wood, and bespoke stair runners.
+          Explore Floortex flooring from the catalog — carpet, LVT, laminate, vinyl, engineered wood,
+          and bespoke stair runners.
         </p>
       </div>
 
@@ -61,24 +94,31 @@ export function Collections() {
 
       {collections.length > 0 ? (
         <div
-          className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-[5%] pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          ref={scrollerRef}
+          className="flex gap-5 overflow-x-auto px-[5%] pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           aria-label="Residential flooring collections"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocusCapture={() => setPaused(true)}
+          onBlurCapture={() => setPaused(false)}
+          onTouchStart={() => setPaused(true)}
+          onTouchEnd={() => setPaused(false)}
         >
-          {collections.map((item) => (
+          {loopItems.map((item, index) => (
             <Link
-              key={item.id}
+              key={`${item.id}-${index}`}
               to={`/categories/${item.id}`}
-              className="group relative aspect-[3/4] w-[min(72vw,300px)] shrink-0 snap-center overflow-hidden rounded-[18px] border border-black/[0.04] shadow-[0_8px_24px_rgba(28,28,24,0.06)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(28,28,24,0.1)] sm:w-[min(40vw,320px)]"
+              className="group relative aspect-[3/4] w-[min(72vw,300px)] shrink-0 overflow-hidden rounded-md border border-black/[0.04] shadow-[0_8px_24px_rgba(28,28,24,0.06)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(28,28,24,0.1)] sm:w-[min(40vw,320px)]"
             >
               <img
                 src={item.image}
                 alt={item.name}
-                loading="lazy"
+                loading={index < 4 ? "eager" : "lazy"}
                 className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
               />
 
               <div className="absolute inset-0 z-[1] flex items-end p-4 sm:p-5">
-                <div className="w-full rounded-xl border border-white/20 bg-[rgba(22,20,18,0.48)] px-4 py-4 text-white backdrop-blur-[14px] backdrop-saturate-150">
+                <div className="w-full rounded-md border border-white/20 bg-[rgba(22,20,18,0.48)] px-4 py-4 text-white backdrop-blur-[14px] backdrop-saturate-150">
                   <span className="text-[10px] font-bold tracking-[0.14em] text-white/65 uppercase">
                     {item.tag}
                   </span>
@@ -109,13 +149,16 @@ export function Collections() {
 
                   <p className="mb-3 text-[11px] text-white/58">{item.note}</p>
                   <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-white">
-                    View Specifications <ArrowUpRight size={13} className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    View Specifications{" "}
+                    <ArrowUpRight
+                      size={13}
+                      className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    />
                   </span>
                 </div>
               </div>
             </Link>
           ))}
-          <div className="w-[2vw] shrink-0" aria-hidden />
         </div>
       ) : null}
     </section>

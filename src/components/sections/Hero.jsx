@@ -23,12 +23,13 @@ export function Hero() {
     >
       <img
         key={slides[activeSlide]}
-        className="absolute inset-0 h-full w-full object-cover motion-reduce:animate-none motion-reduce:scale-100 [animation:heroFade_1.2s_ease_both,heroZoom_6s_ease-out_both]"
+        className="absolute inset-0 h-full w-full object-cover [animation:heroFade_0.8s_ease_both]"
         src={slides[activeSlide]}
         alt="Flooring project gallery"
+        decoding="async"
         fetchPriority={activeSlide === 0 ? "high" : "auto"}
       />
-      <div className="absolute inset-0 bg-[rgba(27,25,23,0.28)]" />
+      <div className="absolute inset-0 bg-[rgba(27,25,23,0.22)]" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[28%] bg-gradient-to-b from-transparent to-canvas" />
       <div className="animate-[fadeUp_1s_cubic-bezier(0.22,1,0.36,1)_both] relative z-[1] mx-auto w-[min(720px,94%)] px-[4%] text-center motion-reduce:animate-none">
         <h1 className="m-0 font-display text-[clamp(48px,7vw,88px)] font-light leading-[1.05] tracking-[-0.045em]">

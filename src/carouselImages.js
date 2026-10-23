@@ -1,7 +1,8 @@
+/** Hero slides — sharp high-res picks from /Images (no soft/pixelated shots). */
 export const carouselImages = [
-  "/images/hero-stair-carpet-grey.jpg",
-  "/images/hero-hardwood-oak.jpg",
-  "/images/hero-marble-tile.jpg",
-  "/images/hero-plush-carpet.jpg",
-  "/images/hero-lvt-grey.jpg",
+  "/images/Carpet-Tile-Solutions-2.webp",
+  "/images/stair1.jpg",
+  "/images/stair.jpg",
+  "/images/LAMINATE-FLOORING1.jpg",
+  "/images/Bespoke-Stair-runner-carpet.jpg",
 ];
